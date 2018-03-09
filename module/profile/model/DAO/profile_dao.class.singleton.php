@@ -16,25 +16,35 @@ class profileDAO {
         return self::$_instance;
     }
 
-    // public function create_user_DAO($db, $arrArgument) {
-    //     $un= $arrArgument['un'];
-    //     $pbt = $arrArgument['pbt'];
-    //     $country = $arrArgument['country'];
-        
-    //     $province = $arrArgument['province'];
+    public function create_user_DAO($db, $arrArgument) {
+        $un= $arrArgument['un'];   
+        $name= $arrArgument['name'];        
+        $birth_date = $arrArgument['birth_date'];
+        $genere = $arrArgument['genere'];
+        $country = $arrArgument['country'];        
+        $province = $arrArgument['province'];
+        $city = $arrArgument['city'];
+        $phone = $arrArgument['phone'];
+        $email = $arrArgument['email'];
+        $password= $arrArgument['password'];
+        $interests = $arrArgument['interests'];
+        $register_date= $arrArgument['register_date'];
 
-    //     $city = $arrArgument['city'];
-    //     $add1 = $arrArgument['add1'];
-    //     $phone = $arrArgument['phone'];
-    //     $email = $arrArgument['email'];
-    //     $message = $arrArgument['message'];
-    //     $product_type = $arrArgument['product_type'];
-    //     $avatar= $arrArgument['avatar'];
-    //     $date_today= $arrArgument['date_today'];
+        $password_cifrado=password_hash($password, PASSWORD_DEFAULT);
+        $All_interests="";
+        foreach ($interests as $indice) {
+                $All_interests=$All_interests.$indice.":";
+            }
+
+        if ($country=="ES") {
+          $sql = "INSERT INTO users (user_name, name, birth_date, genere, country, province, city, phone, email, password, interests, register_date) VALUES (".$un.", ".$name.", ".$birth_date.", ".$genere.", ".$country.", ".$province.", ".$city.", ".$phone.", ".$email.", ".$password_cifrado.", ".$All_interests.", ".$register_date." )";
+        }else{
+          $sql = "INSERT INTO users (user_name, name, birth_date, genere, country, phone, email, password, interests, register_date) VALUES (".$un.", ".$name.", ".$birth_date.", ".$genere.", ".$country.", ".$phone.", ".$email.", ".$password_cifrado.", ".$All_interests.", ".$register_date." )";
+        }
         
-        
-    //   return $db->ejecutar($sql);
-    // }
+      
+      return $db->ejecutar($sql);
+    }
 
     public function obtain_countries_DAO($url){
           $ch = curl_init();

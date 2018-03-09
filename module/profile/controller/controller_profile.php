@@ -1,5 +1,6 @@
 <?php
 @session_start();
+include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
 include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/profile/utils/validaProfile.php");
 
 if (isset($_POST['user_JSON'])) {	
@@ -12,6 +13,32 @@ function alta_users() {
     $usersJSON = json_decode($_POST["user_JSON"], true);
     $date_register=date("m.d.y");
     $result = validate($usersJSON);
+
+    if ($result['resultado']) {    	
+    	$path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/profile/model/model/';        
+        $evio_loadModel = loadModel($path_model, "profile_model", "create_user", $result['datos']);
+        echo ($evio_loadModel);
+        	exit;
+        	
+     //    if ($evio_loadModel){
+     //        $mensaje = "User has been successfull registered";
+     //    	$jsondata["success"] = true;
+     //    }else{
+     //    	$jsondata["success"] = false;
+     //        $mensaje = "Problem ocurred registering user";
+     //    }
+
+     //    $callback = "index.php";
+     //    $jsondata["mensaje"] = $mensaje;
+     //    $jsondata["redirect"] = $callback;
+	    // echo json_encode($jsondata);
+	    // exit;
+    }else{    	
+    	$jsondata["success"] = false;
+        $jsondata["error"] = $result['error'];
+        header('HTTP/1.0 400 Bad error');
+        echo json_encode($jsondata);
+    }
 }
 
 

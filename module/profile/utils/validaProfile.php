@@ -1,5 +1,4 @@
 <?php
-include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
 
 function validate($value) {
     $error = array();
@@ -25,6 +24,10 @@ function validate($value) {
             'filter' => FILTER_VALIDATE_REGEXP,
             'options' => array('regexp' => '/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/')
         ),
+        // 'birth_date' => array(
+        //     'filter' => FILTER_VALIDATE_REGEXP,
+        //     'options' => array('regexp' => '/\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])*/')
+        // ),
         
     );
 
@@ -36,27 +39,44 @@ function validate($value) {
     $resultado['country'] = $value['country'];
     $resultado['province'] = $value['province'];
     $resultado['city'] = $value['city'];
+    $resultado['genere'] = $value['genere'];
+    $resultado['interests'] = $value['interests'];
+    $resultado['birth_date'] = $value['birth_date'];
+    $resultado['register_date']=date("Y-m-d");
+
     
-    if ($value['country'] === '') {
+    if ($resultado['country'] === '') {
         $error['country'] = "*php You haven't select a country.";
         $valido = false;
-    }
-    if ($resultado['province']===''){
-            $error['province']="You need to choose a province";
-            $valido = false;
-    }
+    }elseif ($resultado['country'] === 'ES') {
+        
+        if ($resultado['province']===''){
+                $error['province']="You need to choose a province";
+                $valido = false;
+        }
 
-    if ($resultado['city']===''){
-            $error['city']="You need to choose a city";
-            $valido = false;
+        if ($resultado['city']===''){
+                $error['city']="You need to choose a city";
+                $valido = false;
+        }
     }
+    
+    if ($resultado['genere']=="") {
+        $error['genere']="You need to choose a genere";
+        $valido = false;
+     }
+
+     if ($resultado['interests']=="") {
+        $error['interests']="You need to choose a interests";
+        $valido = false;
+     }
 
 
     if (($resultado!=null) && ($resultado)) {
 
 
         if (!$resultado['un']) {
-            $error['un'] = '<strong>*php</strong> Please write with capital letters';
+            $error['un'] = '<strong>*php</strong> Please write min 4 caracters';
             $valido = false;
         }       
 
@@ -69,10 +89,17 @@ function validate($value) {
             $error['email'] = '<strong>*php</strong> Invalid Email';
             $valido = false;
         }
-        if (!validateDate($value['birth_date'], 'Y-m-d')) {
+        if (!validateDate($resultado['birth_date'], 'Y-m-d')) {
             $error['birth_date'] = '<strong>*php</strong> Invalid Date';
             $valido = false;
+        }else{
+            if (!validateAge($resultado['birth_date'])) {
+                $error['birth_date'] = '<strong>*php</strong> Your age must be greater than 18 years';
+                $valido = false;
+            }
         }
+
+       
 
     } else {
         $valido = false;

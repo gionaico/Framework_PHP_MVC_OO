@@ -16,6 +16,7 @@
             $this->_passdb = $cnfg['password'];
             $this->_hostdb = $cnfg['host'];
             $this->_db = $cnfg['db'];
+            // echo ($cnfg['password']);
         }
     
         private function __clone() {

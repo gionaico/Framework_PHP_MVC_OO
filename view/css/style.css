@@ -34,7 +34,28 @@ License URI: http://www.gnu.org/licenses/gpl.html
 /*--------------------*/
 /* BASIC TYPOGRAPHY */
 /*--------------------*/
-
+.error{
+    background-color: #BC1010;
+    padding: 7px 10px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 220px;
+    margin-top: 6px;
+    position: absolute;
+}
+.error:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    
+    border-left:7px solid transparent; /* izquierda flecha */
+    border-right:7px solid transparent; /* derecha flecha */
+    border-bottom:7px solid #BC1010; /* base flecha y color*/
+    left: 5px;
+    position:  absolute;
+    top: -6px;
+    
+}
 body,html{
   overflow-x:hidden;
 }

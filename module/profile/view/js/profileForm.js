@@ -17,85 +17,28 @@ $(document).ready(function () {
         changeYear: true,
         yearRange: '-110:-18'
     });
-
+    $("#birth_date").focusout(function() {
+        $("#birth_date").attr("style", "");
+    });
+    /////////////////////////////////////////////////////////////////////
     $(".inputKeyup").keyup(function() {
         var id = this.getAttribute('id');
         $("#"+id+"").attr("style", "");
-        $("#sp_"+id+"").html("<span></span>");
+        // $("#sp_"+id+"").html("<span></span>");
     });
-
+    /////////////////////////////////////////////////////////////////////
     $("#submit1").click(function(){
+        $("div").remove(".div_errPhp");
         validaJS();
     });
-
+    /////////////////////////////////////////////////////////////////////
+    $(".gio_checkbox").click(function(){
+         $("#div_intereses").attr("style","" );
+    });
+    /////////////////////////////////////////////////////////////////////
     $("#formatPass").click(function(){
         alert("Password format:\n\n- Use upper case and lower case\n- Min 8 caracters\n- Use special caracters");    
     });
-	    //Dropzone function //////////////////////////////////
-    $('#dropzone').dropzone({
-    	url: "module/profile/controller",
-        addRemoveLinks: true,
-        maxFileSize: 2000,
-        dictResponseError: "Ha ocurrido un error en el server",
-        acceptedFiles: 'image/*'
-        // url: "module/products/controller/controller_products.php?upload=true",
-        // addRemoveLinks: true,
-        // maxFileSize: 2000,
-        // dictResponseError: "Ha ocurrido un error en el server",
-        // acceptedFiles: 'image/*',
-        // init: function () {
-        //     this.on("success", function (file, response) {
-        //         alert(response);
-        //         $("#progress").show();
-        //         $("#bar").width('100%');
-        //         $("#percent").html('100%');
-        //         $('.msg').text('').removeClass('msg_error');
-        //         $('.msg').text('Success Upload image!!').addClass('msg_ok').animate({'right': '300px'}, 300);
-        //     });
-        // },
-        // complete: function (file) {
-        //     if(file.status == "success"){
-        //     alert("El archivo se ha subido correctamente: " + file.name);
-        //     }
-        // },
-        // error: function (file) {
-        //     alert("Error subiendo el archivo " + file.name);
-        // },
-        // removedfile: function (file, serverFileName) {
-        //     var name = file.name;
-
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "module/products/controller/controller_products.php?delete=true",
-        //         data: "filename=" + name,
-        //         success: function (data) {
-        //             $("#progress").hide();
-        //             $('.msg').text('').removeClass('msg_ok');
-        //             $('.msg').text('').removeClass('msg_error');
-        //             $("#e_avatar").html("");
-
-        //             //var json = JSON.parse(data);
-        //             alert(data);
-        //             if (data.res) {
-        //                 var element;
-        //                 if ((element = file.previewElement) != null) {
-        //                     element.parentNode.removeChild(file.previewElement);
-        //                     alert("Imagen eliminada: " + name);
-        //                 } else {
-        //                     false;
-        //                 }
-        //             } else { //json.res == false, elimino la imagen también
-        //                 var element;
-        //                 if ((element = file.previewElement) != null) {
-        //                     element.parentNode.removeChild(file.previewElement);
-        //                 } else {
-        //                     false;
-        //                 }
-        //             }
-        //         }
-        //     });
-        // }
-       });//end_dropzone
 
     load_countries_v1();
     
@@ -105,6 +48,11 @@ $(document).ready(function () {
     $("#city").empty();
     $("#city").append('<option value="" selected="selected">Select city</option>');
     $("#city").prop('disabled', true);
+
+    $('.selUb').change(function() {
+        var id = this.getAttribute('id');
+        $("#"+id+"").attr("style", "");
+    });
 
     $("#country").change(function() {
         var country = $(this).val();
@@ -137,6 +85,8 @@ $(document).ready(function () {
 
 
 function validaJS(){
+    
+
     var un = document.getElementById("un").value;
     var name = document.getElementById("name").value;
     var birth_date = document.getElementById("birth_date").value;
@@ -163,30 +113,41 @@ function validaJS(){
             }
         }
 
-
+        
+    
+                
     if (un == null || un.length == 0|| !user_namePattern.test(un)) {
-        $("#un").focus();
-        $("#un").attr("style", "background:#FFC9C9; border:red 2px solid");
+        controlForm("un");
         return false;
     }
     if (name == null || name.length == 0|| !namePattern.test(name)) {
-        $("#name").focus();
-        $("#name").attr("style", "background:#FFC9C9; border:red 2px solid");
+        controlForm("name");
         return false;
     }
     if (birth_date == null || birth_date.length == 0|| !datePattern.test(birth_date)) {
-        $("#birth_date").focus();
-        $("#birth_date").attr("style", "background:#FFC9C9; border:red 2px solid");
+        controlForm("birth_date");
         return false;
     }
+    if (country=="") {
+        controlForm("country");
+        return false;
+    }else if (country === 'ES') {        
+        if (province===''){
+            controlForm("province");
+            return false;
+        }
+        if (city===''){
+            controlForm("city");
+            return false;
+        }
+    }
+
     if (phone == null || phone.length == 0|| !phonePattern.test(phone)) {
-        $("#phone").focus();
-        $("#phone").attr("style", "background:#FFC9C9; border:red 2px solid");
+        controlForm("phone");
         return false;
     }
     if (email == null || email.length == 0|| !emailPattern.test(email)) {
-        $("#email").focus();
-        $("#email").attr("style", "background:#FFC9C9; border:red 2px solid");
+        controlForm("email");
         return false;
     }
     if (password==rePassword) {        
@@ -207,11 +168,17 @@ function validaJS(){
         return false;
     }
 
+    if (interests.length==0) {
+        $("#div_intereses").attr("style","border: solid 2px red; background-color: #FFC9C9;" );
+        return false;
+    }
+
     var data = {"un": un,"name": name, "birth_date": birth_date,"country":country, "province": province, "city": city,"phone": phone, "email": email,"password": password, 
                     "genere": v_genere,  "interests": interests};
-    console.log(data);
+    //console.log(data);
     var user_JSON = JSON.stringify(data);
-    alert(data);
+    //alert(data);
+    
 
     $.post('module/profile/controller/controller_profile.php',
         {"user_JSON": user_JSON},
@@ -221,12 +188,78 @@ function validaJS(){
              // var json_cont2 = JSON.parse(response);
              // console.log(json_cont2);
                
-     }).fail(function() {
-            alert( "recepcion de datos fallida en boton detalles producto" );
+     },"json").fail(function(xhr, textStatus, errorThrown){
+            console.log(xhr.responseText);
+            if (xhr.status === 0) {
+                console.log('Not connect: Verify Network.');
+            } else if (xhr.status == 404) {
+                console.log('Requested page not found [404]');
+            } else if (xhr.status == 500) {
+                console.log('Internal Server Error [500].');
+            } else if (textStatus === 'parsererror') {
+                console.log('Requested JSON parse failed.');//200
+            } else if (textStatus === 'timeout') {
+                console.log('Time out error.');
+            } else if (textStatus === 'abort') {
+                console.log('Ajax request aborted.');
+            } else {
+                console.log('Uncaught Error: ' + xhr.responseText);
+            }
+            
+            if (xhr.responseJSON == 'undefined' && xhr.responseJSON === null ){
+                  xhr.responseJSON = JSON.parse(xhr.responseText);                
+            }
+            
+            if (xhr.responseJSON.error.un){
+                $("#un").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.un + "</span><br></div>");
+                $("#sp_un").html("<span></span>");
+            }
+            
+
+            if (xhr.responseJSON.error.country){
+                $("#country").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.country + "</span><br></div>");
+                $("#sp_country").html("<span></span>");
+            }
+
+            if (xhr.responseJSON.error.province){
+                $("#province").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.province + "</span><br></div>");
+                $("#sp_province").html("<span></span>");
+            }
+
+            if (xhr.responseJSON.error.city){
+                $("#city").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.city + "</span><br></div>");
+                $("#sp_city").html("<span></span>");
+            }
+
+            
+
+            if (xhr.responseJSON.error.phone){
+                $("#phone").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.phone + "</span><br></div>");
+                $("#sp_phone").html("<span></span>");
+            }
+
+            if (xhr.responseJSON.error.email){
+                $("#email").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.email + "</span><br></div>");
+                $("#sp_email").html("<span></span>");
+            }
+
+            if (xhr.responseJSON.error.birth_date){
+                $("#birth_date").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.birth_date + "</span><br></div>");
+                $("#sp_birth_date").html("<span></span>");
+            }
              });
    
 
 }//end validaJS
+
+
+
+function controlForm(id){
+    $("#"+id+"").focus();
+    $("#"+id+"").attr("style", "background:#FFC9C9; border:red 2px solid");    
+}
+
+
 
 function load_countries_v1() {
     $.get( "module/profile/controller/controller_profile.php?load_country=true",

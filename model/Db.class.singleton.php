@@ -28,6 +28,7 @@
             $this->base_datos = $conf->_db;
             $this->usuario = $conf->_userdb;
             $this->password = $conf->_passdb;
+            // echo($this->base_datos);
         }
     
         private function __clone() {
