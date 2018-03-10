@@ -37,13 +37,25 @@ class profileDAO {
             }
 
         if ($country=="ES") {
-          $sql = "INSERT INTO users (user_name, name, birth_date, genere, country, province, city, phone, email, password, interests, register_date) VALUES (".$un.", ".$name.", ".$birth_date.", ".$genere.", ".$country.", ".$province.", ".$city.", ".$phone.", ".$email.", ".$password_cifrado.", ".$All_interests.", ".$register_date." )";
+          $sql = "INSERT INTO users (user_name, name, birth_date, genere, country, province, city, phone, email, password, interests, register_date) VALUES ('$un', '$name', '$birth_date', '$genere', '$country', '$province', '$city', $phone, '$email', '$password_cifrado', '$All_interests', '$register_date')";
         }else{
-          $sql = "INSERT INTO users (user_name, name, birth_date, genere, country, phone, email, password, interests, register_date) VALUES (".$un.", ".$name.", ".$birth_date.", ".$genere.", ".$country.", ".$phone.", ".$email.", ".$password_cifrado.", ".$All_interests.", ".$register_date." )";
+          $sql = "INSERT INTO users (user_name, name, birth_date, genere, country, phone, email, password, interests, register_date) VALUES ('$un', '$name', '$birth_date', '$genere', '$country', $phone, '$email', '$password_cifrado', '$All_interests', '$register_date' )";
         }
         
       
       return $db->ejecutar($sql);
+    }
+
+    public function checkUser_DAO($db, $arrArgument) {
+      $valor= $arrArgument[0];
+      $valor1= $arrArgument[1];
+      $sql=("SELECT * FROM users WHERE ".$valor." ='$valor1'");
+      // echo ($sql);
+      $res=$db->listar($db->ejecutar($sql));
+      if (count($res)>0) {
+        return false;
+      }
+      return true;
     }
 
     public function obtain_countries_DAO($url){

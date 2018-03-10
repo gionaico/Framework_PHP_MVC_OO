@@ -1,0 +1,2 @@
+2018/03/09
+	- Validate: compara datos con DB y consigue que si ya hay un nombre de usuario en la DB a un nuevo usuario no le permita registrarse con el mismo user_name. Sucede lo mismo con el email y el tlf ya que entiendo que a la hora de hacer un recover_password, estos datos deben ser unicos de cada usuario.

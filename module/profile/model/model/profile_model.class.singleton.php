@@ -16,13 +16,17 @@ class profile_model {
     public static function getInstance() {
         if (!(self::$_instance instanceof self)){
             self::$_instance = new self();
-            echo "xxxxxxxxxx";
+            // echo "xxxxxxxxxx";
         }
         return self::$_instance;
     }
 
     public function create_user($arrArgument) {
         return $this->bll->create_user_BLL($arrArgument);
+    }
+
+    public function checkUser($arrArgument) {
+        return $this->bll->checkUser_BLL($arrArgument);
     }
 
     public function obtain_countries($url){

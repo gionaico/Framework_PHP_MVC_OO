@@ -24,7 +24,12 @@ class user_bll{
     }
 
     public function create_user_BLL($arrArgument){
+
       return $this->dao->create_user_DAO($this->db, $arrArgument);
+    }
+    public function checkUser_BLL($arrArgument){
+        
+      return $this->dao->checkUser_DAO($this->db, $arrArgument);
     }
 
     public function obtain_countries_BLL($url){

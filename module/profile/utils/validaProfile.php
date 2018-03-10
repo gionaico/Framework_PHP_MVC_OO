@@ -23,11 +23,7 @@ function validate($value) {
         'password' => array(
             'filter' => FILTER_VALIDATE_REGEXP,
             'options' => array('regexp' => '/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/')
-        ),
-        // 'birth_date' => array(
-        //     'filter' => FILTER_VALIDATE_REGEXP,
-        //     'options' => array('regexp' => '/\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])*/')
-        // ),
+        ),       
         
     );
 
@@ -74,21 +70,44 @@ function validate($value) {
 
     if (($resultado!=null) && ($resultado)) {
 
+        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/profile/model/model/';        
 
         if (!$resultado['un']) {
             $error['un'] = '<strong>*php</strong> Please write min 4 caracters';
             $valido = false;
+        }else{
+            $arr=["user_name",$resultado['un']];
+            $evio_loadModel = loadModel($path_model, "profile_model", "checkUser", $arr);
+            if (!$evio_loadModel) {
+                $error['un'] = '<strong>*php</strong> This user already exist in our DB';
+                $valido = false;  
+            }
         }       
 
         if (!$resultado['phone']) {
             $error['phone'] = '<strong>*php</strong> Format must be min 9 numeric characters';
             $valido = false;
+        }else{
+            $arr=["phone",$resultado['phone']];
+            $evio_loadModel = loadModel($path_model, "profile_model", "checkUser", $arr);
+            if (!$evio_loadModel) {
+                $error['phone'] = '<strong>*php</strong> This phone already exist in our DB';
+                $valido = false;  
+            }
         }
 
         if (!$resultado['email']) {
             $error['email'] = '<strong>*php</strong> Invalid Email';
             $valido = false;
+        }else{
+            $arr=["email",$resultado['email']];
+            $evio_loadModel = loadModel($path_model, "profile_model", "checkUser", $arr);
+            if (!$evio_loadModel) {
+                $error['email'] = '<strong>*php</strong> This email already exist in our DB';
+                $valido = false;  
+            }
         }
+
         if (!validateDate($resultado['birth_date'], 'Y-m-d')) {
             $error['birth_date'] = '<strong>*php</strong> Invalid Date';
             $valido = false;
