@@ -1,7 +1,7 @@
 <?php
 //utilizar $_FILES['file'] no $_FILES['avatar'] por dropzone.js
 
-function upload_filesP() {
+function upload_files() {
 
     $error = "";
     $copiarFichero = false;
@@ -72,7 +72,7 @@ function upload_filesP() {
         */
 
     ////////////////////////////////////////////////////////////////////////////
-    $upfile = $_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/users/'.$_FILES['file']['name'];
+    $upfile = $_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/courses/'.$_FILES['file']['name'];
     if (is_uploaded_file($_FILES['file']['tmp_name'])){
         if (is_file($_FILES['file']['tmp_name'])) {
             $idUnico = rand();
@@ -81,7 +81,7 @@ function upload_filesP() {
             
             $copiarFichero = true;
             // I use absolute route to move_uploaded_file because this happens when i run ajax
-            $upfile = $_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/users/'.$nombreFichero;
+            $upfile = $_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/courses/'.$nombreFichero;
         }else{
                 $error .=   "Invalid File...";
         }
@@ -99,7 +99,7 @@ function upload_filesP() {
             return $return=array('resultado'=>true , 'error'=>$error,'datos'=>$upfile);
         }
         if($_FILES['file']['error'] !== 0) { //Assignarem a l'us default-avatar
-            $upfile = '/Proyectos/GiovannyProy4/media/users/default-potho.jpg';
+            $upfile = '/Proyectos/GiovannyProy4/media/courses/default-potho.jpg';
             return $return=array('resultado'=>true,'error'=>$error,'datos'=>$upfile);
         }
     }else{
@@ -113,8 +113,8 @@ function upload_filesP() {
 
 function remove_file(){
 	$name = $_POST["filename"];
-	if(file_exists($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/users/'.$_SESSION['m_newfile'])){
-		unlink($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/users/'.$_SESSION['m_newfile']);
+	if(file_exists($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/courses/'.$_SESSION['m_newfile'])){
+		unlink($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/courses/'.$_SESSION['m_newfile']);
 		return true;
 	}else{
 		return false;

@@ -13,7 +13,6 @@ if (isset($_POST['user_JSON'])) {
 function alta_users() {
 	$jsondata = array();
     $usersJSON = json_decode($_POST["user_JSON"], true);
-    $date_register=date("m.d.y");
     $result = validate($usersJSON);
 
     if ($result['resultado']) {    	

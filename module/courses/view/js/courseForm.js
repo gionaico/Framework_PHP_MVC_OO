@@ -24,6 +24,66 @@ $(document).ready(function () {
     $(".level").click(function(){
          $("#div_level").attr("style","" );
     });
+
+    $('#dropzone').dropzone({
+        url: "module/courses/controller/controller_courses.php?upload=true",
+        addRemoveLinks: true,
+        maxFileSize: 2000,
+        dictResponseError: "Ha ocurrido un error en el server",
+        acceptedFiles: 'image/*',
+        init: function () {
+            this.on("success", function (file, response) {
+                alert(response);
+                $("#progress").show();
+                $("#bar").width('100%');
+                $("#percent").html('100%');
+                $('.msg').text('').removeClass('msg_error');
+                $('.msg').text('Success Upload image!!').addClass('msg_ok').animate({'right': '300px'}, 300);
+            });
+        },
+        complete: function (file) {
+            if(file.status == "success"){
+            alert("El archivo se ha subido correctamente: " + file.name);
+            }
+        },
+        error: function (file) {
+            alert("Error subiendo el archivo " + file.name);
+        },
+        removedfile: function (file, serverFileName) {
+            var name = file.name;
+
+            $.ajax({
+                type: "POST",
+                url: "module/courses/controller/controller_courses.php?delete=true",
+                data: "filename=" + name,
+                success: function (data) {
+                    $("#progress").hide();
+                    $('.msg').text('').removeClass('msg_ok');
+                    $('.msg').text('').removeClass('msg_error');
+                    $("#e_avatar").html("");
+
+                    //var json = JSON.parse(data);
+                    alert(data);
+                    if (data.res) {
+                        var element;
+                        if ((element = file.previewElement) != null) {
+                            element.parentNode.removeChild(file.previewElement);
+                            alert("Imagen eliminada: " + name);
+                        } else {
+                            false;
+                        }
+                    } else { //json.res == false, elimino la imagen también
+                        var element;
+                        if ((element = file.previewElement) != null) {
+                            element.parentNode.removeChild(file.previewElement);
+                        } else {
+                            false;
+                        }
+                    }
+                }
+            });
+        }
+    });//end_dropzone
 });
 
 function validaJS(){
@@ -54,45 +114,126 @@ function validaJS(){
     
            
                 
-    if (title == null || title.length < 10) {
-        controlForm("title");
-        return false;
-    }
-    if (courseLenguge == null || courseLenguge.length == 0) {
-        controlForm("courseLenguge");
-        return false;
-    }
-    if (ulr == null || ulr.length == 0|| !ulrPattern.test(ulr)) {
-        controlForm("ulr");
-        return false;
-    }
-    if (courseDuration == null || courseDuration.length == 0) {
-        controlForm("courseDuration");
-        return false;
-    }
-    if (v_level == null || v_level.length == 0) {
-        $("#div_level").attr("style","border: solid 2px red; background-color: #FFC9C9;" );
-        return false;
-    }
-    if (price == null || price.length == 0|| !pricePattern.test(price)) {
-        controlForm("price");
-        return false;
-    }   
-    if (courseDescr == null || courseDescr.length < 150) {
-        controlForm("courseDescr");
-        $("#courseDescr").focus().after("<div class='div_errPhp><span  class='error' >Minimus caracters are 150</span><br></div>");
-        return false;
-    }
-    if (category == null || category.length == 0) {
-        $("#div_subjets").attr("style","border: solid 2px red; background-color: #FFC9C9;" );
-        return false;
-    }
+    // if (title == null || title.length < 10) {
+    //     controlForm("title");
+    //     $("#title").after("<div class='div_errPhp'><span  class='error' >Min 10 caracters.</span><br></div>");
+    //     return false;
+    // }
+    // if (courseLenguge == null || courseLenguge.length == 0) {
+    //     controlForm("courseLenguge");
+    //     return false;
+    // }
+    // if (ulr == null || ulr.length == 0|| !ulrPattern.test(ulr)) {
+    //     controlForm("ulr");
+    //     $("#ulr").after("<div class='div_errPhp'><span  class='error' >Invalid Format</span><br></div>");
+    //     return false;
+    // }
+    // if (courseDuration == null || courseDuration.length == 0) {
+    //     controlForm("courseDuration");
+    //     return false;
+    // }
+    // if (v_level == null || v_level.length == 0) {
+    //     $("#div_level").attr("style","border: solid 2px red; background-color: #FFC9C9;" );
+    //     return false;
+    // }
+    // if (price == null || price.length == 0|| !pricePattern.test(price)) {
+    //     controlForm("price");
+    //     return false;
+    // }   
+    // if (courseDescr == null || courseDescr.length < 150) {
+    //     controlForm("courseDescr");
+    //     $("#courseDescr").focus().after("<div class='div_errPhp'><span  class='error' >Minimus 150 caracters</span><br></div>");
+    //     return false;
+    // }
+    // if (category == null || category.length == 0) {
+    //     $("#div_subjets").attr("style","border: solid 2px red; background-color: #FFC9C9;" );
+    //     return false;
+    // }
     
-    if (personalDescr == null || personalDescr.length < 150) {
-        controlForm("personalDescr");
-        $("#courseDescr").focus().after("<div class='div_errPhp><span  class='error' >Minimus caracters are 150</span><br></div>");
-        return false;
-    }
-}
+    // if (personalDescr == null || personalDescr.length < 150) {
+    //     controlForm("personalDescr");
+    //    	$("#personalDescr").focus().after("<div class='div_errPhp'><span  class='error' >Minimus 150 caracters</span><br></div>");
+    //     return false;
+    // }
+    var dataCourse = {"title": title,
+    					 "courseLenguge": courseLenguge, 
+    					"ulr": ulr,
+    					"courseDuration":courseDuration, 
+    					"level": v_level, 
+    					"price": price,
+    					"courseDescr": courseDescr, 
+    					"category": category,
+    					"personalDescr": personalDescr};
+    console.log(dataCourse);
+    var course_JSON = JSON.stringify(dataCourse);
+    // var course_JSON = "JSON.stringify(dataCourse)";
+    console.log(course_JSON);
+
+	$.post('module/courses/controller/controller_courses.php',
+	            {"course_JSON": course_JSON},
+	function(response){
+			console.log(response);
+		   
+	},"json").fail(function(xhr, textStatus, errorThrown){
+     		console.log("ddd");
+            console.log(xhr.responseText);
+            if (xhr.status === 0) {
+                console.log('Not connect: Verify Network.');
+            } else if (xhr.status == 404) {
+                console.log('Requested page not found [404]');
+            } else if (xhr.status == 500) {
+                console.log('Internal Server Error [500].');
+            } else if (textStatus === 'parsererror') {
+                console.log('Requested JSON parse failed.');//200
+            } else if (textStatus === 'timeout') {
+                console.log('Time out error.');
+            } else if (textStatus === 'abort') {
+                console.log('Ajax request aborted.');
+            } else {
+                console.log('Uncaught Error: ' + xhr.responseText);
+            }
+            
+            if (xhr.responseJSON == 'undefined' && xhr.responseJSON === null ){
+                  xhr.responseJSON = JSON.parse(xhr.responseText);                
+            }
+            
+            if (xhr.responseJSON.error.title){
+                $("#title").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.title + "</span><br></div>");
+                $("#sp_title").html("<span></span>");
+            }           
+            if (xhr.responseJSON.error.courseLenguge){
+                $("#courseLenguge").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.courseLenguge + "</span><br></div>");
+                $("#sp_courseLenguge").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.ulr){
+                $("#ulr").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.ulr + "</span><br></div>");
+                $("#sp_ulr").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.courseDuration){
+                $("#courseDuration").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.courseDuration + "</span><br></div>");
+                $("#sp_courseDuration").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.level){
+                $("#div_level").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.level + "</span><br></div>");
+                $("#sp_level").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.price){
+                $("#price").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.price + "</span><br></div>");
+                $("#sp_price").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.courseDescr){
+                $("#courseDescr").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.courseDescr + "</span><br></div>");
+                $("#sp_courseDescr").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.category){
+                $("#div_subjets").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.category + "</span><br></div>");
+                $("#sp_category").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.personalDescr){
+                $("#personalDescr").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.personalDescr + "</span><br></div>");
+                $("#sp_personalDescr").html("<span></span>");
+            }
+    });
+}//end validaJs
 
 
