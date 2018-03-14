@@ -1,5 +1,7 @@
 Dropzone.autoDiscover = false;
 $(document).ready(function () {
+    
+    ChequearDatos();
 
 	$(".inputKeyup").keyup(function() {
         var id = this.getAttribute('id');
@@ -25,6 +27,7 @@ $(document).ready(function () {
          $("#div_level").attr("style","" );
     });
 
+
     $('#dropzone').dropzone({
         url: "module/courses/controller/controller_courses.php?upload=true",
         addRemoveLinks: true,
@@ -33,21 +36,21 @@ $(document).ready(function () {
         acceptedFiles: 'image/*',
         init: function () {
             this.on("success", function (file, response) {
-                alert(response);
+console.log(response);
                 $("#progress").show();
                 $("#bar").width('100%');
                 $("#percent").html('100%');
                 $('.msg').text('').removeClass('msg_error');
-                $('.msg').text('Success Upload image!!').addClass('msg_ok').animate({'right': '300px'}, 300);
+                $('.msg').text('Success Upload image!!').addClass('msg_ok');//.animate({'right': '300px'}, 300);
             });
         },
         complete: function (file) {
             if(file.status == "success"){
-            alert("El archivo se ha subido correctamente: " + file.name);
+console.log("El archivo '"+ file.name+"' pasa js ");
             }
         },
         error: function (file) {
-            alert("Error subiendo el archivo " + file.name);
+alert("Error en js subiendo el archivo " + file.name);
         },
         removedfile: function (file, serverFileName) {
             var name = file.name;
@@ -62,19 +65,21 @@ $(document).ready(function () {
                     $('.msg').text('').removeClass('msg_error');
                     $("#e_avatar").html("");
 
-                    //var json = JSON.parse(data);
-                    alert(data);
-                    if (data.res) {
-                        var element;
-                        if ((element = file.previewElement) != null) {
+                    var json = JSON.parse(data);
+                    console.log(json.res);
+                    var element= file.previewElement;
+                    if (json.res) {
+                        console.log(element);
+                        if (element  != null) {
+                            console.log("fgfdgentra");
                             element.parentNode.removeChild(file.previewElement);
                             alert("Imagen eliminada: " + name);
                         } else {
                             false;
                         }
                     } else { //json.res == false, elimino la imagen también
-                        var element;
-                        if ((element = file.previewElement) != null) {
+                        
+                        if (element != null) {
                             element.parentNode.removeChild(file.previewElement);
                         } else {
                             false;
@@ -175,7 +180,7 @@ function validaJS(){
 			console.log(response);
 		   
 	},"json").fail(function(xhr, textStatus, errorThrown){
-     		console.log("ddd");
+     		// console.log("ddd");
             console.log(xhr.responseText);
             if (xhr.status === 0) {
                 console.log('Not connect: Verify Network.');
@@ -233,7 +238,70 @@ function validaJS(){
                 $("#personalDescr").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.personalDescr + "</span><br></div>");
                 $("#sp_personalDescr").html("<span></span>");
             }
+             if (!xhr.responseJSON.success1) {
+                $("#progress").hide();
+                $('.msg').text('').removeClass('msg_ok');
+                $('.msg').text('Error Upload image!!  '+xhr.responseJSON.error_dubidaFoto).addClass('msg_error');//.animate({'right': '300px'}, 300);
+                
+            } 
     });
 }//end validaJs
 
 
+function ChequearDatos() {
+     $.get("module/courses/controller/controller_courses.php?load_data=true",
+          function(response){
+            if(response.curso===""){
+                console.log(1);
+                $("#title").val('');
+                $("#courseLenguge").val('');
+                $("#ulr").val('');
+                $("#courseDuration").val('');
+                var level = document.getElementsByClassName('level');
+                for (var i = 0; i < level.length; i++) {
+                    if (level[i].checked) {
+                        level[i].checked=false;
+                    }
+                }
+                $("#price").val('');
+                $('#courseDescr').val('Select country');
+                var category = [];
+                var checkboxCategory = document.getElementsByClassName('checkboxCategory');
+                var j = 0;    
+                    for (var i = 0; i < checkboxCategory.length; i++) {
+                        if (checkboxCategory[i].checked) {
+                            checkboxCategory[i].checked=false;
+                        }
+                    }
+                $('#personalDescr').val('');
+                
+            // $(this).fill_or_clean();
+            }else{
+                console.log(2);
+              $("#title").val(response.curso.title);
+              $("#courseLenguge").val(response.curso.courseLenguge);
+              $("#ulr").val(response.curso.ulr);
+              $("#level").val(response.curso.level);
+              var level = document.getElementsByClassName('level');
+                for (var i = 0; i < level.length; i++) {
+                    if (level ==level[i].value) {
+                        level[i].checked=true;
+                    }
+                }
+              $('#courseDuration').val(response.curso.courseDuration);
+              $('#province').val(response.curso.province);
+              $('#price').val(response.curso.price);
+              $("#courseDescr").val(response.curso.courseDescr);
+              var category = response.curso.category;
+              var inputElements = document.getElementsByClassName('checkboxCategory');
+              for (var j = 0; j < category.length; j++) {
+                  for (var k = 0; k < inputElements.length; k++) {
+                    if (category[j] === inputElements[k]){
+                        inputElements[k].checked = true;
+                    }
+                  }
+              }
+              $("#personalDescr").val(response.curso.personalDescr);
+            }
+          }, "json");
+}

@@ -18,6 +18,7 @@ function upload_files() {
     $mida_fitxer=$_FILES['file']['size'];
     $tipus_fitxer=$_FILES['file']['type'];
     $error_fitxer=$_FILES['file']['error'];
+echo ($_FILES['file']['size']."  ".$nom_fitxer."  ".$tipus_fitxer."  ".$error_fitxer);
 
     if ($error_fitxer>0) { // El error 0 quiere decir que se subió el archivo correctamente
         switch ($error_fitxer){
@@ -30,12 +31,12 @@ function upload_files() {
 
     ////////////////////////////////////////////////////////////////////////////
     if($_FILES['file']['error'] !== 0) { //Assignarem a l'us default-avatar
-        $error .=  'Archivo no subido correctamente <br>';
+        $error .=  'Archivo no subido correctamente ';
     }
     
     ////////////////////////////////////////////////////////////////////////////
-    if ($_FILES['file']['size'] > 100000 ){
-        $error .=  "Large File Size <br>";
+    if ($_FILES['file']['size'] > 3145728 ){//tamano en size 3mb
+        $error .=  "Large File Size ";
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -52,11 +53,11 @@ function upload_files() {
         ////////////////////////////////////////////////////////////////////////////
         //getimagesize falla si $_FILES['avatar']['name'] === ""
         if (!@getimagesize($_FILES['file']['tmp_name'])){
-            $error .=  "Invalid Image File... <br>";
+            $error .=  "<br>Invalid Image File... </br>";
         }
         ////////////////////////////////////////////////////////////////////////////
         list($width, $height, $type, $attr) = @getimagesize($_FILES['file']['tmp_name']);
-        if ($width > 2000 || $height > 2000){
+        if ($width > 4000 || $height > 4000){
             $error .=   "Maximum width and height exceeded. Please upload images below 100x100 px size <br>";
         }
     }   
@@ -70,11 +71,11 @@ function upload_files() {
                 die("Make sure image file is valid!");
             }
         */
-
     ////////////////////////////////////////////////////////////////////////////
     $upfile = $_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/media/courses/'.$_FILES['file']['name'];
-    if (is_uploaded_file($_FILES['file']['tmp_name'])){
+    if (is_uploaded_file($_FILES['file']['tmp_name'])){//is_uploaded_file — Indica si el archivo fue subido mediante HTTP POST
         if (is_file($_FILES['file']['tmp_name'])) {
+// echo "fsxgd8454949494949";
             $idUnico = rand();
             $nombreFichero = $idUnico."-".$_FILES['file']['name'];
             $_SESSION['m_newfile']=$nombreFichero;
@@ -86,6 +87,7 @@ function upload_files() {
                 $error .=   "Invalid File...";
         }
     } 
+// echo ("error=".$error);
 
     
     if ($error == "") {

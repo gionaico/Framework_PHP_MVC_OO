@@ -34,6 +34,34 @@ License URI: http://www.gnu.org/licenses/gpl.html
 /*--------------------*/
 /* BASIC TYPOGRAPHY */
 /*--------------------*/
+.msg{
+    color: white;
+    font-weight: bold;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 10px;
+    position: absolute;
+    /* right: -155px; */
+    text-transform: uppercase;
+    min-width: 121px;
+}
+.msg_ok{
+    background: #589D05;
+}
+.msg_error{
+    background: red;
+}
+
+.msg_error{
+    background: red;
+}
+.msg_ok{
+    background: #589D05;
+}
+
+#progress { position:relative; width:400px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+#bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
+#percent { position:absolute; display:inline-block; top:3px; left:48%; }
 .error{
     background-color: #BC1010;
     padding: 7px 10px;

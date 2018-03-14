@@ -30,16 +30,23 @@ if (isset($_GET["delete"]) && $_GET["delete"] == true) {
         exit;
     }
 }
+//////////////////////////////////////////////////
 
-/////////////////////////////////////////////////// 
 function alta_courses() {
 	$jsondata = array();
     $coursesJSON = json_decode($_POST["course_JSON"], true);        
     $result = validate($coursesJSON);
+    $_SESSION['curso'] = $coursesJSON;
+    if (empty($_SESSION['result_avatar'])) {
+        $_SESSION['result_avatar'] = array('resultado' => true, 'error' => "", 'datos' => 'media/products/default-potho.jpg');
+    }
 
+    $result_avatar = $_SESSION['result_avatar'];
+    $_SESSION['result_avatar']=array();
 
-    if ($result['resultado']) {    	
-
+    if (($result['resultado'])&&($result_avatar['resultado'])) {     
+        $result['datos']['avatar']=$result_avatar['datos'];
+        // $_SESSION['curso'] = $result['datos'];
     	// $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';        
      //    $evio_loadModel = loadModel($path_model, "courses_model", "create_course", $result['datos']);
      //    // echo ($evio_loadModel);
@@ -54,15 +61,40 @@ function alta_courses() {
      //    }
 
         $callback = "index.php";
-        $jsondata["mensaje"] = $mensaje;
+       // $jsondata["mensaje"] = $mensaje;
         $jsondata["redirect"] = $callback;
+        $jsondata["datos"]=$result['datos'];
 	    echo json_encode($jsondata);
 	    exit;
     }else{    	
     	$jsondata["success"] = false;
         $jsondata["error"] = $result['error'];
+
+        $jsondata['error_dubidaFoto'] = $result_avatar['error'];
+
+        $jsondata['success1'] = false;
+
+        if ($result_avatar['resultado']) {
+            $jsondata['success1'] = true;
+            $jsondata['prodpic'] = $result_avatar['datos'];
+        }
         header('HTTP/1.0 400 Bad error');
         echo json_encode($jsondata);
     }
 }
+/////////////////////////////////////////////////// load_data
+if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
+    $jsondata = array();
+
+    if (isset($_SESSION['curso'])) {
+        $jsondata["curso"] = $_SESSION['curso'];
+        echo json_encode($jsondata);
+        exit;
+    } else {
+        $jsondata["curso"] = "";
+        echo json_encode($jsondata);
+        exit;
+    }
+}
+/////////////////////////////////////////////////// 
 
