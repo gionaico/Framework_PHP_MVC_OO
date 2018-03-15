@@ -6,7 +6,6 @@
         
         if (file_exists($model)) {
             include_once($model);
-
             $modelClass = $model_name;
             if (!method_exists($modelClass, $function)){
                 die($function . ' function not found in Model ' . $model_name);
@@ -14,6 +13,7 @@
             
             $obj = $modelClass::getInstance();
             if (isset($arrArgument)) {
+                // echo json_encode($arrArgument);
                 return $obj->$function($arrArgument);
             }
         } else {

@@ -1,7 +1,7 @@
 Dropzone.autoDiscover = false;
 $(document).ready(function () {
     
-    ChequearDatos();
+    load_data();
 
 	$(".inputKeyup").keyup(function() {
         var id = this.getAttribute('id');
@@ -169,15 +169,18 @@ function validaJS(){
     					"courseDescr": courseDescr, 
     					"category": category,
     					"personalDescr": personalDescr};
-    console.log(dataCourse);
+    //console.log(dataCourse);
     var course_JSON = JSON.stringify(dataCourse);
     // var course_JSON = "JSON.stringify(dataCourse)";
-    console.log(course_JSON);
+    //console.log(course_JSON);
 
 	$.post('module/courses/controller/controller_courses.php',
 	            {"course_JSON": course_JSON},
 	function(response){
 			console.log(response);
+            if (response.success) {
+                window.location.href=response.redirect;
+            }
 		   
 	},"json").fail(function(xhr, textStatus, errorThrown){
      		// console.log("ddd");
@@ -248,7 +251,7 @@ function validaJS(){
 }//end validaJs
 
 
-function ChequearDatos() {
+function load_data() {
      $.get("module/courses/controller/controller_courses.php?load_data=true",
           function(response){
             if(response.curso===""){
@@ -264,7 +267,7 @@ function ChequearDatos() {
                     }
                 }
                 $("#price").val('');
-                $('#courseDescr').val('Select country');
+                $('#courseDescr').val('');
                 var category = [];
                 var checkboxCategory = document.getElementsByClassName('checkboxCategory');
                 var j = 0;    

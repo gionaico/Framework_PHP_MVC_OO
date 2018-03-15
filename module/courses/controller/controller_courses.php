@@ -38,32 +38,33 @@ function alta_courses() {
     $result = validate($coursesJSON);
     $_SESSION['curso'] = $coursesJSON;
     if (empty($_SESSION['result_avatar'])) {
-        $_SESSION['result_avatar'] = array('resultado' => true, 'error' => "", 'datos' => 'media/products/default-potho.jpg');
+        $_SESSION['result_avatar'] = array('resultado' => true, 'error' => "", 'datos' => 'media/courses/default-potho.jpg');
     }
 
     $result_avatar = $_SESSION['result_avatar'];
     $_SESSION['result_avatar']=array();
 
+        // echo ("string ".$result['resultado'].$result_avatar['resultado']);	
     if (($result['resultado'])&&($result_avatar['resultado'])) {     
         $result['datos']['avatar']=$result_avatar['datos'];
-        // $_SESSION['curso'] = $result['datos'];
-    	// $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';        
-     //    $evio_loadModel = loadModel($path_model, "courses_model", "create_course", $result['datos']);
-     //    // echo ($evio_loadModel);
-     //    // 	exit;
-        	
-     //    if ($evio_loadModel){
-     //        $mensaje = "User has been successfull registered";
-     //    	$jsondata["success"] = true;
-     //    }else{
-     //    	$jsondata["success"] = false;
-     //        $mensaje = "Problem ocurred registering user";
-     //    }
+        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';        
+        $evio_loadModel = loadModel($path_model, "course_model", "create_course", $result['datos']);
+        // echo ($result['datos']);
+        //  exit;
+        if ($evio_loadModel){
+            $mensaje = "User has been successfull registered";
+            $jsondata["success"] = true;
+            $callback = "index.php?page=courses&view=courseCreado";
+            $jsondata["redirect"] = $callback;
+            $_SESSION['cursoDet'] = $result['datos'];
+        }else{
+            $jsondata["success"] = false;
+            $mensaje = "Problem ocurred registering user";
+        }
 
-        $callback = "index.php";
        // $jsondata["mensaje"] = $mensaje;
-        $jsondata["redirect"] = $callback;
         $jsondata["datos"]=$result['datos'];
+        $jsondata["mensaje"]=$mensaje;
 	    echo json_encode($jsondata);
 	    exit;
     }else{    	
@@ -97,4 +98,26 @@ if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
     }
 }
 /////////////////////////////////////////////////// 
+// if ((isset($_GET["cursoCreado"])) && ($_GET["cursoCreado"] == true)) {
+//     $curso=$_SESSION['cursoDet'];
+//     $curso['acceso']=true;
+//     echo json_encode($curso);
+//     exit;
+// }
 
+if (isset($_GET["load"]) && $_GET["load"] == true) {
+    $curso = array();
+    if (isset($_SESSION['cursoDet'])) {
+        $curso=$_SESSION['cursoDet'];
+        $curso['acceso']=true;
+    }
+    close_session();
+    echo json_encode($curso);
+    exit;
+}
+
+function close_session() {
+    unset($_SESSION['cursoDet']);
+    $_SESSION = array(); // Destruye todas las variables de la sesión
+    session_destroy(); // Destruye la sesión
+}
