@@ -5,7 +5,8 @@ $(document).ready(function () {
 
 	$(".inputKeyup").keyup(function() {
         var id = this.getAttribute('id');
-        $("#"+id+"").attr("style", "");        		
+        $("#"+id+"").attr("style", ""); 
+        
         // $("#sp_"+id+"").html("<span></span>");
     });
 
@@ -25,6 +26,17 @@ $(document).ready(function () {
 
     $(".level").click(function(){
          $("#div_level").attr("style","" );
+    });
+    // var cad="resources/ListOfCategoryCourse.json"
+    load_categorya("resources/ListOfCategoryCourse.json");
+    
+
+    $("#prueba").change(function() {
+        var prueba = $(this).val();
+        // console.log(prueba);
+        load_subCategory("resources/ListOfSubcategoryCourse.json", prueba, "prueba2");
+        // console.log(prueba2);
+        
     });
 
 

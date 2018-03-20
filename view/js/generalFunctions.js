@@ -46,6 +46,7 @@ function load_countries_v2(cad) {
 }
 
 
+
 function load_provinces_v1() { //provinciasypoblaciones.xml - xpath
     $.get( "module/profile/controller/controller_profile.php?load_provinces=true",
         function( response ) {
@@ -72,8 +73,7 @@ function load_provinces_v1() { //provinciasypoblaciones.xml - xpath
     .fail(function(response) {
         load_provinces_v2();
     });
-}
-
+ }   
 
 function load_provinces_v2() {
     $.get("resources/provinciasypoblaciones.xml", function (xml) {
@@ -131,5 +131,40 @@ function load_cities_v1(prov) { //provinciasypoblaciones.xml - xpath
     })
     .fail(function() {
         load_cities_v2(prov);
+    });
+}
+
+
+
+function load_categorya(cad) {
+    $.getJSON( cad, function(data) {
+      $("#prueba").empty();
+      $("#prueba").append('<option value="" selected="selected">Select prueba</option>');
+      console.log(data);
+      $.each(data, function (i, valor) {
+        $("#prueba").append("<option value='" + valor.inicia + "'>" + valor.course + "</option>");
+      });
+    })
+    .fail(function() {
+        alert( "error category" );
+    });
+}
+function load_subCategory(cad, v, id_select) {
+      console.log(id_select);
+    $.getJSON( cad, function(data) {
+      $("#prueba2").empty();
+      $("#prueba2").append('<option value="" selected="selected">Select prueba2</option>');
+      console.log(data);
+      console.log(v);
+
+      $.each(data, function (i, valor) {
+        console.log(valor[""+v+""]);
+        if ((valor[""+v+""])!= undefined) {
+        $("#"+id_select+"").append("<option value='" + valor[""+v+""]+  "'>" + valor[""+v+""]+  "</option>");
+        }
+      });
+    })
+    .fail(function() {
+        alert( "error zcxxzc" );
     });
 }

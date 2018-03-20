@@ -1,9 +1,30 @@
 [
-	{"course":"Backend"},
-	{"course":"Frontend"},
-	{"course":"Data Bases"},
-	{"course":"Diseny"},
-	{"course":"Operative System"},
-	{"course":"Security"},
-	{"course":"Framework"}
+	{
+	"course":"Backend",
+	"inicia":"Backend"
+	},
+	{
+	"course":"Frontend",
+	"inicia":"Frontend"
+	},
+	{
+	"course":"Data Bases",
+	"inicia":"DB"
+	},
+	{
+	"course":"Diseny",
+	"inicia":"Diseny"
+	},
+	{
+	"course":"Operative System",
+	"inicia":"OP"
+	},
+	{
+	"course":"Security",
+	"inicia":"Security"
+	},
+	{
+	"course":"Framework",
+	"inicia":"Framework"
+	}
 ]
