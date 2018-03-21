@@ -28,16 +28,27 @@ $(document).ready(function () {
          $("#div_level").attr("style","" );
     });
     // var cad="resources/ListOfCategoryCourse.json"
-    load_categorya("resources/ListOfCategoryCourse.json");
-    
+    // load_categorya("resources/ListOfCategoryCourse.json");
+    load_category("module/courses/controller/controller_courses.php?load_category=true", "subject");
+    $("#subSubject").empty();
+    $("#subSubject").append('<option value="" selected="selected">Select sub-subject</option>');
+    $("#subSubject").prop('disabled', true);
 
-    $("#prueba").change(function() {
+    $("#subject").change(function() {
         var prueba = $(this).val();
+        var prueba2 = $("#subSubject");
         // console.log(prueba);
-        load_subCategory("resources/ListOfSubcategoryCourse.json", prueba, "prueba2");
+        if(prueba === ''){
+             prueba2.prop('disabled', true);
+             $("#prueba2").empty();
+        }else{
+            prueba2.prop('disabled', false);             
+            load_subCategory("module/courses/controller/controller_courses.php?load_subCategory=true", prueba, "subSubject");
+            // load_subCategory("resources/ListOfSubcategoryCourse.json", prueba, "prueba2");
+        }
         // console.log(prueba2);
         
-    });
+    });//end subject
 
 
     $('#dropzone').dropzone({
@@ -116,6 +127,8 @@ function validaJS(){
                 v_level = level[i].value;
             }
         }
+    var subject = document.getElementById("subject").value;
+    var subSubject = document.getElementById("subSubject").value;
     var price = document.getElementById("price").value;
     var courseDescr = document.getElementById("courseDescr").value;
     var category = [];
@@ -153,6 +166,14 @@ function validaJS(){
     //     $("#div_level").attr("style","border: solid 2px red; background-color: #FFC9C9;" );
     //     return false;
     // }
+    // if (subject == null || subject.length == 0) {
+    //     controlForm("subject");
+    //     return false;
+    // }
+    // if (subSubject == null || subSubject.length == 0) {
+    //     controlForm("subSubject");
+    //     return false;
+    // }
     // if (price == null || price.length == 0|| !pricePattern.test(price)) {
     //     controlForm("price");
     //     return false;
@@ -176,7 +197,9 @@ function validaJS(){
     					 "courseLenguge": courseLenguge, 
     					"ulr": ulr,
     					"courseDuration":courseDuration, 
-    					"level": v_level, 
+    					"level": v_level,
+                        "subject": subject,
+                        "subSubject": subSubject, 
     					"price": price,
     					"courseDescr": courseDescr, 
     					"category": category,
@@ -184,7 +207,7 @@ function validaJS(){
     //console.log(dataCourse);
     var course_JSON = JSON.stringify(dataCourse);
     // var course_JSON = "JSON.stringify(dataCourse)";
-    //console.log(course_JSON);
+    console.log(course_JSON);
 
 	$.post('module/courses/controller/controller_courses.php',
 	            {"course_JSON": course_JSON},
@@ -237,6 +260,14 @@ function validaJS(){
                 $("#div_level").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.level + "</span><br></div>");
                 $("#sp_level").html("<span></span>");
             }
+            if (xhr.responseJSON.error.subject){
+                $("#subject").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.subject + "</span><br></div>");
+                $("#sp_subject").html("<span></span>");
+            }
+            if (xhr.responseJSON.error.subSubject){
+                $("#subSubject").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.subSubject + "</span><br></div>");
+                $("#sp_subSubject").html("<span></span>");
+            }
             if (xhr.responseJSON.error.price){
                 $("#price").focus().after("<div class='div_errPhp'><span  class='error' >" + xhr.responseJSON.error.price + "</span><br></div>");
                 $("#sp_price").html("<span></span>");
@@ -267,7 +298,7 @@ function load_data() {
      $.get("module/courses/controller/controller_courses.php?load_data=true",
           function(response){
             if(response.curso===""){
-                console.log(1);
+                // console.log(1);
                 $("#title").val('');
                 $("#courseLenguge").val('');
                 $("#ulr").val('');
@@ -292,7 +323,7 @@ function load_data() {
                 
             // $(this).fill_or_clean();
             }else{
-                console.log(2);
+                // console.log(2);
               $("#title").val(response.curso.title);
               $("#courseLenguge").val(response.curso.courseLenguge);
               $("#ulr").val(response.curso.ulr);

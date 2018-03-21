@@ -135,36 +135,100 @@ function load_cities_v1(prov) { //provinciasypoblaciones.xml - xpath
 }
 
 
-
-function load_categorya(cad) {
-    $.getJSON( cad, function(data) {
-      $("#prueba").empty();
-      $("#prueba").append('<option value="" selected="selected">Select prueba</option>');
-      console.log(data);
-      $.each(data, function (i, valor) {
-        $("#prueba").append("<option value='" + valor.inicia + "'>" + valor.course + "</option>");
-      });
+function load_category(ulr, id_etiqueta) { //provinciasypoblaciones.xml - xpath
+    $.get( ""+ulr+"",
+        function( response ) {            
+            $("#"+id_etiqueta+"").empty();
+            $("#"+id_etiqueta+"").append('<option value="" selected="selected">Select '+id_etiqueta+'</option>');
+            // console.log(response);
+            if(response == 'error'){
+                // console.log("dfgljdfkjgh");
+                load_category_B(ulr, id_etiqueta);
+            }else{
+                var json = JSON.parse(response);
+                // console.log(json);
+                // console.log(json.length);
+                var type="";
+                for (var i = 0; i < json.length; i++) {
+                    if (json[i].type!=type) {
+                        type=json[i].type;
+                        $("#"+id_etiqueta+"").append("<option value='" + json[i].type + "'>" +json[i].type  + "</option>");
+                    }
+                }
+            }
     })
-    .fail(function() {
-        alert( "error category" );
+    .fail(function(response) {
+        load_category_B(ulr, id_etiqueta);
     });
-}
-function load_subCategory(cad, v, id_select) {
-      console.log(id_select);
-    $.getJSON( cad, function(data) {
-      $("#prueba2").empty();
-      $("#prueba2").append('<option value="" selected="selected">Select prueba2</option>');
-      console.log(data);
-      console.log(v);
+ }
 
+function load_category_B(ulr, id_etiqueta) {
+    $.getJSON( ulr, function(data) {
+      $("#"+id_etiqueta+"").empty();
+      $("#"+id_etiqueta+"").append('<option value="" selected="selected">Select prueba</option>');
+      // console.log(data);
+      var type="";
       $.each(data, function (i, valor) {
-        console.log(valor[""+v+""]);
-        if ((valor[""+v+""])!= undefined) {
-        $("#"+id_select+"").append("<option value='" + valor[""+v+""]+  "'>" + valor[""+v+""]+  "</option>");
+        if (valor.type!=type) {
+            type=valor.type;
+            $("#"+id_etiqueta+"").append("<option value='" + valor.type + "'>" +valor.type  + "</option>");
         }
+        
       });
     })
     .fail(function() {
-        alert( "error zcxxzc" );
+        alert( "error categoryB" );
     });
 }
+
+function load_subCategory(ulr, valueSelectAnterior, id_etiqueta) {
+    // console.log(ulr);
+     $.get( ""+ulr+"",
+        function( response ) {            
+            // console.log(response);
+            $("#"+id_etiqueta+"").empty();
+            $("#"+id_etiqueta+"").append('<option value="" selected="selected">Select '+id_etiqueta+'</option>');
+            // console.log(response);
+            if(response == 'error'){
+                // console.log("dfgljdfkjgh");
+                // load_category_B(ulr, id_etiqueta);
+            }else{
+                var json = JSON.parse(response);
+                // console.log(json);
+                // console.log(json.length);
+                for (var i = 0; i < json.length; i++) {
+                    if (json[i].type==""+valueSelectAnterior+"") {
+                        $("#"+id_etiqueta+"").append("<option value='" + json[i].course + "'>" +json[i].course  + "</option>");
+                    }
+                }
+            }
+    })
+    .fail(function(response) {
+        alert(response);
+    });
+
+}
+
+
+
+
+
+// function load_subCategory(cad, v, id_select) {
+//       console.log(id_select);
+//     $.getJSON( cad, function(data) {
+//       $("#prueba2").empty();
+//       $("#prueba2").append('<option value="" selected="selected">Select prueba2</option>');
+//       console.log(data);
+//       console.log(v);
+
+//       $.each(data, function (i, valor) {
+//         console.log(valor[""+v+""]);
+//         if ((valor[""+v+""])!= undefined) {
+//         $("#"+id_select+"").append("<option value='" + valor[""+v+""]+  "'>" + valor[""+v+""]+  "</option>");
+//         }
+//       });
+//     })
+//     .fail(function() {
+//         alert( "error zcxxzc" );
+//     });
+// }

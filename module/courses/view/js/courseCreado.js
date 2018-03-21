@@ -6,6 +6,7 @@ $(document).ready(function () {
 
 
 function load_dates(){
+     console.log("entras");
 	$.get("module/courses/controller/controller_courses.php?load=true",
           function(response){
             console.log(response);
@@ -17,7 +18,7 @@ function load_dates(){
      			document.getElementById('pice').innerHTML=response.price+" €";
           		
           	}
-          }, "json")fail(function(xhr){
+          },"json").fail(function(xhr){
           				alert(xhr.responseText);
           			});
 }

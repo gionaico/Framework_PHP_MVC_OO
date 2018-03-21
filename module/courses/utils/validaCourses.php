@@ -23,7 +23,10 @@ function validate($value) {
     $resultado['courseLenguge'] = $value['courseLenguge'];
     $resultado['courseDuration'] = $value['courseDuration'];
     $resultado['level'] = $value['level'];
+    $resultado['subject'] = $value['subject'];
     $resultado['courseDescr'] = $value['courseDescr'];
+
+    $resultado['subSubject'] = $value['subSubject'];
     $resultado['category'] = $value['category'];
     $resultado['personalDescr'] = $value['personalDescr'];
     $resultado['register_date']=date("Y-m-d");
@@ -46,6 +49,14 @@ function validate($value) {
 
      if ($resultado['courseDuration']=="") {
         $error['courseDuration']="You need to choose your course duration";
+        $valido = false;
+     }
+     if ($resultado['subject']=="") {
+        $error['subject']="You need to choose your course subject";
+        $valido = false;
+     }
+     if ($resultado['subSubject']=="") {
+        $error['subSubject']="You need to choose your course subject";
         $valido = false;
      }
 

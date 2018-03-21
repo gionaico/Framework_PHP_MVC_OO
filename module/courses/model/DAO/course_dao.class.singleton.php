@@ -28,6 +28,8 @@ class courseDAO {
         $personalDescr = $arrArgument['personalDescr'];
         $register_date = $arrArgument['register_date'];
         $avatar= $arrArgument['avatar'];
+        $subject= $arrArgument['subject'];
+        $subSubject= $arrArgument['subSubject'];
 
         $category = $arrArgument['category'];        
         $All_category="";
@@ -35,7 +37,7 @@ class courseDAO {
                 $All_category=$All_category.$indice.":";
             }
 
-        $sql = "INSERT INTO courses (title, lenguage, ulr, duration, levelCour, price, courseDescr, personalDescr, register_date, avatar, category) VALUES ('$title', '$courseLenguge', '$ulr', '$courseDuration', '$level', $price, '$courseDescr', '$personalDescr', '$register_date', '$avatar', '$All_category' )";
+        $sql = "INSERT INTO courses (title, lenguage, ulr, duration, levelCour, price, courseDescr, personalDescr, register_date, avatar, category, subject, sub_subject) VALUES ('$title', '$courseLenguge', '$ulr', '$courseDuration', '$level', $price, '$courseDescr', '$personalDescr', '$register_date', '$avatar', '$All_category', '$subject', '$subSubject' )";
         
       // echo($sql);
       // exit;  
@@ -43,5 +45,26 @@ class courseDAO {
       return $db->ejecutar($sql);
     }
 
-   
+   public function obtain_category_DAO(){
+        $json = array();
+        $tmp = array();
+
+        $category = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/resources/ListOfSubcategoryCourse.json');
+        // $json = json_decode($category);
+
+          
+              return $category;
+
+    }
+    public function obtain_subCategory_DAO(){
+        $json = array();
+        $tmp = array();
+
+        $subCategory = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/resources/ListOfSubcategoryCourse.json');
+        // $json = json_decode($category);
+
+          
+              return $subCategory;
+
+    }
 }//End productDAO

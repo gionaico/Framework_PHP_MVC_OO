@@ -104,7 +104,7 @@ if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
 //     echo json_encode($curso);
 //     exit;
 // }
-
+/////////////////////////////////////////////////// load
 if (isset($_GET["load"]) && $_GET["load"] == true) {
     $curso = array();
     if (isset($_SESSION['cursoDet'])) {
@@ -121,3 +121,47 @@ function close_session() {
     $_SESSION = array(); // Destruye todas las variables de la sesión
     session_destroy(); // Destruye la sesión
 }
+
+
+/////////////////////////////////////////////////// load_category
+if(  (isset($_GET["load_category"])) && ($_GET["load_category"] == true)  ){
+        // $jsondata = array();
+        $json = array();
+
+        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+        
+        $json = loadModel($path_model, "course_model", "obtain_category");
+        // echo($json);
+        // exit;
+        if($json){
+            $jsondata = $json;
+            echo ($jsondata);
+            exit;
+        }else{
+            $jsondata = "error";
+            echo ($jsondata);
+            exit;
+        }
+    }
+
+    /////////////////////////////////////////////////// load_subCategory
+if(  (isset($_GET["load_subCategory"])) && ($_GET["load_subCategory"] == true)  ){
+        // $jsondata = array();
+        
+        $json = array();
+
+        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+        
+        $json = loadModel($path_model, "course_model", "obtain_subCategory");
+        // echo($json);
+        // exit;
+        if($json){
+            $jsondata = $json;
+            echo ($jsondata);
+            exit;
+        }else{
+            $jsondata = "error";
+            echo ($jsondata);
+            exit;
+        }
+    }

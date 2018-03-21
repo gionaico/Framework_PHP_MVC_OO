@@ -80,7 +80,23 @@
 		                      <input type="radio" name="level" id="level-2" class="level" value="Expert"> Expert
 		                    </label>
 		                </div>
-		            </div>		            					
+		            </div>		            							            
+										
+					<div class="form-group ">
+		                <label class="control-label" for="subject">Course subject</label>  
+	                    <select id="subject" name="subject" class="form-control input-md selectCF" required="">
+	                        <option selected="" value=""></option>
+	                    </select>
+	                    <span id="sp_subject"></span>
+		            </div>
+
+		            <div class="form-group ">
+		                <label class="control-label" for="subSubject">Course sub-subject</label>  
+	                    <select id="subSubject" name="subSubject" class="form-control input-md selectCF" required="">
+	                        <option selected="" value=""></option>
+	                    </select>
+	                    <span id="sp_subSubject"></span>
+		            </div>
 
 		            <div class="form-group ">
 	                    <label class="control-label" for="price">Course Price:</label>
@@ -88,22 +104,6 @@
 	                    <span id="sp_price"></span> 
 	                    <span class="help-block"><p id="characterLeft">If you need to use decimals numbers, please use a DOT to mark them. The number has to be greater than 0.01 and less than 1000000 <br> Ex: 1080.58</p></span> 
 					</div>
-										
-					<div class="form-group ">
-		                <label class="control-label" for="prueba">Prueba</label>  
-	                    <select id="prueba" name="prueba" class="form-control input-md selUb" required="">
-	                        <option selected="" value=""></option>
-	                    </select>
-	                    <span id="sp_prueba"></span>
-		            </div>
-
-		            <div class="form-group ">
-		                <label class="control-label" for="prueba2">Prueba2</label>  
-	                    <select id="prueba2" name="prueba2" class="form-control input-md selUb" required="">
-	                        <option selected="" value=""></option>
-	                    </select>
-	                    <span id="sp_prueba2"></span>
-		            </div>
 
 				</div>
 				
@@ -117,8 +117,16 @@
 	                    <span id="sp_courseDescr"></span> 
 					</div>
 
+					
+		            <div class="form-group ">
+	                    <label class="control-label" for="personalDescr">Personal description</label>	                    
+	                    <textarea class="form-control color_input inputKeyup" type="textarea" name="" id="personalDescr" placeholder="My experience is ..." maxlength="500" rows="7"></textarea>
+	                    <span class="help-block"><p id="characterLeft">You have reached the limit 500 caracters</p></span> 
+	                    <span id="sp_personalDescr"></span> 
+					</div>
+
 					<div class="form-group ">
-		                <label class="control-label">Course subjets</label>
+		                <label class="control-label">What will you learn with this course?</label>
 		                <div id="div_subjets">
 		                	<div class="row">
 			                	<div class="col-md-3">		                		
@@ -198,13 +206,7 @@
 		                <br>
 		                <span id="sp_subjets"></span>
 		            </div>
-
-		            <div class="form-group ">
-	                    <label class="control-label" for="personalDescr">Personal description</label>	                    
-	                    <textarea class="form-control color_input inputKeyup" type="textarea" name="" id="personalDescr" placeholder="My experience is ..." maxlength="500" rows="7"></textarea>
-	                    <span class="help-block"><p id="characterLeft">You have reached the limit 500 caracters</p></span> 
-	                    <span id="sp_personalDescr"></span> 
-					</div>		            
+		            
 
 				</div>
 			</div> <!--End Row -->

@@ -25,6 +25,13 @@ class course_model {
         return $this->bll->create_course_BLL($arrArgument);
     }
 
+    public Function obtain_category($arrArgument){
+        return $this->bll->obtain_category_BLL($arrArgument);
+    }
+    public Function obtain_subCategory($arrArgument){
+        return $this->bll->obtain_subCategory_BLL($arrArgument);
+    }
+
     
 
 }

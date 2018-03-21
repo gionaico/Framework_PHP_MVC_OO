@@ -28,5 +28,10 @@ class course_bll{
       return $this->dao->create_course_DAO($this->db, $arrArgument);
     }
     
-
+    public function obtain_category_BLL($arrArgument){
+      return $this->dao->obtain_category_DAO($arrArgument);
+    }
+    public function obtain_subCategory_BLL($arrArgument){
+      return $this->dao->obtain_subCategory_DAO($arrArgument);
+    }
 }
