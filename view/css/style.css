@@ -34,6 +34,9 @@ License URI: http://www.gnu.org/licenses/gpl.html
 /*--------------------*/
 /* BASIC TYPOGRAPHY */
 /*--------------------*/
+img.mediana{
+  width: 200px; height: 250px;
+}
 .msg{
     color: white;
     font-weight: bold;
