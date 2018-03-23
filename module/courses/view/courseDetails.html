@@ -1,3 +1,4 @@
+<script type="text/javascript" src="module/courses/view/js/courseDetails.js">  </script>
     <!--=========== BEGIN COURSE BANNER SECTION ================-->
     <section id="imgBanner">
       <h2>Course Details</h2>
@@ -14,22 +15,49 @@
             <div class="courseArchive_content">              
              <div class="singlecourse_ferimg_area">
                <div class="singlecourse_ferimg">
-                 <img src="view/img/courses/course2.png" alt="img">
+                 <img src="" id="img" alt="img">
                </div>  
                 <div class="singlecourse_bottom">
-                  <h2>Introduction To Matrix</h2>
-                  <span class="singlecourse_author">
-                    <img alt="img" src="view/img/author.jpg">
-                    Richard Remus, Teacher
-                  </span>
-                  <span class="singlecourse_price">$20</span>
+                  <div class="col-md-12">
+                    <h2 id="title"></h2>
+                  </div>
+                  <div class="row"> 
+                    <div class="col-md-6 col-sm-1">
+                      <div class="col-md-12">
+                        <b class="singlecourse_author" style="color:#809fff">Duration: &nbsp;</b>
+                        <span id="duration" class="singlecourse_author"></span>                      
+                      </div>
+
+                      <div class="col-md-12">
+                        <b class="singlecourse_author" style="color:#809fff">Lenguage: &nbsp;</b>
+                        <span id="lenguage" class="singlecourse_author"></span>                      
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-1">
+                      <div class="col-md-12">
+                        <b class="singlecourse_author" style="color:#809fff">Level: &nbsp;</b>
+                        <span id="level" class="singlecourse_author"></span>
+                      </div>
+
+                      <div class="col-md-12">
+                        <b class="singlecourse_author" style="color:#809fff">Category: &nbsp;</b>
+                        <span id="category" class="singlecourse_author"></span>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <span class="singlecourse_price" id="price"></span>
                 </div>
              </div>
              <div class="single_course_content">
-               <h2>About The Coures</h2>
-               <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
-               <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-               <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+               <h3 >Abaut this course</h3>
+               <p id="detalles"></p>
+
+               <h3 >Abaut this teacher</h3>
+               <p id="detalles_teacher"></p>
                <table class="table table-striped course_table">
                 <thead>
                   <tr>          

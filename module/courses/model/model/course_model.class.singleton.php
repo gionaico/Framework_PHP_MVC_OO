@@ -31,6 +31,10 @@ class course_model {
     public Function obtain_subCategory($arrArgument){
         return $this->bll->obtain_subCategory_BLL($arrArgument);
     }
+    public Function courseDetails($id){
+       
+        return $this->bll->courseDetails_BLL($id);
+    }
 
     
 

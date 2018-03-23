@@ -56,6 +56,13 @@ class courseDAO {
               return $category;
 
     }
+
+    public function courseDetails_DAO($db, $id) {
+        $sql = "SELECT * FROM courses WHERE id='".$id."'";
+        return $db->listar($db->ejecutar($sql));
+        
+    }
+
     public function obtain_subCategory_DAO(){
         $json = array();
         $tmp = array();
@@ -67,4 +74,8 @@ class courseDAO {
               return $subCategory;
 
     }
+
+
+        // echo ($sql);
+        // exit;
 }//End productDAO

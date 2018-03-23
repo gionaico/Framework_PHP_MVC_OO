@@ -31,5 +31,7 @@ class homepage_bll{
 
       return $this->dao->mejoresCursos_DAO($this->db, $arrArgument);
     }
-
+    public function obtain_category_BLL($arrArgument){
+      return $this->dao->obtain_category_DAO($arrArgument);
+    }
 }

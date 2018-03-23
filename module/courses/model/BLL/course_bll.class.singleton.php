@@ -7,6 +7,7 @@ require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/model/Db.class.singl
 require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/module/courses/model/DAO/course_dao.class.singleton.php");
 
 class course_bll{
+   
     private $dao;
     private $db;
     static $_instance;
@@ -33,5 +34,11 @@ class course_bll{
     }
     public function obtain_subCategory_BLL($arrArgument){
       return $this->dao->obtain_subCategory_DAO($arrArgument);
+    }
+
+    public function courseDetails_BLL($id){
+        
+        return $this->dao->courseDetails_DAO($this->db,$id);
+      
     }
 }

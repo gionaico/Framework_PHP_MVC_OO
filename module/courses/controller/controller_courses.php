@@ -5,11 +5,23 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/courses/ut
 include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php");
 
 
+
 if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
     $result_avatar = upload_files();
     $_SESSION['result_avatar'] = $result_avatar;
     //echo debug($_SESSION['result_avatar']); //se mostraría en alert(response); de dropzone.js
 }
+
+if ((isset($_GET["coursetDetails"])) && ($_GET["coursetDetails"] == true)) {
+    $id=$_SESSION["idCourse"];
+    $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+    $evio_loadModel = loadModel($path_model, "course_model", "courseDetails", $id);
+
+    echo json_encode($evio_loadModel);
+    exit;
+}
+
+
 
 if (isset($_POST['course_JSON'])) {	
     alta_courses();    

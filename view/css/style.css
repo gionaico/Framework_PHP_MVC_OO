@@ -34,6 +34,9 @@ License URI: http://www.gnu.org/licenses/gpl.html
 /*--------------------*/
 /* BASIC TYPOGRAPHY */
 /*--------------------*/
+.margin_img_home{
+  margin-top: 25px;
+}
 img.mediana{
   width: 200px; height: 250px;
 }

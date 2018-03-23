@@ -1,30 +1,37 @@
 [
 	{
 	"course":"Backend",
-	"inicia":"Backend"
+	"inicia":"Backend",
+	"photoCategory":"view/img/categoryCourses/backend.png"
 	},
 	{
 	"course":"Frontend",
-	"inicia":"Frontend"
+	"inicia":"Frontend",
+	"photoCategory":"view/img/categoryCourses/frontend.JPG"
 	},
 	{
 	"course":"Data Bases",
-	"inicia":"DB"
+	"inicia":"DB",
+	"photoCategory":"view/img/categoryCourses/Database.jpg"
 	},
 	{
 	"course":"Diseny",
-	"inicia":"Diseny"
+	"inicia":"Diseny",
+	"photoCategory":"view/img/categoryCourses/design.jpg"
 	},
 	{
 	"course":"Operative System",
-	"inicia":"OP"
+	"inicia":"OP",
+	"photoCategory":"view/img/categoryCourses/op.jpeg"
 	},
 	{
 	"course":"Security",
-	"inicia":"Security"
+	"inicia":"Security",
+	"photoCategory":"view/img/categoryCourses/security.jpg"
 	},
 	{
 	"course":"Framework",
-	"inicia":"Framework"
+	"inicia":"Framework",
+	"photoCategory":"view/img/categoryCourses/frameworks.png"
 	}
 ]

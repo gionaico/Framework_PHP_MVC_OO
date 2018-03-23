@@ -30,7 +30,9 @@ class homepage_model {
     }
 
 
-
+    public Function obtain_category($arrArgument){
+        return $this->bll->obtain_category_BLL($arrArgument);
+    }
     
 
 }
