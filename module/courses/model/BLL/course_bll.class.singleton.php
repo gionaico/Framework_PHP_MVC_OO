@@ -41,4 +41,10 @@ class course_bll{
         return $this->dao->courseDetails_DAO($this->db,$id);
       
     }
+
+    public function cursosFiltrados_BLL($arrArgument){
+        
+        return $this->dao->cursosFiltrados_DAO($this->db,$arrArgument);
+      
+    }
 }

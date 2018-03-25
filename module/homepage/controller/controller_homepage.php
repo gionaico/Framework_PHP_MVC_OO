@@ -17,6 +17,18 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.
 	    exit;
 	}
 
+	if (isset($_GET["filtros"]) && $_GET["filtros"] == true) {
+		$category=$_GET["category"];
+		$filtros=array(
+			"category"=>$category,
+			"lenguage"=>"",
+			"level"=>"");
+		$_SESSION["filtros"]=$filtros;
+		$res="index.php?page=courses&view=courses";
+		echo($res);
+	    exit;
+	}
+
 	if ((isset($_GET["getCategorias"])) && ($_GET["getCategorias"] == true)) {  
 		$json = array();
 

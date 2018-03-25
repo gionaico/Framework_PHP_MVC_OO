@@ -34,6 +34,15 @@ License URI: http://www.gnu.org/licenses/gpl.html
 /*--------------------*/
 /* BASIC TYPOGRAPHY */
 /*--------------------*/
+/* .next,.prev{
+  display: none !important;  
+} */
+.slider_area:hover /* .next */{
+  display: block !important;
+}
+.slider_area:hover /* .prev */{
+  display: block !important;
+}
 .margin_img_home{
   margin-top: 25px;
 }
@@ -326,15 +335,7 @@ img{
   text-decoration: none;
   outline: none;
 }
-.next,.prev{
-  display: none !important;  
-}
-.slider_area:hover .next{
-  display: block !important;
-}
-.slider_area:hover .prev{
-  display: block !important;
-}
+
 
 /*--------------------*/
 /* HOME ABOUT US */

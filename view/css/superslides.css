@@ -33,22 +33,22 @@
   width: 55px;
 
 }
-.slides-navigation a.prev {
+.slides-navigation a.prevv {
   background-image: url("../img/slider/navigation-icon.png");
   background-repeat: no-repeat; 
   background-position: left -240px center;
   left: 0;  
 }
-.slides-navigation a.next {
+.slides-navigation a.nextt {
   background-image: url("../img/slider/navigation-icon.png");
   background-position: left -316px center;
   background-repeat: no-repeat;
   right: 0;
 }
-.slides-navigation a.prev:hover{
+.slides-navigation a.prevv:hover{
   background-position: left center;
 }
-.slides-navigation a.next:hover {  
+.slides-navigation a.nextt:hover {  
   background-position: left -75px center;
   
 }

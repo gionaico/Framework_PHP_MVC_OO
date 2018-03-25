@@ -4,7 +4,23 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.
 include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/courses/utils/validaCourses.php");
 include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php");
 
+    if (isset($_GET["getCoursesFiltrados"]) && $_GET["getCoursesFiltrados"] == true) {
+        $filtros=$_SESSION["filtros"];
 
+        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+        $evio_loadModel = loadModel($path_model, "course_model", "cursosFiltrados", $filtros);
+
+        $filas=count($evio_loadModel);
+        $pages=ceil($filas/3);
+
+        $datos=array(
+            "datos"=>$evio_loadModel,
+            "pages"=>$pages,
+            "filas"=>$filas);
+
+        echo json_encode($datos);
+        exit;
+    }
 
 if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
     $result_avatar = upload_files();

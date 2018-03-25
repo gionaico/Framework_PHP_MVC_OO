@@ -75,7 +75,24 @@ class courseDAO {
 
     }
 
+    public function cursosFiltrados_DAO($db, $arrArgument) {
+        $cadWhere=array();
+        $indice=0;
+        if ($arrArgument["category"]!="") {
+            $cadWhere[$indice]="subject='".$arrArgument["category"]."'";
+            $indice++;
+        }
+        $cad="";
+        for ($i=0; $i <count($cadWhere) ; $i++) { 
+            $cad=$cad."".$cadWhere[$i]." and";
+        }
 
+        $sql = "SELECT * FROM courses WHERE ".substr($cad, 0, -3)."";
+        // echo ($sql);
+        // exit;
+        return $db->listar($db->ejecutar($sql));
+        
+    }
         // echo ($sql);
         // exit;
 }//End productDAO

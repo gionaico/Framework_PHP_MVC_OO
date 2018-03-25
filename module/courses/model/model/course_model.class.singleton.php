@@ -36,6 +36,11 @@ class course_model {
         return $this->bll->courseDetails_BLL($id);
     }
 
+    public Function cursosFiltrados($arrArgument){
+       
+        return $this->bll->cursosFiltrados_BLL($arrArgument);
+    }
+
     
 
 }
