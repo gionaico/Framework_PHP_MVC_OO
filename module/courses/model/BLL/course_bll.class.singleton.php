@@ -32,19 +32,24 @@ class course_bll{
     public function obtain_category_BLL($arrArgument){
       return $this->dao->obtain_category_DAO($arrArgument);
     }
+
     public function obtain_subCategory_BLL($arrArgument){
       return $this->dao->obtain_subCategory_DAO($arrArgument);
     }
 
-    public function courseDetails_BLL($id){
-        
-        return $this->dao->courseDetails_DAO($this->db,$id);
-      
+    public function courseDetails_BLL($id){    
+        return $this->dao->courseDetails_DAO($this->db,$id);      
     }
 
-    public function cursosFiltrados_BLL($arrArgument){
-        
-        return $this->dao->cursosFiltrados_DAO($this->db,$arrArgument);
-      
+    public function cursosFiltrados_BLL($arrArgument){        
+        return $this->dao->cursosFiltrados_DAO($this->db,$arrArgument);      
+    }
+
+    public function autocomplete_BLL($arrArgument){        
+        return $this->dao->autocomplete_DAO($this->db,$arrArgument);      
+    }
+
+    public function keyword_BLL($arrArgument){    
+        return $this->dao->keyword_DAO($this->db,$arrArgument);      
     }
 }

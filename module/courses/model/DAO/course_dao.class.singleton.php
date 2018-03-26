@@ -75,19 +75,46 @@ class courseDAO {
 
     }
 
+    public function autocomplete_DAO($db, $arrArgument) {
+        $sql = "SELECT * FROM courses";
+        return $db->listar($db->ejecutar($sql));
+    }
+    public function keyword_DAO($db, $arrArgument) {
+        $sql = "SELECT * FROM courses WHERE title LIKE '%".$arrArgument."%'";
+        // echo ($sql);
+        // exit;
+        return $db->listar($db->ejecutar($sql));
+    }
+
+
     public function cursosFiltrados_DAO($db, $arrArgument) {
         $cadWhere=array();
         $indice=0;
+        // if ($arrArgument=="") {
+        //     echo "string";
+        //     exit;
+        // }
+        
         if ($arrArgument["category"]!="") {
             $cadWhere[$indice]="subject='".$arrArgument["category"]."'";
             $indice++;
         }
-        $cad="";
-        for ($i=0; $i <count($cadWhere) ; $i++) { 
-            $cad=$cad."".$cadWhere[$i]." and";
+        if ($arrArgument["lenguage"]!="") {
+            $cadWhere[$indice]="lenguage='".$arrArgument["lenguage"]."'";
+            $indice++;
         }
 
-        $sql = "SELECT * FROM courses WHERE ".substr($cad, 0, -3)."";
+        if ($indice==0) {
+            $sql = "SELECT * FROM courses";
+        }else{        
+            $cad="";
+
+            for ($i=0; $i <count($cadWhere) ; $i++) { 
+                $cad=$cad."".$cadWhere[$i]." and";
+            }
+            $sql = "SELECT * FROM courses WHERE ".substr($cad, 0, -3)."";
+        }
+
         // echo ($sql);
         // exit;
         return $db->listar($db->ejecutar($sql));

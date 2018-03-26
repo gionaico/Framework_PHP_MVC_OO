@@ -7,6 +7,24 @@ var phonePattern=/^[0-9]{9}$/; //min 9 digitos
 var ulrPattern = /^(ftp|http|https):\/\/[^ "]+$/;
 var pricePattern=/^[0-9]{1,3}([.][0-9]{1,2})?$/;
 
+// index.php?page=courses&view=courses
+$(document).ready(function () {
+    $("#resetFiltros").click(function(event) {        
+        irCourses();
+    });
+
+    
+});//end document ready
+
+function irCourses(){
+        $.get("module/courses/controller/controller_courses.php?resFiltros=true",            
+         function (response) {
+            // console.log(response);
+            window.location.href="index.php?page=courses&view=courses";                          
+         }).fail(function() {
+            alert( "error f generales" );
+        });
+}
 
 function enviarInfoToContro(url, id) {
     console.log('"'+id+'"');

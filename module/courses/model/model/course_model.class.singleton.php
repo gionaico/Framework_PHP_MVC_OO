@@ -41,6 +41,18 @@ class course_model {
         return $this->bll->cursosFiltrados_BLL($arrArgument);
     }
 
+     public Function autocomplete($arrArgument){
+       
+        return $this->bll->autocomplete_BLL($arrArgument);
+    }
+
+    public Function keyword($arrArgument){
+       
+        return $this->bll->keyword_BLL($arrArgument);
+    }
+
+    
+
     
 
 }
