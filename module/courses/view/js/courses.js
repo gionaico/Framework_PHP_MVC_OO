@@ -10,7 +10,7 @@ $(document).ready(function () {
     $.get("module/courses/controller/controller_courses.php?getCoursesFiltrados=true",
         
      function (response) {
-     	// console.log(response);
+     	console.log(response);
      	// console.log(JSON.parse(response).length);
      	var cursosfil=JSON.parse(response);
      	// console.log(cursosfil);

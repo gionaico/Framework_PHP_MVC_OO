@@ -17,30 +17,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/icon" href="img/wpf-favicon.png"/>
+    <!-- <link rel="shortcut icon" type="image/icon" href="img/wpf-favicon.png"/> -->
 
     <!-- CSS
     ================================================== -->       
     <!-- Bootstrap css file-->
-    <link href="view/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo CSS_PATH ?>bootstrap.min.css" rel="stylesheet">
     <!-- Font awesome css file-->
     <!-- <link href="view/css/font-awesome.min.css" rel="stylesheet"> -->
     <!-- Superslide css file-->
-    <link rel="stylesheet" href="view/css/superslides.css">
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>superslides.css">
     <!-- Slick slider css file -->
-    <link href="view/css/slick.css" rel="stylesheet"> 
+    <link href="<?php echo CSS_PATH ?>slick.css" rel="stylesheet"> 
     <!-- Circle counter cdn css file -->
     <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/css/jquery.circliful.css'>  
     <!-- smooth animate css file -->
-    <link rel="stylesheet" href="view/css/animate.css"> 
+    <link rel="stylesheet" href="<?php echo CSS_PATH ?>animate.css"> 
     <!-- preloader -->
     <!-- <link rel="stylesheet" href="view/css/queryLoader.css" type="text/css" /> -->
     <!-- gallery slider css -->
-    <link type="text/css" media="all" rel="stylesheet" href="view/css/jquery.tosrus.all.css" />    
+    <link type="text/css" media="all" rel="stylesheet" href="<?php echo CSS_PATH ?>jquery.tosrus.all.css" />    
     <!-- Default Theme css file -->
-    <link id="switcher" href="view/css/themes/default-theme.css" rel="stylesheet">
+    <link id="switcher" href="<?php echo CSS_PATH ?>themes/default-theme.css" rel="stylesheet">
     <!-- Main structure css file -->
-    <link href="view/css/style.css" rel="stylesheet">
+    <link href="<?php echo CSS_PATH ?>style.css" rel="stylesheet">
    
     <!-- Google fonts -->
     <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>   
@@ -96,7 +96,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
-                <li class="active"><a href="index.php?page=homepage&view=homepage">Home</a></li>
+                <li class="active"><a href="<?php amigable('?module=homepage&function=homepage'); ?>">Home</a></li>
                 <li><a href="#" id="resetFiltros">Courses</a></li>
                 <li><a href="#">Scholarship</a></li>
                 <li><a href="#">Events</a></li>

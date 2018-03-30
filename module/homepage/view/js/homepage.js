@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	
+	console.log(window.location);
     /* **********************************************************************
     Este js utiliza funciones declaradas en un archivo para toda la aplicacion en la ruta
      view/js/generalFunctions.js
@@ -29,41 +29,41 @@ $(document).ready(function () {
     /*-------------------------------------------------------------------------------------*/
     var v=0;
     var limite2=0;
-	$.get("module/homepage/controller/controller_homepage.php?getCourses=true",
+	$.post("../../homepage/getCourses/",{"getCourses":true},
         
      function (response) {
-     	// console.log(JSON.parse(response));
-        json = JSON.parse(response);
+     	console.log(response);
+        // json = JSON.parse(response);
              
         v++;
     	limite1=limite2;
     	limite2=limite2+3;
 
-	    // console.log(v+"  "+limite1+" - "+limite2);	
-	    crearList(limite1, limite2, json);
-	    courseDetalles();
+	    // crearList(limite1, limite2, json);
+	    // courseDetalles();
 	 }).fail(function() {
-        alert( "error dfsdgffg" );
+	 	// console.log(window.location);
+        alert( "error homepage/getCourses" );
     });
 	/*-------------------------------------------------------------------------------------*/
 
 	var v_b=0;
     var limite2_b=0;
-    $.get("module/homepage/controller/controller_homepage.php?getCategorias=true",
+    $.get("../../homepage/getCategorias",{"getCourses":true},
         
      function (response) {
      	// console.log(JSON.parse(response));
      	limite1_b=limite2_b;
     	limite2_b=limite2_b+3;
      	console.log(response);
-     	json2=JSON.parse(response);
-     	bucleCategorias(limite1_b, limite2_b, json2);
+     	// json2=JSON.parse(response);
+     	// bucleCategorias(limite1_b, limite2_b, json2);
 
      	
         
         
 	 }).fail(function() {
-        alert( "error dfsdgffg" );
+        alert( "../../homepage/getCategorias" );
     });
 
  

@@ -1,97 +1,118 @@
 <?php
-@session_start();
-include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
-include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/courses/utils/validaCourses.php");
-include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php");
+// @session_start();
+// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
+// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/courses/utils/validaCourses.php");
+// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php");
+class controller_courses {
 
+    function __construct() {
+        // include(UTILS_PRODUCTS . "utils.inc.php");
+        $_SESSION['module'] = "courses";
 
+    }
+    
+    
 
-    if (isset($_GET["getCoursesFiltrados"]) && $_GET["getCoursesFiltrados"] == true) {
-        if (!isset($_SESSION["filtros"])) {
-            $_SESSION["filtros"]=array(
-            "category"=>"",
-            "lenguage"=>"",
-            "level"=>"");   
+    function getCoursesFiltrados(){
+        if (isset($_GET["getCoursesFiltrados"]) && $_GET["getCoursesFiltrados"] == true) {
+            if (!isset($_SESSION["filtros"])) {
+                $_SESSION["filtros"]=array(
+                "category"=>"",
+                "lenguage"=>"",
+                "level"=>"");   
+            }
+            $filtros=$_SESSION["filtros"];
+
+            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+            $evio_loadModel = loadModel($path_model, "course_model", "cursosFiltrados", $filtros);
+            // echo($evio_loadModel);
+            // exit;
+            
+            $datos=cuentaPaginas($evio_loadModel);
+
+            
+
+            echo json_encode($datos);
+            exit;
         }
-        $filtros=$_SESSION["filtros"];
-
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-        $evio_loadModel = loadModel($path_model, "course_model", "cursosFiltrados", $filtros);
-        // echo($evio_loadModel);
-        // exit;
-        
-        $datos=cuentaPaginas($evio_loadModel);
-
-        
-
-        echo json_encode($datos);
-        exit;
     }
 
-    if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
-        $result_avatar = upload_files();
-        $_SESSION['result_avatar'] = $result_avatar;
-        //echo debug($_SESSION['result_avatar']); //se mostraría en alert(response); de dropzone.js
+    function upload(){
+        if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
+            $result_avatar = upload_files();
+            $_SESSION['result_avatar'] = $result_avatar;
+            //echo debug($_SESSION['result_avatar']); //se mostraría en alert(response); de dropzone.js
+        }
     }
 
-    if ((isset($_GET["resFiltros"])) && ($_GET["resFiltros"] == true)) {
-         $_SESSION["filtros"]=array(
-            "category"=>"",
-            "lenguage"=>"",
-            "level"=>""); 
-        exit;
-    }
-
-    if ((isset($_GET["autocomplete"])) && ($_GET["autocomplete"] == true)) {
-
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-        $evio_loadModel = loadModel($path_model, "course_model", "autocomplete");
-
-        echo json_encode($evio_loadModel);
-        exit;
-    }
-
-    if ((isset($_GET["keyword"])) && ($_GET["keyword"] == true)) {
-        // echo ($_GET["key"]);
-        // exit;
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-        $evio_loadModel = loadModel($path_model, "course_model", "keyword", $_GET["key"]);
-
-        $datos=cuentaPaginas($evio_loadModel);        
-
-        echo json_encode($datos);
-        exit;
-    }
-
-
-    if ((isset($_GET["coursetDetails"])) && ($_GET["coursetDetails"] == true)) {
-        $id=$_SESSION["idCourse"];
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-        $evio_loadModel = loadModel($path_model, "course_model", "courseDetails", $id);
-
-        echo json_encode($evio_loadModel);
-        exit;
-    }
-
-
-
-    if (isset($_POST['course_JSON'])) {	
-        alta_courses();    
-    }
-
-    if (isset($_GET["delete"]) && $_GET["delete"] == true) {
-        $_SESSION['result_avatar'] = array();
-        $result = remove_file();
-        if ($result === true) {
-            //echo("true");
-            //exit;
-            echo json_encode(array("res" => true));
+    function resFiltros()()(){
+        if ((isset($_GET["resFiltros"])) && ($_GET["resFiltros"] == true)) {
+             $_SESSION["filtros"]=array(
+                "category"=>"",
+                "lenguage"=>"",
+                "level"=>""); 
             exit;
-        } else {
-            //echo("false");
-            //exit;
-            echo json_encode(array("res" => false));
+        }
+    }
+
+    function autocomplete(){
+        if ((isset($_GET["autocomplete"])) && ($_GET["autocomplete"] == true)) {
+
+            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+            $evio_loadModel = loadModel($path_model, "course_model", "autocomplete");
+
+            echo json_encode($evio_loadModel);
             exit;
+        }
+    }
+
+    function keyword(){
+        if ((isset($_GET["keyword"])) && ($_GET["keyword"] == true)) {
+            // echo ($_GET["key"]);
+            // exit;
+            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+            $evio_loadModel = loadModel($path_model, "course_model", "keyword", $_GET["key"]);
+
+            $datos=cuentaPaginas($evio_loadModel);        
+
+            echo json_encode($datos);
+            exit;
+        }
+    }
+
+    function coursetDetails(){
+        if ((isset($_GET["coursetDetails"])) && ($_GET["coursetDetails"] == true)) {
+            $id=$_SESSION["idCourse"];
+            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+            $evio_loadModel = loadModel($path_model, "course_model", "courseDetails", $id);
+
+            echo json_encode($evio_loadModel);
+            exit;
+        }
+    }
+
+
+    function courseJson(){
+        if (isset($_POST['course_JSON'])) {	
+            alta_courses();    
+        }
+    }
+
+    function delete(){
+        if (isset($_GET["delete"]) && $_GET["delete"] == true) {
+            $_SESSION['result_avatar'] = array();
+            $result = remove_file();
+            if ($result === true) {
+                //echo("true");
+                //exit;
+                echo json_encode(array("res" => true));
+                exit;
+            } else {
+                //echo("false");
+                //exit;
+                echo json_encode(array("res" => false));
+                exit;
+            }
         }
     }
     //////////////////////////////////////////////////
@@ -104,6 +125,7 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php"
             "filas"=>$filas);
         return $datos; 
     }
+
     function alta_courses() {
     	$jsondata = array();
         $coursesJSON = json_decode($_POST["course_JSON"], true);        
@@ -156,17 +178,19 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php"
         }
     }
     /////////////////////////////////////////////////// load_data
-    if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
-        $jsondata = array();
+    function loadData(){
+        if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
+            $jsondata = array();
 
-        if (isset($_SESSION['curso'])) {
-            $jsondata["curso"] = $_SESSION['curso'];
-            echo json_encode($jsondata);
-            exit;
-        } else {
-            $jsondata["curso"] = "";
-            echo json_encode($jsondata);
-            exit;
+            if (isset($_SESSION['curso'])) {
+                $jsondata["curso"] = $_SESSION['curso'];
+                echo json_encode($jsondata);
+                exit;
+            } else {
+                $jsondata["curso"] = "";
+                echo json_encode($jsondata);
+                exit;
+            }
         }
     }
     /////////////////////////////////////////////////// 
@@ -177,15 +201,17 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php"
     //     exit;
     // }
     /////////////////////////////////////////////////// load
-    if (isset($_GET["load"]) && $_GET["load"] == true) {
-        $curso = array();
-        if (isset($_SESSION['cursoDet'])) {
-            $curso=$_SESSION['cursoDet'];
-            $curso['acceso']=true;
+    function load(){    
+        if (isset($_GET["load"]) && $_GET["load"] == true) {
+            $curso = array();
+            if (isset($_SESSION['cursoDet'])) {
+                $curso=$_SESSION['cursoDet'];
+                $curso['acceso']=true;
+            }
+            close_session();
+            echo json_encode($curso);
+            exit;
         }
-        close_session();
-        echo json_encode($curso);
-        exit;
     }
 
     function close_session() {
@@ -196,44 +222,49 @@ include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php"
 
 
     /////////////////////////////////////////////////// load_category
-    if(  (isset($_GET["load_category"])) && ($_GET["load_category"] == true)  ){
-        // $jsondata = array();
-        $json = array();
+    function obtain_category() {
+        if(  (isset($_GET["load_category"])) && ($_GET["load_category"] == true)  ){
+            // $jsondata = array();
+            $json = array();
 
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-        
-        $json = loadModel($path_model, "course_model", "obtain_category");
-        // echo($json);
-        // exit;
-        if($json){
-            $jsondata = $json;
-            echo ($jsondata);
-            exit;
-        }else{
-            $jsondata = "error";
-            echo ($jsondata);
-            exit;
+            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+            
+            $json = loadModel($path_model, "course_model", "obtain_category");
+            // echo($json);
+            // exit;
+            if($json){
+                $jsondata = $json;
+                echo ($jsondata);
+                exit;
+            }else{
+                $jsondata = "error";
+                echo ($jsondata);
+                exit;
+            }
         }
     }
 
     /////////////////////////////////////////////////// load_subCategory
-    if(  (isset($_GET["load_subCategory"])) && ($_GET["load_subCategory"] == true)  ){
-        // $jsondata = array();
-        
-        $json = array();
+    function obtain_subCategory() {
+        if(  (isset($_GET["load_subCategory"])) && ($_GET["load_subCategory"] == true)  ){
+            // $jsondata = array();
+            
+            $json = array();
 
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-        
-        $json = loadModel($path_model, "course_model", "obtain_subCategory");
-        // echo($json);
-        // exit;
-        if($json){
-            $jsondata = $json;
-            echo ($jsondata);
-            exit;
-        }else{
-            $jsondata = "error";
-            echo ($jsondata);
-            exit;
+            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
+            
+            $json = loadModel($path_model, "course_model", "obtain_subCategory");
+            // echo($json);
+            // exit;
+            if($json){
+                $jsondata = $json;
+                echo ($jsondata);
+                exit;
+            }else{
+                $jsondata = "error";
+                echo ($jsondata);
+                exit;
+            }
         }
     }
+}

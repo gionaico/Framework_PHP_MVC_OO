@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>homepage</name>
+        <uri>homepage</uri>
+    </function>
+    <function>
+        <name>getCourses</name>
+        <uri>getCourses</uri>
+    </function>
+    <function>
+        <name>idCourse</name>
+        <uri>idCourse</uri>
+    </function>
+    <function>
+        <name>filtros</name>
+        <uri>filtros</uri>
+    </function>
+    <function>
+        <name>getCategorias</name>
+        <uri>getCategorias</uri>
+    </function>
+    
+</functions>
