@@ -7,13 +7,13 @@ $(document).ready(function () {
      */
     
     
-    $.get("module/courses/controller/controller_courses.php?getCoursesFiltrados=true",
+    $.post("../../courses/getCoursesFiltrados", {"getCoursesFiltrados":true},
         
      function (response) {
-     	console.log(response);
+     	// console.log(response);
      	// console.log(JSON.parse(response).length);
      	var cursosfil=JSON.parse(response);
-     	// console.log(cursosfil);
+     	console.log(cursosfil);
 		var l1=0;
 		var l2=3;
 		// crearList(l1, l2, cursosfil.datos);
@@ -21,7 +21,7 @@ $(document).ready(function () {
  
      	
 	 }).fail(function() {
-        alert( "error dfsdgffg" );
+        c( "err courses.js 24" );
     });
 
 	autocomplete();
@@ -29,7 +29,7 @@ $(document).ready(function () {
 	$("#search_prod").submit(function(event) {
 		event.preventDefault(); //evita la redireccion 
 		// var ele_keyword=document.getElementById('keyword').value;
-		// // alert(ele_keyword);
+		// // c(ele_keyword);
 		// fun_keyword(ele_keyword);
 		// location.reload(true);
 		empezarBusqueda();
@@ -43,12 +43,12 @@ $(document).ready(function () {
 
 function empezarBusqueda(){
 	var ele_keyword=document.getElementById('keyword').value;
-		// alert(ele_keyword);
+		// c(ele_keyword);
 	fun_keyword(ele_keyword);
 }
 
 function autocomplete(json){
-	$.get("module/courses/controller/controller_courses.php?autocomplete=true",
+	$.post("../../courses/autocomplete",{"autocomplete":true},
         
      function (response) {
      	// console.log(JSON.parse(response));
@@ -72,13 +72,13 @@ function autocomplete(json){
 	    });  
      	
 	 }).fail(function() {
-        alert( "error autocomplete" );
+        c( "error courses.js autocomplete" );
     });
 
 }
 
-function fun_keyword(keyword){
-	$.get("module/courses/controller/controller_courses.php?keyword=true&key="+keyword,
+function fun_keyword(keywo){
+	$.post("../../courses/keyword", {"keyword":true, "key":keywo},
         
      function (response) {
      	console.log(response);
@@ -91,7 +91,7 @@ function fun_keyword(keyword){
 		  
      	
 	 }).fail(function() {
-        alert( "error fun_keyword" );
+        c( "error courses.js fun_keyword" );
     });
 }
 
@@ -101,7 +101,7 @@ function paginar(totalPaginas, datos){
 	// console.log(datos);
 	// console.log(l1+" "+ l2);
 	paginarCrear(totalPaginas, datos);
-	console.log(totalPaginas);
+	// console.log(totalPaginas);
 	// var ele=document.getElementById('pagination');
 	$('.pagination').twbsPagination('destroy');
 	$('.pagination').twbsPagination({
@@ -109,7 +109,7 @@ function paginar(totalPaginas, datos){
 	        visiblePages: 3,
 	        startPage:1,
 	        onPageClick: function (event, page) {
-	            console.log(page);
+	            // console.log(page);
 				// if (page===1) {
 				// 	 l1=0;
 				// 	 l2=3;
@@ -129,7 +129,7 @@ function paginar(totalPaginas, datos){
 
 
 function paginarCrear(page, datos){
-	console.log(page);
+	// console.log(page);
 	if (page===1) {
 		 l1=0;
 		 l2=3;
@@ -137,7 +137,7 @@ function paginarCrear(page, datos){
 		 l2=page*3;
 		 l1=l2-3;
 	}
-	console.log(l1+" "+ l2);
+	// console.log(l1+" "+ l2);
 	$("#div_listCou").empty();
 	crearList(l1, l2, datos);
 	courseDetalles();

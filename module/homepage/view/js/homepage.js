@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	console.log(window.location);
+	
     /* **********************************************************************
     Este js utiliza funciones declaradas en un archivo para toda la aplicacion en la ruta
      view/js/generalFunctions.js
@@ -15,15 +15,13 @@ $(document).ready(function () {
 		// courseDetalles();
     
     });
-
+	/*-------------------------------------------------------------------------------------*/
     $("#viewMoreCategories").click(function(event) {
     	v_b++;
     	limite1_b=limite2_b;
     	limite2_b=limite2_b+3;
     	// console.log(v+"  "+limite1+" - "+limite2);
-    	bucleCategorias(limite1_b, limite2_b, json2);
-		
-    
+    	bucleCategorias(limite1_b, limite2_b, json2);		    
     });
 
     /*-------------------------------------------------------------------------------------*/
@@ -32,14 +30,14 @@ $(document).ready(function () {
 	$.post("../../homepage/getCourses/",{"getCourses":true},
         
      function (response) {
-     	console.log(response);
-        // json = JSON.parse(response);
+        json = JSON.parse(response);
+     	console.log(json);
              
         v++;
     	limite1=limite2;
     	limite2=limite2+3;
 
-	    // crearList(limite1, limite2, json);
+	    crearList(limite1, limite2, json);
 	    // courseDetalles();
 	 }).fail(function() {
 	 	// console.log(window.location);
@@ -49,26 +47,21 @@ $(document).ready(function () {
 
 	var v_b=0;
     var limite2_b=0;
-    $.get("../../homepage/getCategorias",{"getCourses":true},
+    $.post("../../homepage/getCategorias/",{"getCategorias":true},
         
      function (response) {
      	// console.log(JSON.parse(response));
      	limite1_b=limite2_b;
     	limite2_b=limite2_b+3;
-     	console.log(response);
-     	// json2=JSON.parse(response);
-     	// bucleCategorias(limite1_b, limite2_b, json2);
-
-     	
-        
+    	
+     	json2=JSON.parse(response);
+     	console.log(json2);
+     	bucleCategorias(limite1_b, limite2_b, json2);
         
 	 }).fail(function() {
         alert( "../../homepage/getCategorias" );
     });
-
- 
-    
-
+	/*-------------------------------------------------------------------------------------*/
 });//end document ready
 
 function bucleCategorias(limite1, limite2, json){
@@ -136,7 +129,7 @@ function courseCategory(){
 	$(".classCategory").click(function(event) {
      	 var idCategory=this.getAttribute("id");
      	 console.log(idCategory);
-     	 enviarInfoToContro("module/homepage/controller/controller_homepage.php?filtros=true&category=", idCategory);
+     	 enviarInfoToContro("../../homepage/filtros",{"filtros":true, "category": idCategory});
      	});;
 }
 

@@ -16,26 +16,31 @@ $(document).ready(function () {
     
 });//end document ready
 
-function irCourses(){
-        $.get("module/courses/controller/controller_courses.php?resFiltros=true",            
-         function (response) {
-            // console.log(response);
-            window.location.href="index.php?page=courses&view=courses";                          
-         }).fail(function() {
-            alert( "error f generales" );
-        });
+function c(d){
+    console.log(d);
 }
 
-function enviarInfoToContro(url, id) {
-    console.log('"'+id+'"');
-    $.get( ""+url+""+id+"",
+function irCourses(){
+    
+    $.post("../../courses/resFiltros",{"resFiltros":true},                    
+     function (response) {
+        console.log(response);
+        // window.location.href="index.php?page=courses&view=courses";                          
+     }).fail(function() {
+        alert( "error f generales l-25" );
+    });
+}
+
+function enviarInfoToContro(ulr, json) {
+    console.log(json);
+    $.post( ""+ulr+"", json,
         // {"idCourse2": id},
         function( response ) {
             console.log(response);
-            window.location.href=""+response+"";
+            // window.location.href=""+response+"";
     })
     .fail(function(response) {
-        alert("fallo");
+        c("fallo enviarInfoToContro fgenerales l42");
     });
 }
 
@@ -160,7 +165,7 @@ function controlForm(id){
 
 
 function load_countries_v1() {
-    $.get( "module/profile/controller/controller_profile.php?load_country=true",
+    $.post( "module/profile/controller/controller_profile.php?load_country=true",
         function( response ) {
         //     console.log(response);
         // console.log(JSON.parse(response));
@@ -177,7 +182,7 @@ function load_countries_v1() {
 }
 
 function load_countries_v2(cad) {
-    $.getJSON( cad, function(data) {
+    $.postJSON( cad, function(data) {
       $("#country").empty();
       $("#country").append('<option value="" selected="selected">Select country</option>');
 
@@ -193,7 +198,7 @@ function load_countries_v2(cad) {
 
 
 function load_provinces_v1() { //provinciasypoblaciones.xml - xpath
-    $.get( "module/profile/controller/controller_profile.php?load_provinces=true",
+    $.post( "module/profile/controller/controller_profile.php?load_provinces=true",
         function( response ) {
           $("#province").empty();
           $("#province").append('<option value="" selected="selected">Select province</option>');
@@ -221,7 +226,7 @@ function load_provinces_v1() { //provinciasypoblaciones.xml - xpath
  }   
 
 function load_provinces_v2() {
-    $.get("resources/provinciasypoblaciones.xml", function (xml) {
+    $.post("resources/provinciasypoblaciones.xml", function (xml) {
         $("#province").empty();
         $("#province").append('<option value="" selected="selected">Select province</option>');
 
@@ -238,7 +243,7 @@ function load_provinces_v2() {
 
 
 function load_cities_v2(prov) {
-    $.get("resources/provinciasypoblaciones.xml", function (xml) {
+    $.post("resources/provinciasypoblaciones.xml", function (xml) {
         $("#city").empty();
         $("#city").append('<option value="" selected="selected">Select city</option>');
 
@@ -281,7 +286,7 @@ function load_cities_v1(prov) { //provinciasypoblaciones.xml - xpath
 
 
 function load_category(ulr, id_etiqueta) { //provinciasypoblaciones.xml - xpath
-    $.get( ""+ulr+"",
+    $.post( ""+ulr+"",
         function( response ) {            
             $("#"+id_etiqueta+"").empty();
             $("#"+id_etiqueta+"").append('<option value="" selected="selected">Select '+id_etiqueta+'</option>');
@@ -328,7 +333,7 @@ function load_category_B(ulr, id_etiqueta) {
 
 function load_subCategory(ulr, valueSelectAnterior, id_etiqueta) {
     // console.log(ulr);
-     $.get( ""+ulr+"",
+     $.post( ""+ulr+"",
         function( response ) {            
             // console.log(response);
             $("#"+id_etiqueta+"").empty();
@@ -360,7 +365,7 @@ function load_subCategory(ulr, valueSelectAnterior, id_etiqueta) {
 
 // function load_subCategory(cad, v, id_select) {
 //       console.log(id_select);
-//     $.getJSON( cad, function(data) {
+//     $.postJSON( cad, function(data) {
 //       $("#prueba2").empty();
 //       $("#prueba2").append('<option value="" selected="selected">Select prueba2</option>');
 //       console.log(data);

@@ -1,6 +1,7 @@
 <?php
 @session_start();
 class controller_homepage {
+	
     function __construct() {
 
         $_SESSION['module'] = "homepage";
@@ -24,15 +25,12 @@ class controller_homepage {
 	        $evio_loadModel = loadModel(MODEL_HOMEPAGE, "homepage_model", "mejoresCursos");
 		    echo json_encode($evio_loadModel);
 		    exit;
-		}else{
-			echo("vacio");
-			exit;
 		}
     }
 
     function idCourse(){
-    	if (isset($_GET["idCourse"]) && $_GET["idCourse"] == true) {
-			$id=$_GET["idCourse2"];
+    	if (isset($_POST["idCourse"]) && $_POST["idCourse"] == true) {
+			$id=$_POST["idCourse2"];
 			$_SESSION["idCourse"]=$id;
 			$res="index.php?page=courses&view=courseDetails";
 			echo($res);
@@ -41,8 +39,8 @@ class controller_homepage {
     }
 
     function filtros(){
-    	if (isset($_GET["filtros"]) && $_GET["filtros"] == true) {
-			$category=$_GET["category"];
+    	if (isset($_POST["filtros"]) && $_POST["filtros"] == true) {
+			$category=$_POST["category"];
 			$filtros=array(
 				"category"=>$category,
 				"lenguage"=>"",
@@ -55,12 +53,10 @@ class controller_homepage {
     }
 
     function getCategorias(){
-    	if ((isset($_GET["getCategorias"])) && ($_GET["getCategorias"] == true)) {  
-			$json = array();
-
-	        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/homepage/model/model/';
+    	if ((isset($_POST["getCategorias"])) && ($_POST["getCategorias"] == true)) {  
+			$json = array();	        
 	        
-	        $json = loadModel($path_model, "homepage_model", "obtain_category");  
+	        $json = loadModel(MODEL_HOMEPAGE, "homepage_model", "obtain_category");  
 	    	echo ($json);
 	    	exit;
 		}
@@ -69,23 +65,23 @@ class controller_homepage {
 }
 // include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
 
-	// if (isset($_GET["getCourses"]) && $_GET["getCourses"] == true) {
-	// 	$path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/homepage/model/model/';        
+	// if (isset($_POST["getCourses"]) && $_POST["getCourses"] == true) {
+	// 	        
  //        $evio_loadModel = loadModel($path_model, "homepage_model", "mejoresCursos");
 	//     echo json_encode($evio_loadModel);
 	//     exit;
 	// }
 
-	// if (isset($_GET["idCourse"]) && $_GET["idCourse"] == true) {
-	// 	$id=$_GET["idCourse2"];
+	// if (isset($_POST["idCourse"]) && $_POST["idCourse"] == true) {
+	// 	$id=$_POST["idCourse2"];
 	// 	$_SESSION["idCourse"]=$id;
 	// 	$res="index.php?page=courses&view=courseDetails";
 	// 	echo($res);
 	//     exit;
 	// }
 
-	// if (isset($_GET["filtros"]) && $_GET["filtros"] == true) {
-	// 	$category=$_GET["category"];
+	// if (isset($_POST["filtros"]) && $_POST["filtros"] == true) {
+	// 	$category=$_POST["category"];
 	// 	$filtros=array(
 	// 		"category"=>$category,
 	// 		"lenguage"=>"",
@@ -96,10 +92,10 @@ class controller_homepage {
 	//     exit;
 	// }
 
-	// if ((isset($_GET["getCategorias"])) && ($_GET["getCategorias"] == true)) {  
+	// if ((isset($_POST["getCategorias"])) && ($_POST["getCategorias"] == true)) {  
 	// 	$json = array();
 
- //        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/homepage/model/model/';
+ //        
         
  //        $json = loadModel($path_model, "homepage_model", "obtain_category");  
  //    	echo ($json);

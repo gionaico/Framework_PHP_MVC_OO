@@ -1,20 +1,23 @@
 <?php
-// @session_start();
-// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
-// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/courses/utils/validaCourses.php");
-// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/upload.php");
+@session_start();
+
 class controller_courses {
 
-    function __construct() {
-        // include(UTILS_PRODUCTS . "utils.inc.php");
+    function __construct() {        
+        include(UTILS_COURSES . "validaCourses.php");
+        /* include(UTILS . "upload.php");*/
         $_SESSION['module'] = "courses";
 
     }
-    
-    
+        
+    function list_courses() {
+        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(COURSES_VIEW_PATH . "courses.html");
+        require_once(VIEW_PATH_INC . "footer.html");
+    }
 
     function getCoursesFiltrados(){
-        if (isset($_GET["getCoursesFiltrados"]) && $_GET["getCoursesFiltrados"] == true) {
+        if (isset($_POST["getCoursesFiltrados"]) && $_POST["getCoursesFiltrados"] == true) {
             if (!isset($_SESSION["filtros"])) {
                 $_SESSION["filtros"]=array(
                 "category"=>"",
@@ -23,14 +26,12 @@ class controller_courses {
             }
             $filtros=$_SESSION["filtros"];
 
-            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-            $evio_loadModel = loadModel($path_model, "course_model", "cursosFiltrados", $filtros);
+            
+            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "cursosFiltrados", $filtros);
             // echo($evio_loadModel);
             // exit;
             
-            $datos=cuentaPaginas($evio_loadModel);
-
-            
+            $datos=$this->cuentaPaginas($evio_loadModel);
 
             echo json_encode($datos);
             exit;
@@ -38,28 +39,29 @@ class controller_courses {
     }
 
     function upload(){
-        if ((isset($_GET["upload"])) && ($_GET["upload"] == true)) {
+        if ((isset($_POST["upload"])) && ($_POST["upload"] == true)) {
             $result_avatar = upload_files();
             $_SESSION['result_avatar'] = $result_avatar;
             //echo debug($_SESSION['result_avatar']); //se mostraría en alert(response); de dropzone.js
         }
     }
 
-    function resFiltros()()(){
-        if ((isset($_GET["resFiltros"])) && ($_GET["resFiltros"] == true)) {
+    function resFiltros(){
+        if ((isset($_POST["resFiltros"])) && ($_POST["resFiltros"] == true)) {
              $_SESSION["filtros"]=array(
                 "category"=>"",
                 "lenguage"=>"",
                 "level"=>""); 
+             echo"fff";
             exit;
         }
     }
 
     function autocomplete(){
-        if ((isset($_GET["autocomplete"])) && ($_GET["autocomplete"] == true)) {
+        if ((isset($_POST["autocomplete"])) && ($_POST["autocomplete"] == true)) {
 
-            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-            $evio_loadModel = loadModel($path_model, "course_model", "autocomplete");
+            
+            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "autocomplete");
 
             echo json_encode($evio_loadModel);
             exit;
@@ -67,13 +69,13 @@ class controller_courses {
     }
 
     function keyword(){
-        if ((isset($_GET["keyword"])) && ($_GET["keyword"] == true)) {
-            // echo ($_GET["key"]);
+        if ((isset($_POST["keyword"])) && ($_POST["keyword"] == true)) {
+            // echo ($_POST["key"]);
             // exit;
-            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-            $evio_loadModel = loadModel($path_model, "course_model", "keyword", $_GET["key"]);
+            
+            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "keyword", $_POST["key"]);
 
-            $datos=cuentaPaginas($evio_loadModel);        
+            $datos=$this->cuentaPaginas($evio_loadModel);        
 
             echo json_encode($datos);
             exit;
@@ -81,10 +83,10 @@ class controller_courses {
     }
 
     function coursetDetails(){
-        if ((isset($_GET["coursetDetails"])) && ($_GET["coursetDetails"] == true)) {
+        if ((isset($_POST["coursetDetails"])) && ($_POST["coursetDetails"] == true)) {
             $id=$_SESSION["idCourse"];
-            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
-            $evio_loadModel = loadModel($path_model, "course_model", "courseDetails", $id);
+            
+            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "courseDetails", $id);
 
             echo json_encode($evio_loadModel);
             exit;
@@ -99,7 +101,7 @@ class controller_courses {
     }
 
     function delete(){
-        if (isset($_GET["delete"]) && $_GET["delete"] == true) {
+        if (isset($_POST["delete"]) && $_POST["delete"] == true) {
             $_SESSION['result_avatar'] = array();
             $result = remove_file();
             if ($result === true) {
@@ -116,7 +118,7 @@ class controller_courses {
         }
     }
     //////////////////////////////////////////////////
-    function cuentaPaginas($array){
+    public function cuentaPaginas($array){
         $filas=count($array);
         $pages=ceil($filas/3);
         $datos=array(
@@ -141,8 +143,8 @@ class controller_courses {
             // echo ("string ".$result['resultado'].$result_avatar['resultado']);	
         if (($result['resultado'])&&($result_avatar['resultado'])) {     
             $result['datos']['avatar']=$result_avatar['datos'];
-            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';        
-            $evio_loadModel = loadModel($path_model, "course_model", "create_course", $result['datos']);
+                    
+            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "create_course", $result['datos']);
             // echo ($result['datos']);
             //  exit;
             if ($evio_loadModel){
@@ -179,7 +181,7 @@ class controller_courses {
     }
     /////////////////////////////////////////////////// load_data
     function loadData(){
-        if ((isset($_GET["load_data"])) && ($_GET["load_data"] == true)) {
+        if ((isset($_POST["load_data"])) && ($_POST["load_data"] == true)) {
             $jsondata = array();
 
             if (isset($_SESSION['curso'])) {
@@ -194,7 +196,7 @@ class controller_courses {
         }
     }
     /////////////////////////////////////////////////// 
-    // if ((isset($_GET["cursoCreado"])) && ($_GET["cursoCreado"] == true)) {
+    // if ((isset($_POST["cursoCreado"])) && ($_POST["cursoCreado"] == true)) {
     //     $curso=$_SESSION['cursoDet'];
     //     $curso['acceso']=true;
     //     echo json_encode($curso);
@@ -202,7 +204,7 @@ class controller_courses {
     // }
     /////////////////////////////////////////////////// load
     function load(){    
-        if (isset($_GET["load"]) && $_GET["load"] == true) {
+        if (isset($_POST["load"]) && $_POST["load"] == true) {
             $curso = array();
             if (isset($_SESSION['cursoDet'])) {
                 $curso=$_SESSION['cursoDet'];
@@ -223,13 +225,13 @@ class controller_courses {
 
     /////////////////////////////////////////////////// load_category
     function obtain_category() {
-        if(  (isset($_GET["load_category"])) && ($_GET["load_category"] == true)  ){
+        if(  (isset($_POST["load_category"])) && ($_POST["load_category"] == true)  ){
             // $jsondata = array();
             $json = array();
 
-            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
             
-            $json = loadModel($path_model, "course_model", "obtain_category");
+            
+            $json = loadModel(MODEL_COURSES, "course_model", "obtain_category");
             // echo($json);
             // exit;
             if($json){
@@ -246,14 +248,14 @@ class controller_courses {
 
     /////////////////////////////////////////////////// load_subCategory
     function obtain_subCategory() {
-        if(  (isset($_GET["load_subCategory"])) && ($_GET["load_subCategory"] == true)  ){
+        if(  (isset($_POST["load_subCategory"])) && ($_POST["load_subCategory"] == true)  ){
             // $jsondata = array();
             
             $json = array();
 
-            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/courses/model/model/';
             
-            $json = loadModel($path_model, "course_model", "obtain_subCategory");
+            
+            $json = loadModel(MODEL_COURSES, "course_model", "obtain_subCategory");
             // echo($json);
             // exit;
             if($json){
@@ -267,4 +269,4 @@ class controller_courses {
             }
         }
     }
-}
+}/*end class courses*/
