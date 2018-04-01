@@ -9,8 +9,12 @@ var pricePattern=/^[0-9]{1,3}([.][0-9]{1,2})?$/;
 
 // index.php?page=courses&view=courses
 $(document).ready(function () {
+
     $("#resetFiltros").click(function(event) {        
         irCourses();
+    });
+    $("#87").click(function(event) {        
+        window.location.href="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
     });
 
     
@@ -25,7 +29,7 @@ function irCourses(){
     $.post("../../courses/resFiltros",{"resFiltros":true},                    
      function (response) {
         console.log(response);
-        // window.location.href="index.php?page=courses&view=courses";                          
+        window.location.href="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";                          
      }).fail(function() {
         alert( "error f generales l-25" );
     });
@@ -36,8 +40,9 @@ function enviarInfoToContro(ulr, json) {
     $.post( ""+ulr+"", json,
         // {"idCourse2": id},
         function( response ) {
-            console.log(response);
-            // window.location.href=""+response+"";
+            c(response);
+            window.location.href=""+response+"";
+            
     })
     .fail(function(response) {
         c("fallo enviarInfoToContro fgenerales l42");
@@ -48,8 +53,8 @@ function enviarInfoToContro(ulr, json) {
 function courseDetalles(){
     $(".courseDetalles").click(function(event) {
             var id=this.getAttribute("id");
-            console.log(id);
-            enviarInfoToContro("module/homepage/controller/controller_homepage.php?idCourse=true&idCourse2=",  id);
+            c(id);
+            enviarInfoToContro("../../homepage/idCourse", {"idCourse":true, "idCourse2":id});
 
         });
 }
@@ -95,7 +100,7 @@ function creaCursos(json){
     div1_1.setAttribute("class", "singCourse_imgarea");
 
     var img=document.createElement("img");
-    img.setAttribute("src", ""+json.avatar+"");/////////////////////////////////////////////////
+    img.setAttribute("src", "../../"+json.avatar+"");/////////////////////////////////////////////////
     img.setAttribute("class", "mediana");
     var div1_1_1=document.createElement("div");
     div1_1_1.setAttribute("class", "mask");

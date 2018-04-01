@@ -89,7 +89,7 @@
               </button>
               <!-- LOGO -->
               <!-- TEXT BASED LOGO -->
-              <a class="navbar-brand" href="index.php">Libra <span>LearEasy</span></a>              
+              <a class="navbar-brand" href="<?php amigable('?module=homepage&function=homepage'); ?>">Libra <span>LearEasy</span></a>              
               <!-- IMG BASED LOGO  -->
                <!-- <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo"></a>  -->            
                      
@@ -97,7 +97,7 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
                 <li class="active"><a href="<?php amigable('?module=homepage&function=homepage'); ?>">Home</a></li>
-                <li><a href="<?php amigable('?module=courses&function=list_courses'); ?>" id="resetFiltros">Courses</a></li>
+                <li><a href="#" id="resetFiltros">Courses</a></li>
                 <li><a href="#">Scholarship</a></li>
                 <li><a href="#">Events</a></li>
                 <li><a href="index.php?page=gallery&view=gallery">Gallery</a></li>                
@@ -107,7 +107,8 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#">404 Page</a></li>
                     <li><a href="index.php?page=profile&view=profile">Link Two</a></li>
-                    <li><a href="<?php amigable('?module=courses&function=courseForm'); ?>">Link Three</a></li>               
+                    <li><a href="<?php amigable('?module=courses&function=courseForm'); ?>">Link Three</a></li>
+                    <li><a href="#" id="87">Link four</a></li>               
                   </ul>
                 </li>               
                 <li><a href="index.php?page=contact&view=contact">Contact</a></li>

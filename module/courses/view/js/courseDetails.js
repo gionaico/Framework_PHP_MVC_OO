@@ -1,10 +1,10 @@
 $(document).ready(function () {
-	$.get( "module/courses/controller/controller_courses.php?coursetDetails=true",
+	$.post( "../../courses/coursetDetails",{"coursetDetails":true},
         function( response ) {
         	var json = JSON.parse(response);
             console.log(json);
             var img=document.getElementById('img');
-            img.setAttribute("src", json[0].avatar);
+            img.setAttribute("src", "../../"+json[0].avatar+"");
             var title=document.getElementById('title');
             title.innerHTML=json[0].title;
             var detalles=document.getElementById('detalles');

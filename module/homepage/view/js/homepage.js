@@ -12,7 +12,7 @@ $(document).ready(function () {
     	limite2=limite2+3;
     	// console.log(v+"  "+limite1+" - "+limite2);
     	crearList(limite1, limite2, json);
-		// courseDetalles();
+		courseDetalles();
     
     });
 	/*-------------------------------------------------------------------------------------*/
@@ -38,7 +38,7 @@ $(document).ready(function () {
     	limite2=limite2+3;
 
 	    crearList(limite1, limite2, json);
-	    // courseDetalles();
+	    courseDetalles();
 	 }).fail(function() {
 	 	// console.log(window.location);
         alert( "error homepage/getCourses" );
@@ -94,7 +94,7 @@ function creaCategorias(json){
 	var div_3=document.createElement("div");
 	 div_3.setAttribute("class", "singCourse_imgarea");
 	var img=document.createElement("img");
-	 img.setAttribute("src", json.photoCategory);
+	 img.setAttribute("src", "../../"+json.photoCategory+"");
 	 img.setAttribute("class", "mediana");
 	var div_4=document.createElement("div");
 	 div_4.setAttribute("class", "mask");

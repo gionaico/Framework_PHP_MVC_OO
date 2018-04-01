@@ -9,6 +9,14 @@
         <uri>courseForm</uri>
     </function>
     <function>
+        <name>details</name>
+        <uri>details</uri>
+    </function>
+    <function>
+        <name>new_course</name>
+        <uri>new_course</uri>
+    </function>
+    <function>
         <name>courseVal</name>
         <uri>courseVal</uri>
     </function>

@@ -97,7 +97,7 @@ echo ($_FILES['file']['size']."  ".$nom_fitxer."  ".$tipus_fitxer."  ".$error_fi
                 return $return=array('resultado'=>false,'error'=>$error,'datos'=>"");
             }
             //We need edit $upfile because now i don't need absolute route.
-            $upfile ='media/products/'.$_SESSION['m_newfile'];
+            $upfile ='media/courses/'.$_SESSION['m_newfile'];
             return $return=array('resultado'=>true , 'error'=>$error,'datos'=>$upfile);
         }
         if($_FILES['file']['error'] !== 0) { //Assignarem a l'us default-avatar

@@ -22,6 +22,18 @@ class controller_courses {
         require_once(VIEW_PATH_INC . "footer.html");
     }
 
+    function details() {
+        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(COURSES_VIEW_PATH . "courseDetails.html");
+        require_once(VIEW_PATH_INC . "footer.html");
+    }
+
+    function new_course() {
+        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(COURSES_VIEW_PATH . "courseCreado.html");
+        require_once(VIEW_PATH_INC . "footer.html");
+    }
+
     function getCoursesFiltrados(){
         if (isset($_POST["getCoursesFiltrados"]) && $_POST["getCoursesFiltrados"] == true) {
             if (!isset($_SESSION["filtros"])) {
@@ -157,7 +169,7 @@ class controller_courses {
             if ($evio_loadModel){
                 $mensaje = "User has been successfull registered";
                 $jsondata["success"] = true;
-                $callback = "index.php?page=courses&view=courseCreado";
+                $callback = "http://localhost/Proyectos/GiovannyProy4/courses/new_course/";
                 $jsondata["redirect"] = $callback;
                 $_SESSION['cursoDet'] = $result['datos'];
             }else{

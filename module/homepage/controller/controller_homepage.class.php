@@ -32,7 +32,7 @@ class controller_homepage {
     	if (isset($_POST["idCourse"]) && $_POST["idCourse"] == true) {
 			$id=$_POST["idCourse2"];
 			$_SESSION["idCourse"]=$id;
-			$res="index.php?page=courses&view=courseDetails";
+			$res="http://localhost/Proyectos/GiovannyProy4/courses/details/";
 			echo($res);
 		    exit;
 		}
@@ -46,7 +46,7 @@ class controller_homepage {
 				"lenguage"=>"",
 				"level"=>"");
 			$_SESSION["filtros"]=$filtros;
-			$res="index.php?page=courses&view=courses";
+			$res="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
 			echo($res);
 		    exit;
 		}
