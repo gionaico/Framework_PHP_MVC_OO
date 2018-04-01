@@ -5,7 +5,7 @@ class controller_courses {
 
     function __construct() {        
         include(UTILS_COURSES . "validaCourses.php");
-        /* include(UTILS . "upload.php");*/
+         include(UTILS . "upload.php");
         $_SESSION['module'] = "courses";
 
     }
@@ -13,6 +13,12 @@ class controller_courses {
     function list_courses() {
         require_once(VIEW_PATH_INC . "header.html");     
         require_once(COURSES_VIEW_PATH . "courses.html");
+        require_once(VIEW_PATH_INC . "footer.html");
+    }
+
+    function courseForm() {
+        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(COURSES_VIEW_PATH . "courseForm.html");
         require_once(VIEW_PATH_INC . "footer.html");
     }
 
@@ -39,11 +45,11 @@ class controller_courses {
     }
 
     function upload(){
-        if ((isset($_POST["upload"])) && ($_POST["upload"] == true)) {
+        // if ((isset($_POST["upload"])) && ($_POST["upload"] == true)) {
             $result_avatar = upload_files();
             $_SESSION['result_avatar'] = $result_avatar;
             //echo debug($_SESSION['result_avatar']); //se mostraría en alert(response); de dropzone.js
-        }
+        // }
     }
 
     function resFiltros(){
@@ -94,14 +100,15 @@ class controller_courses {
     }
 
 
-    function courseJson(){
+    function courseVal(){
+        // echo "string";exit;
         if (isset($_POST['course_JSON'])) {	
-            alta_courses();    
-        }
+            $this->alta_courses();    
+        }else{echo "string";}
     }
 
     function delete(){
-        if (isset($_POST["delete"]) && $_POST["delete"] == true) {
+        // if (isset($_POST["delete"]) && $_POST["delete"] == true) {
             $_SESSION['result_avatar'] = array();
             $result = remove_file();
             if ($result === true) {
@@ -115,7 +122,7 @@ class controller_courses {
                 echo json_encode(array("res" => false));
                 exit;
             }
-        }
+        // }
     }
     //////////////////////////////////////////////////
     public function cuentaPaginas($array){
@@ -128,7 +135,7 @@ class controller_courses {
         return $datos; 
     }
 
-    function alta_courses() {
+    public function alta_courses() {
     	$jsondata = array();
         $coursesJSON = json_decode($_POST["course_JSON"], true);        
         $result = validate($coursesJSON);

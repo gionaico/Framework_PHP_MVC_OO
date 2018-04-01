@@ -29,7 +29,7 @@ $(document).ready(function () {
     });
     // var cad="resources/ListOfCategoryCourse.json"
     // load_categorya("resources/ListOfCategoryCourse.json");
-    load_category("module/courses/controller/controller_courses.php?load_category=true", "subject");
+    load_category("../../courses/obtain_category",{"load_category":true}, "subject");
     $("#subSubject").empty();
     $("#subSubject").append('<option value="" selected="selected">Select sub-subject</option>');
     $("#subSubject").prop('disabled', true);
@@ -43,7 +43,7 @@ $(document).ready(function () {
              $("#prueba2").empty();
         }else{
             prueba2.prop('disabled', false);             
-            load_subCategory("module/courses/controller/controller_courses.php?load_subCategory=true", prueba, "subSubject");
+            load_subCategory("../../courses/obtain_subCategory", {"load_subCategory":true},prueba, "subSubject");
             // load_subCategory("resources/ListOfSubcategoryCourse.json", prueba, "prueba2");
         }
         // console.log(prueba2);
@@ -52,7 +52,8 @@ $(document).ready(function () {
 
 
     $('#dropzone').dropzone({
-        url: "module/courses/controller/controller_courses.php?upload=true",
+        // url: "module/courses/controller/controller_courses.php?upload=true",
+        url: "../../courses/upload",
         addRemoveLinks: true,
         maxFileSize: 2000,
         dictResponseError: "Ha ocurrido un error en el server",
@@ -80,7 +81,7 @@ alert("Error en js subiendo el archivo " + file.name);
 
             $.ajax({
                 type: "POST",
-                url: "module/courses/controller/controller_courses.php?delete=true",
+                url: "../../courses/delete",
                 data: "filename=" + name,
                 success: function (data) {
                     $("#progress").hide();
@@ -209,8 +210,7 @@ function validaJS(){
     // var course_JSON = "JSON.stringify(dataCourse)";
     console.log(course_JSON);
 
-	$.post('module/courses/controller/controller_courses.php',
-	            {"course_JSON": course_JSON},
+	$.post('../../courses/courseVal',{"course_JSON": course_JSON},
 	function(response){
 			console.log(response);
             if (response.success) {
@@ -295,7 +295,7 @@ function validaJS(){
 
 
 function load_data() {
-     $.get("module/courses/controller/controller_courses.php?load_data=true",
+     $.post("../../courses/load_data", {"load_data":true},
           function(response){
             if(response.curso===""){
                 // console.log(1);

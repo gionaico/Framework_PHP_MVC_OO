@@ -21,7 +21,7 @@ function c(d){
 }
 
 function irCourses(){
-    
+
     $.post("../../courses/resFiltros",{"resFiltros":true},                    
      function (response) {
         console.log(response);
@@ -182,7 +182,7 @@ function load_countries_v1() {
 }
 
 function load_countries_v2(cad) {
-    $.postJSON( cad, function(data) {
+    $.getJSON( cad, function(data) {
       $("#country").empty();
       $("#country").append('<option value="" selected="selected">Select country</option>');
 
@@ -285,15 +285,16 @@ function load_cities_v1(prov) { //provinciasypoblaciones.xml - xpath
 }
 
 
-function load_category(ulr, id_etiqueta) { //provinciasypoblaciones.xml - xpath
-    $.post( ""+ulr+"",
+function load_category(url, json, id_etiqueta) { //provinciasypoblaciones.xml - xpath
+    // console.log(json);
+    $.post( ""+url+"", json,
         function( response ) {            
             $("#"+id_etiqueta+"").empty();
             $("#"+id_etiqueta+"").append('<option value="" selected="selected">Select '+id_etiqueta+'</option>');
             // console.log(response);
             if(response == 'error'){
                 // console.log("dfgljdfkjgh");
-                load_category_B(ulr, id_etiqueta);
+                load_category_B(url, id_etiqueta);
             }else{
                 var json = JSON.parse(response);
                 // console.log(json);
@@ -308,7 +309,7 @@ function load_category(ulr, id_etiqueta) { //provinciasypoblaciones.xml - xpath
             }
     })
     .fail(function(response) {
-        load_category_B(ulr, id_etiqueta);
+        load_category_B(url, id_etiqueta);
     });
  }
 
@@ -331,9 +332,9 @@ function load_category_B(ulr, id_etiqueta) {
     });
 }
 
-function load_subCategory(ulr, valueSelectAnterior, id_etiqueta) {
+function load_subCategory(ulr, json, valueSelectAnterior, id_etiqueta) {
     // console.log(ulr);
-     $.post( ""+ulr+"",
+     $.post( ""+ulr+"", json,
         function( response ) {            
             // console.log(response);
             $("#"+id_etiqueta+"").empty();

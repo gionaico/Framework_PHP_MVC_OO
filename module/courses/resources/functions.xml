@@ -5,6 +5,14 @@
         <uri>list_courses</uri>
     </function>
     <function>
+        <name>courseForm</name>
+        <uri>courseForm</uri>
+    </function>
+    <function>
+        <name>courseVal</name>
+        <uri>courseVal</uri>
+    </function>
+    <function>
         <name>getCoursesFiltrados</name>
         <uri>getCoursesFiltrados</uri>
     </function>

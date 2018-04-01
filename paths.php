@@ -15,6 +15,10 @@ define('CSS_PATH', SITE_PATH . 'view/css/');
 //JS
 define('JS_PATH', SITE_PATH . 'view/js/');
 
+/*DROPZONE*/
+define('JS_DROPZONE', SITE_PATH . 'view/dropzone/downloads/');
+define('CSS_DROPZONE', SITE_PATH . 'view/dropzone/downloads/css/');
+
 //IMG
 define('IMG_PATH', SITE_PATH . 'view/img/');
 

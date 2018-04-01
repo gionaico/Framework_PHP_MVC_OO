@@ -47,7 +47,7 @@
     <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>    
     
     <!-- Dropzone -->
-    <link rel="stylesheet" type="text/css" href="view/dropzone/downloads/css/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_DROPZONE ?>dropzone.css">
     
     
     <!-- Datepicker CSS -->
@@ -107,7 +107,7 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#">404 Page</a></li>
                     <li><a href="index.php?page=profile&view=profile">Link Two</a></li>
-                    <li><a href="index.php?page=courses&view=courseForm">Link Three</a></li>               
+                    <li><a href="<?php amigable('?module=courses&function=courseForm'); ?>">Link Three</a></li>               
                   </ul>
                 </li>               
                 <li><a href="index.php?page=contact&view=contact">Contact</a></li>
