@@ -1,5 +1,5 @@
 <?php
-    class Db {
+    class db {
         private $servidor;
         private $usuario;
         private $password;
@@ -15,7 +15,7 @@
         }
     
         private function setConexion() {
-            require_once 'Conf.class.singleton.php';
+            require_once 'conf.class.singleton.php';
             $conf = Conf::getInstance();
             /*
             $this->servidor = $conf->getHostDB();

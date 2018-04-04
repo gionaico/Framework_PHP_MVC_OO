@@ -3,18 +3,18 @@
 //exit;
 
 
-require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/model/Db.class.singleton.php");
-require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/module/courses/model/DAO/course_dao.class.singleton.php");
+// require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/model/db.class.singleton.php");
+// require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/module/courses/model/DAO/courses_dao.class.singleton.php");
 
-class course_bll{
+class courses_bll{
    
     private $dao;
     private $db;
     static $_instance;
 
     private function __construct() {
-        $this->dao = courseDAO::getInstance();
-        $this->db = Db::getInstance();
+        $this->dao = courses_dao::getInstance();
+        $this->db = db::getInstance();
     }
 
     public static function getInstance() {

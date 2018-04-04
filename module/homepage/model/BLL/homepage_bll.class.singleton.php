@@ -3,8 +3,8 @@
 //exit;
 
 
-require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/model/Db.class.singleton.php");
-require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/module/homepage/model/DAO/homepage_dao.class.singleton.php");
+// require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/model/db.class.singleton.php");
+// require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/module/homepage/model/DAO/homepage_dao.class.singleton.php");
 
 class homepage_bll{
     private $dao;
@@ -12,8 +12,8 @@ class homepage_bll{
     static $_instance;
 
     private function __construct() {
-        $this->dao = homepageDAO::getInstance();
-        $this->db = Db::getInstance();
+        $this->dao = homepage_dao::getInstance();
+        $this->db = db::getInstance();
     }
 
     public static function getInstance() {

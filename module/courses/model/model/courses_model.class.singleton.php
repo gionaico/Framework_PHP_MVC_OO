@@ -3,14 +3,14 @@
 //exit;
 // $path = $_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/';
 // define('SITE_ROOT', $path);
-require($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/courses/model/BLL/course_bll.class.singleton.php");
+// require($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/courses/model/BLL/courses_bll.class.singleton.php");
 
-class course_model {
+class courses_model {
     private $bll;
     static $_instance;
 
     private function __construct() {
-        $this->bll = course_bll::getInstance();
+        $this->bll = courses_bll::getInstance();
     }
 
     public static function getInstance() {

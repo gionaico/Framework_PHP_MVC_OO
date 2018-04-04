@@ -45,7 +45,7 @@ class controller_courses {
             $filtros=$_SESSION["filtros"];
 
             
-            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "cursosFiltrados", $filtros);
+            $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "cursosFiltrados", $filtros);
             // echo($evio_loadModel);
             // exit;
             
@@ -79,7 +79,7 @@ class controller_courses {
         if ((isset($_POST["autocomplete"])) && ($_POST["autocomplete"] == true)) {
 
             
-            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "autocomplete");
+            $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "autocomplete");
 
             echo json_encode($evio_loadModel);
             exit;
@@ -91,7 +91,7 @@ class controller_courses {
             // echo ($_POST["key"]);
             // exit;
             
-            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "keyword", $_POST["key"]);
+            $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "keyword", $_POST["key"]);
 
             $datos=$this->cuentaPaginas($evio_loadModel);        
 
@@ -104,7 +104,7 @@ class controller_courses {
         if ((isset($_POST["coursetDetails"])) && ($_POST["coursetDetails"] == true)) {
             $id=$_SESSION["idCourse"];
             
-            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "courseDetails", $id);
+            $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "courseDetails", $id);
 
             echo json_encode($evio_loadModel);
             exit;
@@ -163,7 +163,7 @@ class controller_courses {
         if (($result['resultado'])&&($result_avatar['resultado'])) {     
             $result['datos']['avatar']=$result_avatar['datos'];
                     
-            $evio_loadModel = loadModel(MODEL_COURSES, "course_model", "create_course", $result['datos']);
+            $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "create_course", $result['datos']);
             // echo ($result['datos']);
             //  exit;
             if ($evio_loadModel){
@@ -250,7 +250,7 @@ class controller_courses {
 
             
             
-            $json = loadModel(MODEL_COURSES, "course_model", "obtain_category");
+            $json = loadModel(MODEL_COURSES, "courses_model", "obtain_category");
             // echo($json);
             // exit;
             if($json){
@@ -274,7 +274,7 @@ class controller_courses {
 
             
             
-            $json = loadModel(MODEL_COURSES, "course_model", "obtain_subCategory");
+            $json = loadModel(MODEL_COURSES, "courses_model", "obtain_subCategory");
             // echo($json);
             // exit;
             if($json){

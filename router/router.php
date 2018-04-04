@@ -30,7 +30,7 @@ function handlerRouter() {
     if (!empty($_GET['function'])) {
         $URI_function = $_GET['function'];
     } else {
-        $URI_module = 'homepage';
+        $URI_function = 'homepage';
     }
     // echo "<script>console.log( 'Debug Objects: router.php 35" . $URI_function . "' );</script>";
     handlerModule($URI_module, $URI_function);

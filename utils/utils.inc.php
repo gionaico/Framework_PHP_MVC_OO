@@ -8,6 +8,9 @@ function debugPHP($array) {
 function redirect($url) {
     die('<script>window.location.href="' . $url . '";</script>');
 }
+function col($url) {
+    die('<script>console.log("' . $url . '");</script>');
+}
 
 function close_session() {
     $_SESSION = array(); // Destruye todas las variables de la sesión

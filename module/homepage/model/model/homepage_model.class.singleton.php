@@ -3,7 +3,7 @@
 //exit;
 // $path = $_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/';
 // define('SITE_ROOT', $path);
-require($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/homepage/model/BLL/homepage_bll.class.singleton.php");
+// require($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/homepage/model/BLL/homepage_bll.class.singleton.php");
 
 class homepage_model {
     private $bll;
