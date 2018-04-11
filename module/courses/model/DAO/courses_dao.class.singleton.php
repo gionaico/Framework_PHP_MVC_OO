@@ -79,7 +79,9 @@ class courses_dao {
         $sql = "SELECT * FROM courses";
         return $db->listar($db->ejecutar($sql));
     }
+
     public function keyword_DAO($db, $arrArgument) {
+
         $sql = "SELECT * FROM courses WHERE title LIKE '%".$arrArgument."%'";
         // echo ($sql);
         // exit;
@@ -101,6 +103,10 @@ class courses_dao {
         }
         if ($arrArgument["lenguage"]!="") {
             $cadWhere[$indice]="lenguage='".$arrArgument["lenguage"]."'";
+            $indice++;
+        }
+        if ($arrArgument["title"]!="") {
+            $cadWhere[$indice]="title LIKE '%".$arrArgument["title"]."%'";
             $indice++;
         }
 

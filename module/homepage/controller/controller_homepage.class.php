@@ -9,10 +9,8 @@ class controller_homepage {
 
     function homepage() {
         require_once(VIEW_PATH_INC . "header.html");
-        // require_once(VIEW_PATH_INC . "menu.html");
+        require_once(VIEW_PATH_INC . "menu.html");        
         loadView('module/homepage/view/', 'homepage.html');
-        // require_once(MODULES_PATH.'homepage/view/homepage.html');
-// echo "<script>console.log( 'Debug Objects: controller_homepage' );</script>";
 
         require_once(VIEW_PATH_INC . "footer.html");
     }

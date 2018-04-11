@@ -13,12 +13,81 @@ $(document).ready(function () {
     $("#resetFiltros").click(function(event) {        
         irCourses();
     });
+    
     $("#87").click(function(event) {        
         window.location.href="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
     });
 
+    $("#search_prod").submit(function(event) {
+        event.preventDefault(); //evita la redireccion         
+        empezarBusqueda();
+    });
+
+    $("#Submit").click(function(event) {        
+        empezarBusqueda();
+    });
     
 });//end document ready
+
+
+function autocomplete(json){
+    $.post("../../courses/autocomplete",{"autocomplete":true},
+        
+     function (response) {
+        // console.log(JSON.parse(response));
+        var json=JSON.parse(response);
+        
+        var suggestions = new Array();
+        for (var i = 0; i < json.length; i++) {
+            suggestions.push(json[i].title);
+        }
+
+        $("#keyword").autocomplete({
+            source: suggestions,
+            minLength: 1,
+            select: function (event, ui) {//al hacer click o enter sobre uno comcreto
+                // console.log(ui.item.label);
+                var keyword = ui.item.label;
+                // console.log(keyword);
+                fun_keyword(keyword);
+                
+            }
+        });  
+        
+     }).fail(function() {
+        c( "error generalfunctions.js autocomplete" );
+    });
+
+}
+
+function empezarBusqueda(){
+    var ele_keyword=document.getElementById('keyword').value;
+        // c(ele_keyword);
+    fun_keyword(ele_keyword);
+}
+
+function fun_keyword(keywo){
+    $.post("../../courses/keyword", {"keyword":true, "key":keywo},
+        
+     function (response) {
+        console.log(response);
+        var json=JSON.parse(response);
+        console.log(json.filas);
+        var l1=0;
+        var l2=3;
+        // crearList(l1, l2, cursosfil.datos);
+        if (window.location=="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/") {
+            paginar(json.pages, json.datos);
+        }else if (window.location=="http://localhost/Proyectos/GiovannyProy4/homepage/homepage/"){
+            window.location.href="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
+
+        }
+          
+        
+     }).fail(function() {
+        c( "error generalfunctions.js fun_keyword" );
+    });
+}
 
 function c(d){
     console.log(d);

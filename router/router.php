@@ -21,6 +21,13 @@ session_start();
 $_SESSION['module'] = "";
 
 function handlerRouter() {
+    /*---------------------------*/
+    if ((empty($_GET['module']))&&(empty($_GET['function']))) {        
+        header("Location: http://localhost/Proyectos/GiovannyProy4/homepage/homepage/"); 
+    }
+    /*---------------------------*/
+
+
     if (!empty($_GET['module'])) {
         $URI_module = $_GET['module'];
     } else {
@@ -33,6 +40,7 @@ function handlerRouter() {
         $URI_function = 'homepage';
     }
     // echo "<script>console.log( 'Debug Objects: router.php 35" . $URI_function . "' );</script>";
+     
     handlerModule($URI_module, $URI_function);
 }
 
@@ -49,7 +57,7 @@ function handlerModule($URI_module, $URI_function) {
       
 
             if (file_exists($path)) {
-                 // echo "<script>console.log( 'Debug Objects: router.php 52" . $URI_function . "' );</script>";
+                 // echo "<script>console.log( 'Debug Objects: router.php 52" . $path . "' );</script>";
                 require_once($path);
 
                 $controllerClass = "controller_" . $URI_module;
@@ -83,10 +91,11 @@ function handlerFunction($module, $obj, $URI_function) {
         if (($URI_function === (String) $function->uri)) {
             $exist = true;
             $event = (String) $function->name;
+
             break;
         }
     }
-// echo "<script>console.log( 'Debug Objects: router.php 52  " . $event . "' );</script>";
+// echo "<script>console.log( 'Debug Objects: router.php 89  " . $event . "' );</script>";
     if (!$exist) {
         //die($URI_function . ' - Funci&oacute;n no encontrada');
         require_once(VIEW_PATH_INC . "header.html");

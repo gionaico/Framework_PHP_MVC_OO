@@ -47,6 +47,21 @@
        <!-- Our courses titile -->
         <div class="row">
           <div class="col-lg-12 col-md-12"> 
+            <!-- ................. start search ................. -->
+            <center>
+              <form name="search_prod" id="search_prod" class="search_prod">
+                  <input type="text" value="" placeholder="Search Course ..." class="input_search" id="keyword" list="datalist">
+                  <!-- <div id="results_keyword"></div> -->                  
+                  <button name="Submit" id="Submit" class="button_search" type="button">Search</button>
+                   
+              </form>
+            </center>
+            <!-- ................. end search ................. -->
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             <div class="title_area">
               <h2 class="title_two">Cursos mejor valorados</h2>
               <span></span> 
@@ -58,85 +73,7 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="ourCourse_content" id="div_listCou">
-             
-              <!-- <ul class="course_nav">
-                <li>
-                  <div class="single_course">
-                    
-                    <div class="singCourse_imgarea">
-                      <img src="<?php echo IMG_PATH ?>course-1.jpg" />
-                      <div class="mask">                         
-                        <a href="#" class="course_more">View Course</a>
-                      </div>
-                    </div>
 
-                    <div class="singCourse_content">
-                      <h3 class="singCourse_title">
-                          <a href="#">Introduction To Matrix</a>
-                      </h3>
-                      <p class="singCourse_price">
-                        <span>$20</span> Per One Month
-                      </p>
-                      <p>when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    </div>
-
-                    <div class="singCourse_author">
-                      <img src="<?php echo IMG_PATH ?>course-1.jpg" alt="img">
-                      <p>Richard Remus, Teacher</p>
-                    </div>
-
-                  </div>
-                </li>
-
-                <li>
-                  <div class="single_course">
-                    <div class="singCourse_imgarea">
-                      <img src="<?php echo IMG_PATH ?>course-2.jpg" />
-                      <div class="mask">                         
-                        <a href="#" class="course_more">View Course</a>
-                      </div>
-                    </div>
-                    <div class="singCourse_content">
-                      <h3 class="singCourse_title">
-                          <a href="#">Introduction To Matrix</a>
-                      </h3>
-                      <p class="singCourse_price">
-                        <span>$20</span> Per One Month
-                      </p>
-                      <p>when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    </div>
-                    <div class="singCourse_author">
-                      <img src="<?php echo IMG_PATH ?>author.jpg" alt="img">
-                      <p>Richard Remus, Teacher</p>
-                    </div>
-                  </div>
-                </li>
-
-                <li>
-                  <div class="single_course">
-                    <div class="singCourse_imgarea">
-                      <img src="<?php echo IMG_PATH ?>course-1.jpg" />
-                      <div class="mask">                         
-                        <a href="#" class="course_more">View Course</a>
-                      </div>
-                    </div>
-                    <div class="singCourse_content">
-                      <h3 class="singCourse_title">
-                          <a href="#">Introduction To Matrix</a>
-                      </h3>
-                      <p class="singCourse_price">
-                        <span>$20</span> Per One Month
-                      </p>
-                      <p>when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
-                    </div>
-                    <div class="singCourse_author">
-                      <img src="<?php echo IMG_PATH ?>author.jpg" alt="img">
-                      <p>Richard Remus, Teacher</p>
-                    </div>
-                  </div>
-                </li>                   
-
-              </ul> -->
             </div><!-- end div ourCourse_content -->
           </div>
         </div><!-- end div row -->
@@ -177,88 +114,6 @@
             <div class="ourCourse_content" id="">
              
               <div class="course_nav" id="categories">
-
-              <!--   <div class="col-md-4 margin">
-                  <div class="single_course">
-                    
-                    <div class="singCourse_imgarea">
-                      <img src="<?php echo IMG_PATH ?>course-1.jpg" />
-                      <div class="mask">                         
-                        <a href="#" class="course_more">View Course</a>
-                      </div>
-                    </div>
-
-                    <div class="singCourse_content">
-                      <h3 class="">
-                          <a href="#">Introduction To Matrix</a>
-                      </h3>                      
-                    </div>
-
-                  </div>
-                </div>
-
-                <div class="col-md-4 margin">
-                  <div class="single_course">
-                    
-                    <div class="singCourse_imgarea">
-                      <img src="<?php echo IMG_PATH ?>course-1.jpg" />
-                      <div class="mask">                         
-                        <a href="#" class="course_more">View Course</a>
-                      </div>
-                    </div>
-
-                    <div class="singCourse_content">
-                      <h3 class="">
-                          <a href="#">Introduction To Matrix</a>
-                      </h3>                      
-                    </div>
-                                      
-                  </div>
-                </div>
-
-                <div class="col-md-4 margin">
-                  <div class="single_course">
-                    
-                    <div class="singCourse_imgarea">
-                      <img src="<?php echo IMG_PATH ?>course-1.jpg" />
-                      <div class="mask">                         
-                        <a href="#" class="course_more">View Course</a>
-                      </div>
-                    </div>
-
-                    <div class="singCourse_content">
-                      <h3 class="">
-                          <a href="#">Introduction To Matrix</a>
-                      </h3>                      
-                    </div>
-                                      
-                  </div>
-                </div> 
-
-             
-
-              
-              
-                <div class="col-md-4 margin">
-                  <div class="single_course ">
-                    
-                    <div class="singCourse_imgarea">
-                      <img src="<?php echo IMG_PATH ?>course-1.jpg" />
-                      <div class="mask">                         
-                        <a href="#" class="course_more">View Course</a>
-                      </div>
-                    </div>
-
-                    <div class="singCourse_content">
-                      <h3 class="">
-                          <a href="#">Introduction To Matrix</a>
-                      </h3>                      
-                    </div>
-                                      
-                  </div>
-                </div>  -->
-
-
 
               </div>
             </div><!-- end div ourCourse_content -->

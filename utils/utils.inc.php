@@ -37,3 +37,12 @@ function amigable($url,   $return = false) {
     echo SITE_PATH . $link;
 }
 
+function saberModule($moduleName){
+
+    if($_GET['module'] === $moduleName)      
+        echo 'active';        
+    else   
+        echo 'deactivate';
+                
+}
+

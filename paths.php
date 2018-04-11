@@ -47,6 +47,8 @@ define('DAO_COURSES', SITE_ROOT . 'module/courses/model/DAO/');
 define('BLL_COURSES', SITE_ROOT . 'module/courses/model/BLL/');
 define('MODEL_COURSES', SITE_ROOT . 'module/courses/model/model/');
 
+
+
 //model homepage
 define('UTILS_HOMEPAGE', SITE_ROOT . 'module/homepage/utils/');
 define('HOMEPAGE_JS_PATH', SITE_PATH . 'module/homepage/view/js/');

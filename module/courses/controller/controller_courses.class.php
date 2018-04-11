@@ -11,25 +11,29 @@ class controller_courses {
     }
         
     function list_courses() {
-        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(VIEW_PATH_INC . "header.html");
+        require_once(VIEW_PATH_INC . "menu.html");     
         require_once(COURSES_VIEW_PATH . "courses.html");
         require_once(VIEW_PATH_INC . "footer.html");
     }
 
     function courseForm() {
-        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(VIEW_PATH_INC . "header.html");
+        require_once(VIEW_PATH_INC . "menu.html");     
         require_once(COURSES_VIEW_PATH . "courseForm.html");
         require_once(VIEW_PATH_INC . "footer.html");
     }
 
     function details() {
-        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(VIEW_PATH_INC . "header.html");
+        require_once(VIEW_PATH_INC . "menu.html");     
         require_once(COURSES_VIEW_PATH . "courseDetails.html");
         require_once(VIEW_PATH_INC . "footer.html");
     }
 
     function new_course() {
-        require_once(VIEW_PATH_INC . "header.html");     
+        require_once(VIEW_PATH_INC . "header.html");
+        require_once(VIEW_PATH_INC . "menu.html");     
         require_once(COURSES_VIEW_PATH . "courseCreado.html");
         require_once(VIEW_PATH_INC . "footer.html");
     }
@@ -69,8 +73,10 @@ class controller_courses {
              $_SESSION["filtros"]=array(
                 "category"=>"",
                 "lenguage"=>"",
-                "level"=>""); 
-             echo"fff";
+                "level"=>"",
+                "title"=>"",
+                "price"=>""); 
+             echo"";
             exit;
         }
     }
@@ -90,6 +96,7 @@ class controller_courses {
         if ((isset($_POST["keyword"])) && ($_POST["keyword"] == true)) {
             // echo ($_POST["key"]);
             // exit;
+            $_SESSION["filtros"]["title"]=$_POST["key"];
             
             $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "keyword", $_POST["key"]);
 

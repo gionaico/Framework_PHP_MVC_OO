@@ -1,11 +1,12 @@
 $(document).ready(function () {
-	
+	// console.log(window.location);
     /* **********************************************************************
     Este js utiliza funciones declaradas en un archivo para toda la aplicacion en la ruta
      view/js/generalFunctions.js
 	**************************************************************************
      */
-
+    autocomplete();
+    
     $("#viewMore").click(function(event) {
     	v++;
     	limite1=limite2;
