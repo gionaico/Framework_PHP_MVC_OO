@@ -6,7 +6,7 @@ define('SITE_ROOT', $path);
 
 //SITE_PATH
 // define('SITE_PATH', 'https://' . $_SERVER['HTTP_HOST'] . "/Proyectos/GiovannyProy4/");
-define('SITE_PATH', '//' . $_SERVER['HTTP_HOST'] . "/Proyectos/GiovannyProy4/");
+define('SITE_PATH', 'http://' . $_SERVER['HTTP_HOST'] . "/Proyectos/GiovannyProy4/");
 
 define('PRODUCTION', true);
 //CSS

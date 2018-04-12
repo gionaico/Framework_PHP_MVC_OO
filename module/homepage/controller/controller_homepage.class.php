@@ -39,11 +39,15 @@ class controller_homepage {
     function filtros(){
     	if (isset($_POST["filtros"]) && $_POST["filtros"] == true) {
 			$category=$_POST["category"];
-			$filtros=array(
-				"category"=>$category,
-				"lenguage"=>"",
-				"level"=>"");
-			$_SESSION["filtros"]=$filtros;
+			$_SESSION["filtros"]=array(
+                "category"=>$category,
+                "lenguage"=>"",
+                "level"=>"",
+                "title"=>"",
+                "price"=>"",
+                "subject"=>"",
+                "sub_subject"=>"");
+			
 			$res="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
 			echo($res);
 		    exit;

@@ -5,6 +5,10 @@
         <uri>list_courses</uri>
     </function>
     <function>
+        <name>cambiarFiltros</name>
+        <uri>cambiarFiltros</uri>
+    </function>
+    <function>
         <name>courseForm</name>
         <uri>courseForm</uri>
     </function>

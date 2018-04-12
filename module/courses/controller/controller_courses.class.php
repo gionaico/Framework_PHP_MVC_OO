@@ -7,7 +7,6 @@ class controller_courses {
         include(UTILS_COURSES . "validaCourses.php");
          include(UTILS . "upload.php");
         $_SESSION['module'] = "courses";
-
     }
         
     function list_courses() {
@@ -40,43 +39,70 @@ class controller_courses {
 
     function getCoursesFiltrados(){
         if (isset($_POST["getCoursesFiltrados"]) && $_POST["getCoursesFiltrados"] == true) {
-            if (!isset($_SESSION["filtros"])) {
-                $_SESSION["filtros"]=array(
-                "category"=>"",
-                "lenguage"=>"",
-                "level"=>"");   
-            }
-            $filtros=$_SESSION["filtros"];
 
-            
-            $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "cursosFiltrados", $filtros);
-            // echo($evio_loadModel);
-            // exit;
-            
-            $datos=$this->cuentaPaginas($evio_loadModel);
+            $cursos=$this->consultaFiltrada();
 
-            echo json_encode($datos);
+            echo json_encode($cursos);
             exit;
         }
     }
 
-    function upload(){
-        // if ((isset($_POST["upload"])) && ($_POST["upload"] == true)) {
-            $result_avatar = upload_files();
-            $_SESSION['result_avatar'] = $result_avatar;
-            //echo debug($_SESSION['result_avatar']); //se mostraría en alert(response); de dropzone.js
-        // }
+    function upload(){        
+        $result_avatar = upload_files();
+        $_SESSION['result_avatar'] = $result_avatar;            
     }
 
-    function resFiltros(){
-        if ((isset($_POST["resFiltros"])) && ($_POST["resFiltros"] == true)) {
-             $_SESSION["filtros"]=array(
+    public function consultaFiltrada(){
+        if (!isset($_SESSION["filtros"])) {
+                $this->arrayFiltros();  
+            }
+
+        $filtros=$_SESSION["filtros"];
+        
+        $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "cursosFiltrados", $filtros);
+        
+        $datos=$this->cuentaPaginas($evio_loadModel);
+        return $datos;
+    }
+
+    function cambiarFiltros(){   
+        $datosFil=json_decode($_POST["datosFiltros"], true);
+        $this->EditArrayFiltros($datosFil);
+        
+        $cursos=$this->consultaFiltrada();
+        echo json_encode($cursos);
+        exit;       
+    }
+
+    public function arrayFiltros(){        
+        $_SESSION["filtros"]=array(
                 "category"=>"",
                 "lenguage"=>"",
                 "level"=>"",
                 "title"=>"",
-                "price"=>""); 
-             echo"";
+                "price"=>"",
+                "sub_subject"=>"");            
+    }
+
+    public function EditArrayFiltros($datosFil){
+        foreach($datosFil as $tipoFiltro=>$valorFiltro){
+            if ($valorFiltro!="") {
+                if ($valorFiltro==="all") {
+                    $_SESSION["filtros"]["".$tipoFiltro.""]="";
+                }else{
+                    $_SESSION["filtros"]["".$tipoFiltro.""]=$valorFiltro;                                  
+                }
+            }
+        }            
+    }
+
+
+    function resFiltros(){
+        if ((isset($_POST["resFiltros"])) && ($_POST["resFiltros"] == true)) {
+             
+             $this->arrayFiltros();
+            
+            echo"";
             exit;
         }
     }
@@ -94,8 +120,7 @@ class controller_courses {
 
     function keyword(){
         if ((isset($_POST["keyword"])) && ($_POST["keyword"] == true)) {
-            // echo ($_POST["key"]);
-            // exit;
+
             $_SESSION["filtros"]["title"]=$_POST["key"];
             
             $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "keyword", $_POST["key"]);
@@ -127,22 +152,17 @@ class controller_courses {
     }
 
     function delete(){
-        // if (isset($_POST["delete"]) && $_POST["delete"] == true) {
-            $_SESSION['result_avatar'] = array();
-            $result = remove_file();
-            if ($result === true) {
-                //echo("true");
-                //exit;
-                echo json_encode(array("res" => true));
-                exit;
-            } else {
-                //echo("false");
-                //exit;
-                echo json_encode(array("res" => false));
-                exit;
-            }
-        // }
+        $_SESSION['result_avatar'] = array();
+        $result = remove_file();
+        if ($result === true) {
+            echo json_encode(array("res" => true));
+            exit;
+        } else {
+            echo json_encode(array("res" => false));
+            exit;
+        }    
     }
+
     //////////////////////////////////////////////////
     public function cuentaPaginas($array){
         $filas=count($array);

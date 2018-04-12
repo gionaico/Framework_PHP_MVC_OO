@@ -370,6 +370,10 @@ function load_category(url, json, id_etiqueta) { //provinciasypoblaciones.xml - 
                 // console.log("dfgljdfkjgh");
                 load_category_B(url, id_etiqueta);
             }else{
+                var loc="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
+                if(window.location==loc){
+                    $("#"+id_etiqueta+"").append("<option value='all'>All categories</option>");
+                }
                 var json = JSON.parse(response);
                 // console.log(json);
                 // console.log(json.length);
@@ -393,6 +397,10 @@ function load_category_B(ulr, id_etiqueta) {
       $("#"+id_etiqueta+"").append('<option value="" selected="selected">Select prueba</option>');
       // console.log(data);
       var type="";
+        var loc="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
+        if(window.location==loc){
+            $("#"+id_etiqueta+"").append("<option value='all'>All categories</option>");
+        }
       $.each(data, function (i, valor) {
         if (valor.type!=type) {
             type=valor.type;
@@ -418,6 +426,10 @@ function load_subCategory(ulr, json, valueSelectAnterior, id_etiqueta) {
                 // console.log("dfgljdfkjgh");
                 // load_category_B(ulr, id_etiqueta);
             }else{
+                var loc="http://localhost/Proyectos/GiovannyProy4/courses/list_courses/";
+                if(window.location==loc){
+                    $("#"+id_etiqueta+"").append("<option value='all'>All sub-categories</option>");
+                }
                 var json = JSON.parse(response);
                 // console.log(json);
                 // console.log(json.length);
