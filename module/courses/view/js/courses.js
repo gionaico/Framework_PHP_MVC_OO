@@ -94,6 +94,8 @@ function restPaginacion(response){
 			var l1=0;
 			var l2=3;
 			// crearList(l1, l2, cursosfil.datos);
+			// $('#keyword').attr('value', ''+cursosfil.datos.title+'');
+			
 	     	paginar(cursosfil.pages, cursosfil.datos);
      	}else{
      		$("#div_listCou").html("<br /><br /><br /><p><center><strong>Sin resultados. <br />Por favor cambie los filtros</strong></center></p>")
@@ -106,6 +108,8 @@ function traerCursos(){
      function (response) {
      	console.log(response);
      	// console.log(JSON.parse(response).length);
+     	/*var elemento=document.getElementById('keyword');*/
+
      	restPaginacion(response);
      	
 	 }).fail(function() {

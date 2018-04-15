@@ -1,4 +1,6 @@
-    <!--=========== BEGIN COURSE BANNER SECTION ================-->
+    <script src="<?php echo CONTACT_LIB_PATH; ?>jquery.validate.min.js"></script>
+    <script src="<?php echo CONTACT_JS_PATH; ?>contact.js"></script>
+    <!--=========== BEGIN COURSE BANNER SECTION ================-->    
     <section id="imgBanner">
       <h2>Contact</h2>
     </section>
@@ -19,13 +21,16 @@
        <div class="row">
          <div class="col-lg-8 col-md-8 col-sm-8">
            <div class="contact_form wow fadeInLeft">
-              <form class="submitphoto_form">
-                <input type="text" class="wp-form-control wpcf7-text" placeholder="Your name">
-                <input type="mail" class="wp-form-control wpcf7-email" placeholder="Email address">          
-                <input type="text" class="wp-form-control wpcf7-text" placeholder="Subject">
-                <textarea class="wp-form-control wpcf7-textarea" cols="30" rows="10" placeholder="What would you like to tell us"></textarea>
-                <input type="submit" value="Submit" class="wpcf7-submit">
-                
+              <form id="contact_form" class="submitphoto_form">
+                <input id="inputName" name="inputName" type="text" class="f_cont wp-form-control wpcf7-text" placeholder="Your name">
+                <input type="mail" id="inputEmail" name="inputEmail" class="f_cont wp-form-control wpcf7-email" placeholder="Email address">          
+                <input id="inputSubject" name="inputSubject" type="text" class="f_cont wp-form-control wpcf7-text" placeholder="Subject">
+                <textarea id="inputMessage" name="inputMessage" class="f_cont wp-form-control wpcf7-textarea" cols="30" rows="10" placeholder="What would you like to tell us"></textarea>
+                <input type="hidden" name="token" value="contact_form" />
+                <input name="submit" id="submitBtn" type="button" value="Submit" class="wpcf7-submit">
+                <img src="<?php echo CONTACT_IMG_PATH; ?>ajax-loader.gif" alt="ajax loader icon" class="ajaxLoader" /><br/><br/>
+          
+                <div id="resultMessage" style="display: none;"></div>
               </form>
            </div>
          </div>
@@ -33,19 +38,10 @@
            <div class="contact_address wow fadeInRight">
              <h3>Address</h3>
              <div class="address_group">
-               <p>200 Lincoln Ave, Salinas, CA 93901</p>
+               <p>200 Lincoln
                <p>Phone: 662-807-9585</p>
                <p>Email:contact@wpfdegree.com</p>
-             </div>
-             <div class="address_group">
-              <ul class="footer_social">
-                <li><a href="#" class="soc_tooltip" title="" data-placement="top" data-toggle="tooltip" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#" class="soc_tooltip" title="" data-placement="top" data-toggle="tooltip" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#" class="soc_tooltip" title="" data-placement="top" data-toggle="tooltip" data-original-title="Google+"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#" class="soc_tooltip" title="" data-placement="top" data-toggle="tooltip" data-original-title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                <li><a href="#" class="soc_tooltip" title="" data-placement="top" data-toggle="tooltip" data-original-title="Youtube"><i class="fa fa-youtube"></i></a></li>
-                </ul>
-             </div>
+             </div>             
            </div>
          </div>
        </div>

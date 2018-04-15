@@ -1,6 +1,6 @@
-2018/03/09
-	- Validate: compara datos con DB y consigue que si ya hay un nombre de usuario en la DB a un nuevo usuario no le permita registrarse con el mismo user_name. Sucede lo mismo con el email y el tlf ya que entiendo que a la hora de hacer un recover_password, estos datos deben ser unicos de cada usuario.
-2018/03/09
+	*Form User
+		- Validate: compara datos con DB y consigue que si ya hay un nombre de usuario en la DB a un nuevo usuario no le permita registrarse con el mismo user_name. Sucede lo mismo con el email y el tlf ya que entiendo que a la hora de hacer un recover_password, estos datos deben ser unicos de cada usuario.
+
 	*Form Curso
 		-Este formulario se usa para poder cargar datos sobre un curso que nosotros como usuarios queremos comercializar. Tiene validaciones js y php asi como usa dropzone y selects dependientes uno de otro.
 		 
@@ -9,3 +9,17 @@
 		Al hacer click el id se guarda en una variable global del servidor y cuando carga la vista de los detalles esta hace una peticion y recoge el valor que se guardo en la vista anterior en el servidor.
 
 		-Categorias de cursos: extrae de la informacion de un archivo JSON, donde estan las categorias y las fotos que se relacionan con cada categoria. Al cargar la pagina aparecen las 3 primeras categorias y mediante un boton van apareciendo los siguientes.
+
+	*Courses
+		-Esta vista tiene los cursos que hay en la base de datos, si se accede a esta vista mediante el homepage (es decir haciendo click sobre una categoria de los cursos, aqui nos aparecera los cursos relacionados con la categoria elegida), en caso de acceder a esta vista mediante el boton del menu "courses" nos muestra todas las categotias que tiene la app.
+
+		-Consta de filtros para poder acotar lo maximo posible las preferencias del usuario.
+
+		-Paginacion y filtros hechas con javascript.
+
+	*Courses-Homepage
+		- Las dos vistas contan de un input con autocomplete, gastan las mismas funciones por ello fue necesario crear un archivo js donde se almacenan funciones comunes en varias vistas.
+
+		- El autocomplete homepage nos redirecciona a la vista courses, donde veremos los resultados a lo que hemos escrito en el input.
+		
+		- El autocomplete courses, cada vez que cambiamos la palabra o letra en el input este recarga la informacion de db y nos muestra todo lo relacionado a lo que hemos escrito, asi como resetea la paginacion y nos lo vuelve a organizar segun la cantidad de resultados obtenidos.

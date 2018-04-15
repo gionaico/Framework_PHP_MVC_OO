@@ -8,5 +8,9 @@
         <name>courses</name>
         <uri>courses</uri>
     </module>
+    <module>
+        <name>contact</name>
+        <uri>contact</uri>
+    </module>
 
 </modules>

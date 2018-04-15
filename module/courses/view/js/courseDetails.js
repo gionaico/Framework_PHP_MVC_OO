@@ -16,7 +16,7 @@ $(document).ready(function () {
             var lenguage=document.getElementById('lenguage');
             lenguage.innerHTML=json[0].lenguage;
             var category=document.getElementById('category');
-            category.innerHTML=json[0].category;
+            category.innerHTML=json[0].subject;
             var price=document.getElementById('price');
             price.innerHTML=json[0].price+" €";
             var detalles_teacher=document.getElementById('detalles_teacher');
@@ -35,7 +35,3 @@ $(document).ready(function () {
 
 
 
-
-function p(){
-	
-}

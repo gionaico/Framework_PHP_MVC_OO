@@ -4,42 +4,32 @@
 class controller_courses {
 
     function __construct() {        
-        include(UTILS_COURSES . "validaCourses.php");
-         include(UTILS . "upload.php");
+        include(UTILS_COURSES . "validaCourses.php");         
         $_SESSION['module'] = "courses";
     }
         
     function list_courses() {
-        require_once(VIEW_PATH_INC . "header.html");
-        require_once(VIEW_PATH_INC . "menu.html");     
-        require_once(COURSES_VIEW_PATH . "courses.html");
-        require_once(VIEW_PATH_INC . "footer.html");
+        $this->cargarVistas("courses");  
     }
 
     function courseForm() {
-        require_once(VIEW_PATH_INC . "header.html");
-        require_once(VIEW_PATH_INC . "menu.html");     
-        require_once(COURSES_VIEW_PATH . "courseForm.html");
-        require_once(VIEW_PATH_INC . "footer.html");
+        $this->cargarVistas("courseForm");      
     }
 
     function details() {
-        require_once(VIEW_PATH_INC . "header.html");
-        require_once(VIEW_PATH_INC . "menu.html");     
-        require_once(COURSES_VIEW_PATH . "courseDetails.html");
-        require_once(VIEW_PATH_INC . "footer.html");
+        $this->cargarVistas("courseDetails");        
     }
 
     function new_course() {
-        require_once(VIEW_PATH_INC . "header.html");
-        require_once(VIEW_PATH_INC . "menu.html");     
-        require_once(COURSES_VIEW_PATH . "courseCreado.html");
-        require_once(VIEW_PATH_INC . "footer.html");
-    }
+        $this->cargarVistas("courseCreado");        
+    }    
+
 
     function getCoursesFiltrados(){
         if (isset($_POST["getCoursesFiltrados"]) && $_POST["getCoursesFiltrados"] == true) {
-
+            $title=$_SESSION["filtros"]["title"];
+            $this->arrayFiltros();
+            $_SESSION["filtros"]["title"]=$title;
             $cursos=$this->consultaFiltrada();
 
             echo json_encode($cursos);
@@ -52,13 +42,15 @@ class controller_courses {
         $_SESSION['result_avatar'] = $result_avatar;            
     }
 
+
     public function consultaFiltrada(){
         if (!isset($_SESSION["filtros"])) {
                 $this->arrayFiltros();  
             }
 
+        // echo json_encode($datos);
+        // exit;
         $filtros=$_SESSION["filtros"];
-        
         $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "cursosFiltrados", $filtros);
         
         $datos=$this->cuentaPaginas($evio_loadModel);
@@ -93,7 +85,8 @@ class controller_courses {
                     $_SESSION["filtros"]["".$tipoFiltro.""]=$valorFiltro;                                  
                 }
             }
-        }            
+        } 
+
     }
 
 
@@ -145,7 +138,7 @@ class controller_courses {
 
 
     function courseVal(){
-        // echo "string";exit;
+        /*echo "string";exit;*/
         if (isset($_POST['course_JSON'])) {	
             $this->alta_courses();    
         }else{echo "string";}
@@ -163,7 +156,7 @@ class controller_courses {
         }    
     }
 
-    //////////////////////////////////////////////////
+    /**/
     public function cuentaPaginas($array){
         $filas=count($array);
         $pages=ceil($filas/3);
@@ -185,14 +178,11 @@ class controller_courses {
 
         $result_avatar = $_SESSION['result_avatar'];
         $_SESSION['result_avatar']=array();
-
-            // echo ("string ".$result['resultado'].$result_avatar['resultado']);	
+	
         if (($result['resultado'])&&($result_avatar['resultado'])) {     
             $result['datos']['avatar']=$result_avatar['datos'];
                     
             $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "create_course", $result['datos']);
-            // echo ($result['datos']);
-            //  exit;
             if ($evio_loadModel){
                 $mensaje = "User has been successfull registered";
                 $jsondata["success"] = true;
@@ -204,7 +194,6 @@ class controller_courses {
                 $mensaje = "Problem ocurred registering user";
             }
 
-           // $jsondata["mensaje"] = $mensaje;
             $jsondata["datos"]=$result['datos'];
             $jsondata["mensaje"]=$mensaje;
     	    echo json_encode($jsondata);
@@ -225,7 +214,6 @@ class controller_courses {
             echo json_encode($jsondata);
         }
     }
-    /////////////////////////////////////////////////// load_data
     function loadData(){
         if ((isset($_POST["load_data"])) && ($_POST["load_data"] == true)) {
             $jsondata = array();
@@ -241,14 +229,7 @@ class controller_courses {
             }
         }
     }
-    /////////////////////////////////////////////////// 
-    // if ((isset($_POST["cursoCreado"])) && ($_POST["cursoCreado"] == true)) {
-    //     $curso=$_SESSION['cursoDet'];
-    //     $curso['acceso']=true;
-    //     echo json_encode($curso);
-    //     exit;
-    // }
-    /////////////////////////////////////////////////// load
+
     function load(){    
         if (isset($_POST["load"]) && $_POST["load"] == true) {
             $curso = array();
@@ -269,7 +250,6 @@ class controller_courses {
     }
 
 
-    /////////////////////////////////////////////////// load_category
     function obtain_category() {
         if(  (isset($_POST["load_category"])) && ($_POST["load_category"] == true)  ){
             // $jsondata = array();
@@ -292,18 +272,18 @@ class controller_courses {
         }
     }
 
-    /////////////////////////////////////////////////// load_subCategory
+
     function obtain_subCategory() {
         if(  (isset($_POST["load_subCategory"])) && ($_POST["load_subCategory"] == true)  ){
-            // $jsondata = array();
+            /*$jsondata = array();*/
             
             $json = array();
 
             
             
             $json = loadModel(MODEL_COURSES, "courses_model", "obtain_subCategory");
-            // echo($json);
-            // exit;
+            /*echo($json);*/
+            /*exit;*/
             if($json){
                 $jsondata = $json;
                 echo ($jsondata);
@@ -314,5 +294,12 @@ class controller_courses {
                 exit;
             }
         }
+    }
+
+    public function cargarVistas($html){
+        require_once(VIEW_PATH_INC . "header.html");
+        require_once(VIEW_PATH_INC . "menu.html");     
+        require_once(COURSES_VIEW_PATH . "".$html.".html");
+        require_once(VIEW_PATH_INC . "footer.html");
     }
 }/*end class courses*/

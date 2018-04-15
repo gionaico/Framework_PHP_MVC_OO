@@ -58,4 +58,12 @@ define('DAO_HOMEPAGE', SITE_ROOT . 'module/homepage/model/DAO/');
 define('BLL_HOMEPAGE', SITE_ROOT . 'module/homepage/model/BLL/');
 define('MODEL_HOMEPAGE', SITE_ROOT . 'module/homepage/model/model/');
 
-// echo "<script>console.log( 'estoy en path " . MODULES_PATH . "' );</script>";
+//module contact
+    define('CONTACT_JS_PATH', SITE_PATH . 'module/contact/view/js/');	
+	define('CONTACT_LIB_PATH', SITE_PATH . 'module/contact/view/lib/');
+	define('CONTACT_IMG_PATH', SITE_PATH . 'module/contact/view/img/'); 
+    define('CONTACT_VIEW_PATH', 'module/contact/view/');
+
+
+
+

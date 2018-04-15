@@ -37,8 +37,7 @@
 
             $sql = "INSERT INTO courses (title, lenguage, ulr, duration, levelCour, price, courseDescr, personalDescr, register_date, avatar, category, subject, sub_subject) VALUES ('$title', '$courseLenguge', '$ulr', '$courseDuration', '$level', $price, '$courseDescr', '$personalDescr', '$register_date', '$avatar', '$All_category', '$subject', '$subSubject' )";
             
-          // echo($sql);
-          // exit;  
+        
           
           return $db->ejecutar($sql);
         }
@@ -48,7 +47,7 @@
             $tmp = array();
 
             $category = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/resources/ListOfSubcategoryCourse.json');
-            // $json = json_decode($category);
+            
 
               
                   return $category;
@@ -66,7 +65,7 @@
             $tmp = array();
 
             $subCategory = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/Proyectos/GiovannyProy4/resources/ListOfSubcategoryCourse.json');
-            // $json = json_decode($category);
+            
 
               
                   return $subCategory;
@@ -81,8 +80,6 @@
         public function keyword_DAO($db, $arrArgument) {
 
             $sql = "SELECT * FROM courses WHERE title LIKE '%".$arrArgument."%'";
-            // echo ($sql);
-            // exit;
             return $db->listar($db->ejecutar($sql));
         }
 
@@ -90,11 +87,7 @@
         public function cursosFiltrados_DAO($db, $arrArgument) {
             $cadWhere=array();
             $indice=0;
-            // if ($arrArgument=="") {
-            //     echo "string";
-            //     exit;
-            // }
-            
+          
             if ($arrArgument["category"]!="") {
                 $cadWhere[$indice]="subject='".$arrArgument["category"]."'";
                 $indice++;
@@ -136,6 +129,5 @@
             return $db->listar($db->ejecutar($sql));
             
         }
-            // echo ($sql);
-            // exit;
+            
     }//End productDAO
