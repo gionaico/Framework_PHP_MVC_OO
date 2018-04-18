@@ -46,6 +46,7 @@ define('MODEL_PATH_COURSES', SITE_ROOT . 'module/courses/model/');
 define('DAO_COURSES', SITE_ROOT . 'module/courses/model/DAO/');
 define('BLL_COURSES', SITE_ROOT . 'module/courses/model/BLL/');
 define('MODEL_COURSES', SITE_ROOT . 'module/courses/model/model/');
+define('IMG_COURSES', SITE_PATH . 'module/courses/view/img/');
 
 
 
@@ -64,6 +65,8 @@ define('MODEL_HOMEPAGE', SITE_ROOT . 'module/homepage/model/model/');
 	define('CONTACT_IMG_PATH', SITE_PATH . 'module/contact/view/img/'); 
     define('CONTACT_VIEW_PATH', 'module/contact/view/');
 
+define('IMG_LIBRA_LEARNEASY',SITE_ROOT.'view/img/libraLearnEasy.jpg');
 
-
+define('GENERAL_LOG_DIR',SITE_ROOT.'log/general/Site_General_errors.log');
+define('USER_LOG_DIR',SITE_ROOT.'log/user/Site_User_errors.log');
 

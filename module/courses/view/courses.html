@@ -1,5 +1,36 @@
     <script type="text/javascript" src="<?php echo JS_PATH ?>jquery.twbsPagination.min.js"></script>
     <script type="text/javascript" src="<?php echo COURSES_JS_PATH ?>courses.js">  </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSqOoI0Dz0NsL3-lLYzBC2tS4PVfDZ0Jc" async defer></script>
+
+    <style>      
+      .placeIcon {
+        width: 20px;
+        height: 34px;
+        margin: 4px;
+      }
+      .hotelIcon {
+        width: 24px;
+        height: 24px;
+      }
+      #resultsTable {
+        border-collapse: collapse;
+        width: 240px;
+      }
+      #rating {
+        font-size: 13px;
+        font-family: Arial Unicode MS;
+      }
+      .iw_table_row {
+        height: 18px;
+      }
+      .iw_attribute_name {
+        font-weight: bold;
+        text-align: right;
+      }
+      .iw_table_icon {
+        text-align: right;
+      }
+    </style>
     <!--=========== BEGIN COURSE BANNER SECTION ================-->
     <section id="imgBanner">
       <h2>Our Courses</h2>
@@ -9,12 +40,21 @@
     <!--=========== BEGIN COURSE BANNER SECTION ================-->
     <section id="courseArchive">
       <div class="container">
-        <div class="row">
+        <div class="row" id="row_primero">
             <!-- start course archive sidebar -->
           <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="courseArchive_sidebar">
               <!-- start single sidebar -->
               <div class="single_sidebar">
+                <h2>List maps <span class="fa fa-angle-double-right"></span></h2>
+
+                <div>
+                  <a id="vewMap" href="#">
+                    <img class="grande" src="<?php echo IMG_COURSES?>googlemaps.jpg" alt="">
+                  </a>
+                </div>
+                <br>
+
                 <h2>Filters <span class="fa fa-angle-double-right"></span></h2>
                 <ul class="news_tab">
 
@@ -133,22 +173,6 @@
                   </li>
 
                   
-
-                  <!-- 
-                  <li>
-                    <div class="media">
-                      <div class="media-left">
-                        <a href="#" class="news_img">
-                          <img alt="img" src="img/news.jpg" class="media-object">
-                        </a>
-                      </div>
-                      <div class="media-body">
-                       <a href="#">Dummy text of the printing and typesetting industry</a>
-                       <span class="feed_date">28.02.15</span>                
-                      </div>
-                    </div>
-                  </li>  
- -->
                 </ul>
               </div>
              </div>
@@ -157,6 +181,9 @@
 
           <!-- start course content -->
           <div class="col-lg-8 col-md-8 col-sm-8">
+            <br>
+            <br>
+            <br>
             
             <!-- ................. start search ................. -->
             <center>
@@ -169,32 +196,102 @@
             </center>
             <!-- ................. end search ................. -->
 
-            
-
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- ...... div courseArchive_content............... -->
             <div class="courseArchive_content">
-
-              <div class="row" id="div_listCou">
-                <!-- start single course -->
-               
-                <!-- End single course -->                
-              </div>
-
-
-              <!-- start previous & next button -->
+              <!-- list courses -->
+              <div class="row" id="div_listCou"></div>
+              <!-- Paginacion -->
               <center>
-    <div class="pagination" id="pag"></div>
-</center>
-              <!-- <div class="single_blog_prevnext">
-                <a href="#" class="prev_post wow fadeInLeft animated" style="visibility: visible; animation-name: fadeInLeft;"><i class="fa fa-angle-left"></i>Previous</a>
-                <a href="#" class="next_post wow fadeInRight animated" style="visibility: visible; animation-name: fadeInRight;">Next<i class="fa fa-angle-right"></i></a>
-              </div> -->
+                  <div class="pagination" id="pag"></div>
+              </center>              
             </div>
           </div>
-          <!-- End course content -->
+          
 
         
           <!-- start course archive sidebar -->
+        </div><!-- end div row -->
+        <div class="row" id="rowSegundo" style="display:none">
+          <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="col md-12">
+              <button class="btn btn-primary" id="go_back">Go back</button>  
+            </div>
+            <br>
+            <div id="map" style="width: 100%; height: 550px"></div>
+          </div>  
+
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="courseArchive_sidebar">
+                <div class="single_sidebar">
+                  <h2>Courses list <span class="fa fa-angle-double-right"></span></h2>
+                  <div id="results"></div>
+                  <!-- <ul class="news_tab">
+
+                    <li>
+                      <div class="media">          
+                        <div class="media-body">
+                          <div class="col-md-11">
+                            <p>
+                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate ratione aut officia impedit quos, consequatur minus corporis velit iure nostrum esse culpa tempore animi, nihil est dolorum, fugit veniam commodi.
+                            </p>                           
+                            <div id="slider-range-min"></div>
+                          </div>                                              
+                        </div>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="media">          
+                        <div class="media-body">
+                          <div class="col-md-11">
+                            <p>
+                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate ratione aut officia impedit quos, consequatur minus corporis velit iure nostrum esse culpa tempore animi, nihil est dolorum, fugit veniam commodi.
+                            </p>                           
+                            <div id="slider-range-min"></div>
+                          </div>                                              
+                        </div>
+                      </div>
+                    </li>
+
+                  </ul> -->
+                </div>
+              </div>
+          </div>
         </div>
       </div>
     </section>
     <!--=========== END COURSE BANNER SECTION ================-->
+
+
+
+     <div style="display: none">
+      <div id="info-content">
+        <table>
+          <tr id="iw-url-row" class="iw_table_row">
+            <td id="iw-icon" class="iw_table_icon"></td>
+            <td id="iw-url"></td>
+          </tr>
+<!--           <tr id="iw-address-row" class="iw_table_row">
+            <td class="iw_attribute_name">Title:</td>
+            <td id="iw-title"></td>
+          </tr> -->
+          <tr id="iw-phone-row" class="iw_table_row">
+            <td class="iw_attribute_name">Lenguage:</td>
+            <td id="iw-lenguage"></td>
+          </tr>
+          <tr id="iw-rating-row" class="iw_table_row">
+            <td class="iw_attribute_name">Price:</td>
+            <td id="iw-price"></td>
+          </tr>
+          <tr id="iw-website-row" class="iw_table_row">
+            <td class="iw_attribute_name">Level:</td>
+            <td id="iw-level"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+

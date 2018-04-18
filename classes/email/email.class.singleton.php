@@ -1,6 +1,4 @@
 <?php
-    //require(LIBS . 'PHPMailer_v5.1/class.phpmailer.php');
-    //require(LIBS . 'PHPMailer_v5.1/class.smtp.php');
     
     class email {
         private $body;
@@ -26,7 +24,7 @@
                 $this->mail->Password = $cnfg['pass'];
                 $this->mail->AddReplyTo($cnfg['email'], $cnfg['defaultsubject']);
                 $this->mail->SetFrom($cnfg['email'], $cnfg['defaultsubject']);
-                $this->mail->addAttachment(IMG_RURAL_SHOP);
+                $this->mail->addAttachment(IMG_LIBRA_LEARNEASY);
                 
                 $this->subject="RURAL_SHOP";
     

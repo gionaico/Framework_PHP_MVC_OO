@@ -8,8 +8,8 @@
         // echo($arr['type']);exit;
         switch ($arr['type']) {                
             case 'contact':
-                $subject = 'Tu Peticion a Libra LearnEasy ha sido enviada<br>';
-                $ruta = '<a href=' . 'http://localhost/Proyectos/GiovannyProy4/contact/view_contact/'. '>aqu&iacute;</a>';
+                $subject = 'Tu Peticion a Libra LearnEasy ha sido enviada';
+                $ruta = '<a href=' . 'http://localhost/Proyectos/GiovannyProy4/homepage/homepage/'. '>aqu&iacute;</a>';
                 $body = 'Para visitar nuestra web, pulsa ' . $ruta;
                 break;
     

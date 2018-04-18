@@ -49,6 +49,12 @@ License URI: http://www.gnu.org/licenses/gpl.html
 img.mediana{
   width: 200px; height: 250px;
 }
+img.grande{
+  width: 335px; height: 200px;
+}
+img.icon{
+  width: 24px; 
+}
 .msg{
     color: white;
     font-weight: bold;

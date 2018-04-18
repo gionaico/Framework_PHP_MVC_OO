@@ -72,4 +72,8 @@
         <name>obtain_subCategory</name>
         <uri>obtain_subCategory</uri>
     </function>
+    <function>
+        <name>consultaFiltrada</name>
+        <uri>consultaFiltrada</uri>
+    </function>
 </functions>

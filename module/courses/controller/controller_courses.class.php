@@ -54,6 +54,10 @@ class controller_courses {
         $evio_loadModel = loadModel(MODEL_COURSES, "courses_model", "cursosFiltrados", $filtros);
         
         $datos=$this->cuentaPaginas($evio_loadModel);
+        if (isset($_POST["consultaFiltrada"]) && $_POST["consultaFiltrada"] == true) {
+            echo (json_encode($datos));
+            exit;
+        }
         return $datos;
     }
 
