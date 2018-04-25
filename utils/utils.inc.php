@@ -48,6 +48,6 @@
         if($_GET['module'] === $moduleName)      
             echo 'active';        
         else   
-            echo 'deactivate';                    
+            echo 'desactivate';                    
     }
 

@@ -64,7 +64,7 @@
                     showErrorPage(1, "", 'HTTP/1.0 400 Bad Request', 400);
                 }
             
-                handlerfunction(((String) $module->name), $obj, $URI_function);
+                handlerFunction(((String) $module->name), $obj, $URI_function);
                 break;
             }
         }

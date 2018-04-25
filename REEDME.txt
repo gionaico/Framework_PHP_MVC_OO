@@ -30,3 +30,7 @@
 		- Se emplean 2 mapas (de google maps) una esta en list donde aparecen maximo 11 y van variando segun editemos los filtros, los markers tienen un link que si pinchamos encima nos envia a los detalles del producto sobre el que hemos pinchado y el segundo esta en el detail de cada producto (en su vista individual) donde nos muestra el punto de su ubicacion con una animacion en el marker. 
 		- Agregada clase Log (esta nos permite llevar un control de ls errores que se producen en, el proyecto), imprime los errores en el directorio log. Para comprobar su funcionamiento basta con cambiar el nombre de una contante y esto provocara un fallo, el cual se imprimira, para tener una referencia de lo que ha sucedido.
 		- En view/css tiene varios themes (cambia el color de la web por algun evento concreto), se pueden cambiar en el header de la aplicacion.
+
+
+
+		

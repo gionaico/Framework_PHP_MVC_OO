@@ -1,11 +1,113 @@
 	$(document).ready(function () {
 
 		creaModal();
-	    
-	    
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyCB976KXuqfCaiDjxqAkYVyWvjoxVJ6pm0",
+			authDomain: "libra-learneasy.firebaseapp.com",
+			databaseURL: "https://libra-learneasy.firebaseio.com",
+			projectId: "libra-learneasy",
+			storageBucket: "libra-learneasy.appspot.com",
+			messagingSenderId: "898327279773"
+		};
+		firebase.initializeApp(config);
+		var authService = firebase.auth();
+		
+		logTwitter(authService);
+	   	logGoogle(authService);  
+       	logFacebook(authService);
 
+	   	 authService.onAuthStateChanged(function(user) {
+          if (user) {
+            console.log('AuthStateChanged', user)
+            // document.getElementById('datosuser').innerHTML = JSON.stringify(user);
+            // document.getElementById('loginGoogle').style.display = 'none';
+            // document.getElementById('botonlogout').style.display = 'block';
+          } else {
+            // document.getElementById('datosuser').innerHTML = 'Sin usuario logueado...'
+            // document.getElementById('loginGoogle').style.display = 'block';
+            // document.getElementById('botonlogout').style.display = 'none';
+          }
+        });
 	});
+	
+	function logFacebook(authService){
+        // opcionalmente modifico el scope
+        //provider.addScope('user_friends');
+    
+        // accedo al servicio de autenticación        
+    
+        document.getElementById('loginfacebook').addEventListener('click', function() {
+		var provider = new firebase.auth.FacebookAuthProvider();
+            // autentico con Facebook
+            authService.signInWithPopup(provider)
+                .then(function(result) {
+                    console.log(result);
+                    console.log('autenticado usuario ', result.user);
+                    console.log(result.user.displayName);
+                    console.log(result.user.email);
+                    console.log(result.user.photoURL);
+                })
+                .catch(function(error) {
+                    console.log('Detectado un error:', error);
+                });
+        });
+	}
 
+	function logTwitter(authService){
+        
+      		// var authService = firebase.auth();
+        document.getElementById('logintwitter').addEventListener('click', function() {
+		 	var provider = new firebase.auth.TwitterAuthProvider();
+		 
+        	authService.signInWithPopup(provider).then(function(result) {
+              //var token = result.credential.accessToken;
+              //var secret = result.credential.secret;
+              console.log("funciona");
+              console.log(result.user);
+              console.log(result.user.displayName);
+              console.log(result.user.email);
+              console.log(result.user.photoURL);
+              console.log(result.user.uid);
+          }).catch(function(error) {
+          	console.log("error");
+            //var errorCode = error.code;
+            //var errorMessage = error.message;
+            //var email = error.email;
+            //var credential = error.credential;
+          });
+      });
+	}
+
+	function logGoogle(authService){
+
+    
+        // var authService = firebase.auth();
+        // manejador de eventos para loguearse
+        document.getElementById('loginGoogle').addEventListener('click', function() {
+		 var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('email');
+          authService.signInWithPopup(provider)
+                .then(function(result) {
+                    console.log('Hemos autenticado al usuario ', result.user);
+                    console.log(result.user.displayName);
+                    console.log(result.user.email);
+                    console.log(result.user.photoURL);
+                    console.log(result.user.uid);
+                })
+                .catch(function(error) {
+                    console.log('Se ha encontrado un error:', error);
+                });
+        })
+
+        //manejador de eventos para cerrar sesión (logout)
+        // document.getElementById('botonlogout').addEventListener('click', function() {
+        //   authService.signOut() 
+        // })
+
+        // manejador de eventos para los cambios del estado de autenticación https://prueba-firebase-b4e33.firebaseapp.com/__/auth/handler
+       
+	}
 
 	function form_LogRegi(){
 		$(".opcionesLog").click(function(event) {
@@ -98,6 +200,11 @@
 					                                '<span id="sp_user_log" ></span>'+
 					                            '</div>'+
 
+					                            '<div class="form-group">'+
+					                                '<input id="user_email" name="user_email" type="email" placeholder="your_email@example.com" value="" class="form-control input-md color_input" required="required" value="">'+
+					                                '<span id="sp_user_email" ></span>'+
+					                            '</div>'+
+
 					                            '<div class="form-group ">'+
 					                                '<input id="password_log" name="password_log" type="password" class="form-control input-md color_input" placeholder="your password" required=""  value="">'+
 					                            '</div>'+
@@ -113,15 +220,15 @@
 					                    '</div>'+
 					                    '<div class="col-md-6">'+
 					                        
-					                        '<a class="btn btn-block btn-social btn-twitter">'+
+					                        '<a class="btn btn-block btn-social btn-twitter" id="logintwitter">'+
 					                          '<span class="fa fa-twitter"></span> Sign in with Twitter'+
 					                        '</a>'+
 
-					                        '<a class="btn btn-block btn-social btn-facebook">'+
+					                        '<a class="btn btn-block btn-social btn-facebook" id="loginfacebook">'+
 					                          '<span class="fa fa-facebook"></span> Sign in with facebook'+
 					                        '</a>'+
 
-					                        '<a class="btn btn-block btn-social btn-google">'+
+					                        '<a class="btn btn-block btn-social btn-google" id="loginGoogle">'+
 					                          '<span class="fa fa-google"></span> Sign in with google'+
 					                        '</a>'+
 					                    '</div>'+

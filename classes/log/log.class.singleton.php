@@ -21,7 +21,7 @@
 		
 		public function add_log_user($msg, $username = "", $controller, $function){
 			$date = date('d.m.Y H:i:s');
-			$log = $msg ." | ". $date ."  |  User:  ". $username ." | ".  $controller ." | ". $function."\n";
+			$log = $msg ." | ". $date ."  |  User:  ". $username ." | Controller:".  $controller ." | function:". $function."\n";
 			error_log($log, 3, USER_LOG_DIR);
 		}
 	}

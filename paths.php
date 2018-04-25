@@ -12,7 +12,7 @@
 
 	define('PRODUCTION', true);
 /*CSS*/
-	define('CSS_PATH', SITE_PATH . 'view/css/');
+	define('CSS_PATH', SITE_PATH . 'view/css/');/*la clase log la detecta como error e imprime errores constantes*/
 
 /*JS*/
 	define('JS_PATH', SITE_PATH . 'view/js/');
@@ -46,7 +46,7 @@
 /*model courses*/
 	define('UTILS_COURSES', SITE_ROOT . 'module/courses/utils/');
 	define('COURSES_JS_PATH', SITE_PATH . 'module/courses/view/js/');
-	define('COURSES_VIEW_PATH', SITE_PATH . 'module/courses/view/');
+	define('COURSES_VIEW_PATH', SITE_ROOT . 'module/courses/view/');
 	define('MODEL_PATH_COURSES', SITE_ROOT . 'module/courses/model/');
 	define('DAO_COURSES', SITE_ROOT . 'module/courses/model/DAO/');
 	define('BLL_COURSES', SITE_ROOT . 'module/courses/model/BLL/');

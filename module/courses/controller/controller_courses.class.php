@@ -14,7 +14,7 @@ class controller_courses {
 
     function courseForm() {
         loadView( "module/courses/view/", "courseForm.html"); 
-        /*$this->cargarVistas("courseForm");      */
+        // $this->cargarVistas("courseForm");      
     }
 
     function details() {
@@ -305,10 +305,12 @@ class controller_courses {
         }
     }
 
-  /*  public function cargarVistas($html){
+    public function cargarVistas($html){
         require_once(VIEW_PATH_INC . "header.html");
         require_once(VIEW_PATH_INC . "menu.html");     
         require_once(COURSES_VIEW_PATH . "".$html.".html");
+        require_once(COURSES_VIEW_PATH . "courseDetails.html");
+        require_once(COURSES_VIEW_PATH . "courses.html");
         require_once(VIEW_PATH_INC . "footer.html");
-    }*/
+    }
 }/*end class courses*/
