@@ -8,28 +8,33 @@ class controller_courses {
         $_SESSION['module'] = "courses";
     }
         
-    function list_courses() {
-        $this->cargarVistas("courses");  
+    function list_courses() {        
+        loadView( "module/courses/view/", "courses.html"); 
     }
 
     function courseForm() {
-        $this->cargarVistas("courseForm");      
+        loadView( "module/courses/view/", "courseForm.html"); 
+        /*$this->cargarVistas("courseForm");      */
     }
 
     function details() {
-        $this->cargarVistas("courseDetails");        
+        loadView( "module/courses/view/", "courseDetails.html"); 
+        /*$this->cargarVistas("courseDetails");        */
     }
 
     function new_course() {
-        $this->cargarVistas("courseCreado");        
+        loadView( "module/courses/view/", "courseCreado.html"); 
+        /*$this->cargarVistas("courseCreado");        */
     }    
 
 
     function getCoursesFiltrados(){
         if (isset($_POST["getCoursesFiltrados"]) && $_POST["getCoursesFiltrados"] == true) {
             $title=$_SESSION["filtros"]["title"];
+            $category=$_SESSION["filtros"]["category"];
             $this->arrayFiltros();
             $_SESSION["filtros"]["title"]=$title;
+            $_SESSION["filtros"]["category"]=$category;
             $cursos=$this->consultaFiltrada();
 
             echo json_encode($cursos);
@@ -300,10 +305,10 @@ class controller_courses {
         }
     }
 
-    public function cargarVistas($html){
+  /*  public function cargarVistas($html){
         require_once(VIEW_PATH_INC . "header.html");
         require_once(VIEW_PATH_INC . "menu.html");     
         require_once(COURSES_VIEW_PATH . "".$html.".html");
         require_once(VIEW_PATH_INC . "footer.html");
-    }
+    }*/
 }/*end class courses*/

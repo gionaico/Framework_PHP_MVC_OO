@@ -37,8 +37,12 @@ License URI: http://www.gnu.org/licenses/gpl.html
 /* .next,.prev{
   display: none !important;  
 } */
+.zoom:hover {
+    transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
 .slider_area:hover /* .next */{
   display: block !important;
+  
 }
 .slider_area:hover /* .prev */{
   display: block !important;

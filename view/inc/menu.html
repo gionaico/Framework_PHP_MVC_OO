@@ -31,9 +31,6 @@
                     <a href="<?php amigable('?module=homepage&function=homepage');?>">Home</a>
                 </li>
                 
-                <li class="<?php saberModule('contact');?>">
-                    <a href="<?php amigable('?module=contact&function=view_contact');?>">Contact</a>
-                </li>
 
               <!--   <li class="<?php saberModule('courses');?>">
                     <a href="#" id="resetFiltros">Courses</a>
@@ -46,7 +43,9 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="#" id="resetFiltros">Our courses</a></li>
                     <li><a href="<?php amigable('?module=courses&function=courseForm'); ?>">Add course</a></li>
-                    <li><a href="#" id="87">Link four</a></li>               
+                    <li id="LogProf">
+                      <a href="#" class="button special" data-toggle="modal" id="login" data-target="#modal_login">Acceder</a>
+                    </li>               
                   </ul>
                 </li>
 
@@ -55,7 +54,15 @@
                 <li><a href="index.php?page=gallery&view=gallery">Gallery</a></li>                
                 <li><a href="index.php?page=aboutUs&view=aboutUs">About us</a></li>
                 
-                <li class="dropdown">
+                <li class="<?php saberModule('contact');?>">
+                    <a href="<?php amigable('?module=contact&function=view_contact');?>">Contact</a>
+                </li>
+
+                <li >
+                    <a href="#" class="button special" data-toggle="modal" id="login" data-target="#modal_login">Log in</a>
+                </li>
+                
+                <!-- <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                       Page<span class="caret"></span>
                   </a>
@@ -63,9 +70,9 @@
                     <li><a href="#">404 Page</a></li>
                     <li><a href="index.php?page=profile&view=profile">Link Two</a></li>
                     <li><a href="<?php amigable('?module=courses&function=courseForm'); ?>">Link Three</a></li>
-                    <li><a href="#" id="87">Link four</a></li>               
+                    <li><a href="<?php echo PROJECT . 'module/profile/view/modalLogin.html'; ?>" class="button special" data-toggle="modal" id="Logcxvin" data-target="#modal_login" >Link four</a></li>               
                   </ul>
-                </li>
+                </li> -->
 
               </ul>           
             </div><!--/.nav-collapse -->
@@ -75,7 +82,11 @@
       <!-- END MENU -->    
     </header>
     <!--=========== END HEADER SECTION ================--> 
+    <style>
+    #mdialTamanio{
+      width: 40% !important;
+    }
+  </style>
 
-    
+<div id="LoginModal"></div>
 
-    

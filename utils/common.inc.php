@@ -71,31 +71,36 @@ function loadModel($model_path, $model_name, $function, $arrArgument = '') {
         return true;
     }
 
- function loadView($rutaVista = '', $templateName = '', $arrPassValue = '') {
-    $view_path = $rutaVista . $templateName;
-    $arrData = '';
-    debugPHP($view_path);
+    function loadView($rutaVista = '', $templateName = '', $arrPassValue = '') {
+        $view_path = $rutaVista . $templateName;
+        $arrData = '';
+        // debugPHP($view_path);
+        if (file_exists($view_path)) {
+            if (isset($arrPassValue))
+                $arrData = $arrPassValue;
+                
+            require_once(VIEW_PATH_INC . "header.html");
+            require_once(VIEW_PATH_INC . "menu.html");
+            include_once($view_path);
+            require_once(VIEW_PATH_INC . "footer.html");
+        } else {
+            $result = filter_num_int($rutaVista);
+            if ($result['resultado']) {
+                $rutaVista = $result['datos'];
+            } else {
+                $rutaVista = http_response_code();
+            }
 
-    if (file_exists($view_path)) {
-        if (isset($arrPassValue))
-            $arrData = $arrPassValue;
-        include_once($view_path);
-    } else {
-        //millora per a no utilitzar  ob_start() per evitar dublicació de headers
-        $error = filter_num_int($rutaVista);
-        if($error['resultado']){
-            $rutaVista = $error['datos'];
-        }else{
-            $rutaVista = http_response_code();
+            $log = log::getInstance();
+            $log->add_log_general("error loadView general", $_GET['module'], "response " . $rutaVista); //$text, $controller, $function
+            $log->add_log_user("error loadView general", "", $_GET['module'], "response " . $rutaVista); //$msg, $username = "", $controller, $function
+
+            $result = response_code($rutaVista);
+            $arrData = $result;
+            require_once(VIEW_PATH_INC . "header.html");
+            require_once(VIEW_PATH_INC . "menu.html");         
+            require_once (VIEW_PATH_INC . '404.html');
+            require_once(VIEW_PATH_INC . "footer.html");
+            
         }
-        
-        // $log = log::getInstance();
-        // $log->add_log_general("error loadView general", $_GET['module'], "response " . $rutaVista); //$text, $controller, $function
-        // $log->add_log_user("error loadView general", "", $_GET['module'], "response " . $rutaVista); //$msg, $username = "", $controller, $function
-
-        $result = response_code($rutaVista);
-        $arrData = $result;
-        // require_once VIEW_PATH_INC_ERROR . "error.php";
-        //die();
     }
-}

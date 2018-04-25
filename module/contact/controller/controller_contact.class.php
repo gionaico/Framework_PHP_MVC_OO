@@ -6,11 +6,8 @@
             $_SESSION['module'] = "contact";
         }
 
-        public function view_contact() {
-            require_once(VIEW_PATH_INC."header.html"); 
-			require_once(VIEW_PATH_INC."menu.html");            
-            require_once(CONTACT_VIEW_PATH. "contact.html");                  
-            require_once(VIEW_PATH_INC."footer.html");
+        public function view_contact() {            
+            loadView( "module/contact/view/", "contact.html"); 
         }
         
         public function process_contact() {
