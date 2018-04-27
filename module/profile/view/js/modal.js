@@ -1,6 +1,5 @@
 	$(document).ready(function () {
 
-		creaModal();
 		// Initialize Firebase
 		var config = {
 			apiKey: "AIzaSyCB976KXuqfCaiDjxqAkYVyWvjoxVJ6pm0",
@@ -13,28 +12,30 @@
 		firebase.initializeApp(config);
 		var authService = firebase.auth();
 		
-		logTwitter(authService);
-	   	logGoogle(authService);  
-       	logFacebook(authService);
 
-	   	 authService.onAuthStateChanged(function(user) {
-          if (user) {
-            console.log('AuthStateChanged', user)
-            // document.getElementById('datosuser').innerHTML = JSON.stringify(user);
-            // document.getElementById('loginGoogle').style.display = 'none';
-            // document.getElementById('botonlogout').style.display = 'block';
-          } else {
-            // document.getElementById('datosuser').innerHTML = 'Sin usuario logueado...'
-            // document.getElementById('loginGoogle').style.display = 'block';
-            // document.getElementById('botonlogout').style.display = 'none';
-          }
-        });
+		creaModal();
+
+		authService.onAuthStateChanged(function(user) {
+			if (user) {
+				logOut(authService);
+				console.log('AuthStateChanged', user)
+				// document.getElementById('datosuser').innerHTML = JSON.stringify(user);
+				// document.getElementById('loginGoogle').style.display = 'none';
+				// document.getElementById('botonlogout').style.display = 'block';
+			} else {
+				logTwitter(authService);
+				logGoogle(authService);  
+				logFacebook(authService);
+				// document.getElementById('datosuser').innerHTML = 'Sin usuario logueado...'
+				// document.getElementById('loginGoogle').style.display = 'block';
+				// document.getElementById('botonlogout').style.display = 'none';
+			}
+		});
 	});
 	
 	function logFacebook(authService){
         // opcionalmente modifico el scope
-        //provider.addScope('user_friends');
-    
+        //provider.addScope('user_friends');    
         // accedo al servicio de autenticación        
     
         document.getElementById('loginfacebook').addEventListener('click', function() {
@@ -70,7 +71,7 @@
               console.log(result.user.photoURL);
               console.log(result.user.uid);
           }).catch(function(error) {
-          	console.log("error");
+          	console.log('Se ha encontrado un error:', error);
             //var errorCode = error.code;
             //var errorMessage = error.message;
             //var email = error.email;
@@ -98,17 +99,23 @@
                 .catch(function(error) {
                     console.log('Se ha encontrado un error:', error);
                 });
-        })
-
-        //manejador de eventos para cerrar sesión (logout)
-        // document.getElementById('botonlogout').addEventListener('click', function() {
-        //   authService.signOut() 
-        // })
+        });
 
         // manejador de eventos para los cambios del estado de autenticación https://prueba-firebase-b4e33.firebaseapp.com/__/auth/handler
        
 	}
 
+	function logOut(authService){
+		//manejador de eventos para cerrar sesión (logout)
+        document.getElementById('botonlogout').addEventListener('click', function() {
+          authService.signOut() 
+        });
+	}
+
+
+
+
+/*DA ESTILOS AL MODAL CON LOS CLICKS*/
 	function form_LogRegi(){
 		$(".opcionesLog").click(function(event) {
 	    	var id=this.getAttribute("id");
@@ -133,7 +140,7 @@
 	    });
 	}
 
-
+/*CREA TODA LA ESTRUCTURA DEL MODAL*/
 	function creaModal(){
 		var modal='<div class="modal fade"  id="modal_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" hidden>'+
 					    '<div class="modal-dialog" id="mdialTamanio" role="document">'+
@@ -195,23 +202,26 @@
 					                        '</div>'+
 
 					                        '<div id="hacerRegistro" style="display: none;">'+
-					                          '<div class="form-group">'+
-					                                '<input id="user_log" name="user_log" type="text" placeholder="your user name" value="" class="form-control input-md color_input" required="required" value="">'+
-					                                '<span id="sp_user_log" ></span>'+
-					                            '</div>'+
+					                        	'<form id="registerForm">'+
+							                          '<div class="form-group">'+
+							                                '<input id="user_register" name="user_register" type="text" placeholder="your user name" value="" class="form-control input-md color_input inputKeyup" required="required" value="">'+
+							                                '<span id="sp_user_register" ></span>'+
+							                            '</div>'+
 
-					                            '<div class="form-group">'+
-					                                '<input id="user_email" name="user_email" type="email" placeholder="your_email@example.com" value="" class="form-control input-md color_input" required="required" value="">'+
-					                                '<span id="sp_user_email" ></span>'+
-					                            '</div>'+
+							                            '<div class="form-group">'+
+							                                '<input id="email_register" name="email_register" type="email" placeholder="your_email@example.com" value="" class="form-control input-md color_input inputKeyup" required="required" value="">'+
+							                                '<span id="sp_email_register" ></span>'+
+							                            '</div>'+
 
-					                            '<div class="form-group ">'+
-					                                '<input id="password_log" name="password_log" type="password" class="form-control input-md color_input" placeholder="your password" required=""  value="">'+
-					                            '</div>'+
-					                            
-					                            '<div class="form-group ">       '+
-					                                '<a href="#" type="button" class="col-md-12 btn btn-warning" id="register" title="">SING UP</a>'+
-					                            '</div>'+
+							                            '<div class="form-group ">'+
+							                                '<input id="password_register" name="password_register" type="password" class="form-control input-md color_input inputKeyup" placeholder="your password" required=""  value="">'+
+							                            	'<span id="sp_password_register" ></span>'+
+							                            '</div>'+
+							                            
+							                            '<div class="form-group ">       '+
+							                                '<a href="#" type="button" class="col-md-12 btn btn-warning" id="btn-singUp" title="">SING UP</a>'+
+							                            '</div>'+
+							                    '</form>'+
 
 					                        '</div>'+
 
@@ -249,3 +259,5 @@
 	    $("#LoginModal").append(modal);
 	    form_LogRegi();
 	}
+
+	

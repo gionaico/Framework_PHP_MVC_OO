@@ -51,3 +51,11 @@
             echo 'desactivate';                    
     }
 
+    function darRespestas(){        
+        return $resulado=array(
+            "exito"=>false,
+            "mensaje"=>"",
+            "datos"=>""
+        ); 
+    }
+

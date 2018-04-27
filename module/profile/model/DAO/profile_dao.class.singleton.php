@@ -2,7 +2,7 @@
 //echo json_encode("products_dao.class.singleton.php");
 //exit;
 
-class profileDAO {
+class profile_dao {
     static $_instance;
 
     private function __construct() {
@@ -46,17 +46,7 @@ class profileDAO {
       return $db->ejecutar($sql);
     }
 
-    public function checkUser_DAO($db, $arrArgument) {
-      $valor= $arrArgument[0];
-      $valor1= $arrArgument[1];
-      $sql=("SELECT * FROM users WHERE ".$valor." ='$valor1'");
-      // echo ($sql);
-      $res=$db->listar($db->ejecutar($sql));
-      if (count($res)>0) {
-        return false;
-      }
-      return true;
-    }
+ 
 
     public function obtain_countries_DAO($url){
           $ch = curl_init();
@@ -109,5 +99,43 @@ class profileDAO {
               array_push($json, $tmp);
           }
           return $json;
+    }
+
+    public function registrarUser_DAO($db, $arrArgument) {
+        $user= $arrArgument['user'];
+        $email = $arrArgument['email'];
+        $password= $arrArgument['password'];
+        $password_cifrado=password_hash($password, PASSWORD_DEFAULT);
+        $register_date=date("Y-m-d");
+
+
+        $sql = "INSERT INTO users (user_name, email, password, register_date) VALUES('$user', '$email', '$password_cifrado', '$register_date')";
+        // echo $sql;
+        // exit;
+        return $db->ejecutar($sql);      
+    }
+
+   /* public function checkUser_DAO($db, $arrArgument) {
+      $valor= $arrArgument[0];
+      $valor1= $arrArgument[1];
+      $sql=("SELECT * FROM users WHERE ".$valor." ='$valor1'");
+      // echo ($sql);
+      $res=$db->listar($db->ejecutar($sql));
+      if (count($res)>0) {
+        return false;
+      }
+      return true;
+    }*/
+
+    public function checkUser_DAO($db, $arrArgument) {
+      $user= $arrArgument["user"];
+      
+      $sql=("SELECT * FROM users WHERE user_name ='$user'");
+      // echo ($sql);
+      $res=$db->listar($db->ejecutar($sql));
+      if (count($res)>0) {
+        return false;
+      }
+      return true;
     }
 }//End productDAO

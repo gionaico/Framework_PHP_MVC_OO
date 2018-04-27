@@ -1,5 +1,48 @@
 <?php
 
+    function valida_usuario($value) {
+        $error = array();
+        $valido = true;
+        $filtro = array(
+            'user' => array(
+                'filter' => FILTER_VALIDATE_REGEXP,
+                'options' => array('regexp' => '/^[_A-Za-z0-9-\\+]{4,}$/')
+            ),
+            'email' => array(
+                'filter' => FILTER_VALIDATE_REGEXP,
+                'options' => array('regexp' => '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/')
+            ),
+            'password' => array(
+                'filter' => FILTER_VALIDATE_REGEXP,
+                'options' => array('regexp' => '/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/')
+            ),       
+            
+        );
+
+        $resultado = filter_var_array($value, $filtro);
+
+        if (($resultado!=null) && ($resultado)) {   
+            if (!$resultado['user']) {
+                $error['user'] = '<strong>*php</strong> Please write min 4 caracters';
+                $valido = false;
+            }else{                
+                $compruebaUsuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $value);
+                if (!$compruebaUsuario) {
+                    $error['user'] = '<strong>*php</strong> This user already exist in our DB';
+                    $valido = false;  
+                }
+            }       
+
+        } else {
+            $valido = false;
+        }
+        
+        return $return = array('resultado' => $valido, 
+                                'error' => $error, 
+                                'datos' => $resultado);
+
+    }
+
 function validate($value) {
     $error = array();
     $valido = true;

@@ -1,10 +1,60 @@
 <?php
 @session_start();
-include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
-include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/profile/utils/validaProfile.php");
+// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
+// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/profile/utils/validaProfile.php");
 
 
+class controller_profile {
+    
+    function __construct() {        
+        include(UTILS_PROFILE . "validaProfile.php");         
+        $_SESSION['module'] = "profile";
+    }
 
+    function register(){         
+        echo ("dsfs");exit;
+        /*$datos_user=array(
+            "user"=>$_POST['user_register'],
+            "email"=>$_POST['email_register'],
+            "password"=>$_POST['password_register']
+        );  
+        $resultado=valida_usuario($datos_user);
+        if ($resultado["resultado"]) {
+            # code...
+        }else{      
+            $json_data["success"] = false;
+            $json_data["error"] = $resultado['error'];
+
+            header('HTTP/1.0 400 Bad error');
+            echo json_encode($json_data);
+        }*/
+
+   /*     $resultado=darRespestas();
+
+        $compruebaUsuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $datos_user);
+        
+        if ($compruebaUsuario) {            
+            $insertDatos = loadModel(MODEL_PROFILE, "profile_model", "registrarUser", $datos_user);
+            if ($insertDatos) {
+                $resultado["mensaje"]="ERROR. Intentelo de nuevo mas tarde";
+                $resultado["exito"]=true;
+            }else{
+                $resultado["mensaje"]="ERROR. Intentelo de nuevo mas tarde";
+            }
+        }else{
+            $resultado["mensaje"]="Este nombre de usuario ya existe.";
+        }
+    }
+
+        echo (json_encode($resultado));
+        
+        exit;*/
+
+    }
+}
+
+
+/*
 if (isset($_POST['user_JSON'])) {	
     alta_users();
 }
@@ -99,4 +149,4 @@ if(  isset($_POST['idPoblac']) ){
             echo json_encode($jsondata);
             exit;
         }
-    }
+    }*/

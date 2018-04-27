@@ -3,14 +3,14 @@
 //exit;
 // $path = $_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/';
 // define('SITE_ROOT', $path);
-require($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/profile/model/BLL/profile_bll.class.singleton.php");
+// require($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/profile/model/BLL/profile_bll.class.singleton.php");
 
 class profile_model {
     private $bll;
     static $_instance;
 
     private function __construct() {
-        $this->bll = user_bll::getInstance();
+        $this->bll = profile_bll::getInstance();
     }
 
     public static function getInstance() {
@@ -39,6 +39,10 @@ class profile_model {
 
     public Function obtain_cities($arrArgument){
         return $this->bll->obtain_cities_BLL($arrArgument);
+    }
+
+    public Function registrarUser($arrArgument){           
+        return $this->bll->registrarUser_BLL($arrArgument);
     }
 
 }

@@ -74,7 +74,8 @@
 
 /*module profile*/
     define('PROFILE_JS_PATH', SITE_PATH . 'module/profile/view/js/');
-
+    define('UTILS_PROFILE', SITE_ROOT . 'module/profile/utils/');
+    define('MODEL_PROFILE', SITE_ROOT . 'module/profile/model/model/');
 
 
 /*IMPORT_MODAL*/

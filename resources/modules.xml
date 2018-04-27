@@ -12,5 +12,9 @@
         <name>contact</name>
         <uri>contact</uri>
     </module>
+    <module>
+        <name>profile</name>
+        <uri>profile</uri>
+    </module>
 
 </modules>
