@@ -1,6 +1,10 @@
 	$(document).ready(function () {
 
 		$("#btn-singUp").click(function(event) {
+			$("#sp_user_register").html("<span></span>");
+			$("#sp_email_register").html("<span></span>");
+			$("#sp_password_register").html("<span></span>");
+
 
 			if (validador()) {
 				var dataString = $("#registerForm").serialize();
@@ -9,28 +13,48 @@
                     type: "POST",
                     url: "../../profile/register",
                     data: dataString,
-                    success: function(dataString) {
-                        console.log(dataString);
-                        /*var arrDatos=JSON.parse(datos);
-                        if (!arrDatos.exito) {
-                        	console.log(entra);
-                        }*/
+                    success: function(datos) {
+                        var arrDatos=JSON.parse(datos);
+                        console.log(arrDatos);
+                        if (arrDatos.success) {
+                        	console.log("entra");
+                        	$("#modal_login").modal("hide");
+	                        var toasts = new Toast('REGISTER', 'success', 'toast-top-full-width', arrDatos.mensaje, 50000);
+	    					delayToasts(toasts,0);
+                        }
                         
                     }
                 })
-                .fail(function(jqXHR, textStatus, errorThrown) {
+                .fail(function(xhr, jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR); 
                     console.log(textStatus); 
-                    console.log(errorThrown);                    
+                    console.log(errorThrown);  
+                    console.log(xhr);  
+
+                    if (xhr.responseJSON == undefined || xhr.responseJSON === null ){
+		                  xhr.responseJSON = JSON.parse(xhr.responseText);                
+		            }
+		            
+		            if (xhr.responseJSON.error.user){
+		                $("#sp_user_register").html("<span style='color:red;'>" + xhr.responseJSON.error.user +"</span>");
+		            }
+		            
+		            if (xhr.responseJSON.error.email){
+		                $("#sp_email_register").html("<span style='color:red;'>" + xhr.responseJSON.error.email +"</span>");
+		            }
+
+		            if (xhr.responseJSON.error.password){
+		                $("#sp_password_register").html("<span style='color:red;'>" + xhr.responseJSON.error.password +"</span>");
+		            }
+
                 });
 			}
 
 		});
 
 		$(".inputKeyup").keyup(function() {
-	        var id = this.getAttribute('id');
-	        $("#"+id+"").attr("style", "");
-	        $("#"+id+"").siblings(".error_js").remove();
+	        
+
 	    });
 
 	});

@@ -27,11 +27,30 @@
                 $valido = false;
             }else{                
                 $compruebaUsuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $value);
-                if (!$compruebaUsuario) {
-                    $error['user'] = '<strong>*php</strong> This user already exist in our DB';
+
+                if (count($compruebaUsuario)>0) {
+                    $error['user'] = '<strong>*php'.count($compruebaUsuario).'</strong> This user already exist in our DB';
                     $valido = false;  
                 }
-            }       
+            }
+
+             if (!$resultado['email']) {
+                $error['email'] = '<strong>*php</strong> Please write min 4 caracters';
+                $valido = false;
+            }else{                
+                $compruebaEmail = loadModel(MODEL_PROFILE, "profile_model", "checkUserEmail", $value);
+                // $error['email'] = '<strong>*php'.$compruebaEmail.'</strong> This email already exist in our DB';
+                if (count($compruebaEmail)>0) {
+                    $error['email'] = '<strong>*php'.count($compruebaEmail).'</strong> This email already exist in our DB';
+                    $valido = false;  
+                }
+            }
+
+            if (!$resultado['password']) {
+                $error['password'] = '<strong>*php</strong> Invalid format';
+                $valido = false;
+            }
+                  
 
         } else {
             $valido = false;

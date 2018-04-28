@@ -12,22 +12,38 @@ class controller_profile {
     }
 
     function register(){         
-        echo ("dsfs");exit;
-        /*$datos_user=array(
+        $datos_user=array(
             "user"=>$_POST['user_register'],
             "email"=>$_POST['email_register'],
             "password"=>$_POST['password_register']
         );  
+
         $resultado=valida_usuario($datos_user);
+        
         if ($resultado["resultado"]) {
-            # code...
+            $insertDatos = loadModel(MODEL_PROFILE, "profile_model", "registrarUser", $datos_user);
+
+            if ($insertDatos) {
+                $json_data["success"]= true;
+                $json_data["mensaje"] = "Felicidades ".$_POST['user_register']." te has registrado correctamente";
+                
+                echo json_encode($json_data);
+                exit;
+            }else{
+                $json_data["success"] = false;
+                $resultado['error']['insersionDatos']="ERROR. Insersion de datos fallida";
+                $json_data["error"] = $resultado['error']['insersionDatos'];
+
+                header('HTTP/1.0 400 Bad error');
+                echo json_encode($json_data);
+            }
         }else{      
             $json_data["success"] = false;
             $json_data["error"] = $resultado['error'];
 
             header('HTTP/1.0 400 Bad error');
             echo json_encode($json_data);
-        }*/
+        }
 
    /*     $resultado=darRespestas();
 

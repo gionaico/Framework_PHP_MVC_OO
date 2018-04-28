@@ -31,6 +31,10 @@ class profile_bll{
     public function checkUser_BLL($arrArgument){        
       return $this->dao->checkUser_DAO($this->db, $arrArgument);
     }
+    
+    public function checkUserEmail_BLL($arrArgument){        
+      return $this->dao->checkUserEmail_DAO($this->db, $arrArgument);
+    }
 
 
     public function obtain_countries_BLL($url){

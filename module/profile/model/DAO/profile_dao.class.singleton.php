@@ -115,7 +115,22 @@ class profile_dao {
         return $db->ejecutar($sql);      
     }
 
-   /* public function checkUser_DAO($db, $arrArgument) {
+
+    public function checkUser_DAO($db, $arrArgument) {
+      $user= $arrArgument["user"];      
+      $sql=("SELECT * FROM users WHERE user_name ='$user'");
+      return $db->listar($db->ejecutar($sql));
+    }
+    
+
+    public function checkUserEmail_DAO($db, $arrArgument) {
+      $email= $arrArgument["email"];      
+      $sql=("SELECT * FROM users WHERE email ='$email'"); /*and tipo_registro='m'*/
+      return $db->listar($db->ejecutar($sql));
+    }
+
+
+   /* public function checkUser_DAO($db, $arrArgument) {  
       $valor= $arrArgument[0];
       $valor1= $arrArgument[1];
       $sql=("SELECT * FROM users WHERE ".$valor." ='$valor1'");
@@ -126,16 +141,4 @@ class profile_dao {
       }
       return true;
     }*/
-
-    public function checkUser_DAO($db, $arrArgument) {
-      $user= $arrArgument["user"];
-      
-      $sql=("SELECT * FROM users WHERE user_name ='$user'");
-      // echo ($sql);
-      $res=$db->listar($db->ejecutar($sql));
-      if (count($res)>0) {
-        return false;
-      }
-      return true;
-    }
 }//End productDAO

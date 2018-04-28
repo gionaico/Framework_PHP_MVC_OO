@@ -28,6 +28,10 @@ class profile_model {
     public function checkUser($arrArgument) {
         return $this->bll->checkUser_BLL($arrArgument);
     }
+    
+    public function checkUserEmail($arrArgument) {
+        return $this->bll->checkUserEmail_BLL($arrArgument);
+    }
 
     public function obtain_countries($url){
         return $this->bll->obtain_countries_BLL($url);
