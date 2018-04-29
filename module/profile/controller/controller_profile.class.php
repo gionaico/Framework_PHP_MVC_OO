@@ -44,30 +44,64 @@ class controller_profile {
             header('HTTP/1.0 400 Bad error');
             echo json_encode($json_data);
         }
+    }
 
-   /*     $resultado=darRespestas();
+    /*-------------------------------------------*/
+   function loginManual(){
+        $datos_user=array(
+                "user"=>$_POST['user_log'],
+                "password"=>$_POST['password_log']
+            );  
+        $resultado=valida_usuarioLog($datos_user);
+        if ($resultado["resultado"]) {
 
-        $compruebaUsuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $datos_user);
-        
-        if ($compruebaUsuario) {            
-            $insertDatos = loadModel(MODEL_PROFILE, "profile_model", "registrarUser", $datos_user);
-            if ($insertDatos) {
-                $resultado["mensaje"]="ERROR. Intentelo de nuevo mas tarde";
-                $resultado["exito"]=true;
-            }else{
-                $resultado["mensaje"]="ERROR. Intentelo de nuevo mas tarde";
-            }
-        }else{
-            $resultado["mensaje"]="Este nombre de usuario ya existe.";
+            echo ("correcto");exit;
+        }else{      
+            $json_data["success"] = false;
+            $json_data["error"] = $resultado['error'];
+
+            header('HTTP/1.0 400 Bad error');
+            echo json_encode($json_data);
         }
     }
+    /*-------------------------------------------*/
+}/*end clase profile*/
 
-        echo (json_encode($resultado));
-        
-        exit;*/
 
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*

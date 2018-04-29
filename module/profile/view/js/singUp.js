@@ -6,7 +6,7 @@
 			$("#sp_password_register").html("<span></span>");
 
 
-			if (validador()) {
+			if (validador_reg()) {
 				var dataString = $("#registerForm").serialize();
 
 				$.ajax({
@@ -53,13 +53,15 @@
 		});
 
 		$(".inputKeyup").keyup(function() {
-	        
-
+	        var id = this.getAttribute('id');
+	        $("#"+id+"").attr("style", "");
+	        $("#"+id+"").siblings(".error_js").remove();
 	    });
+
 
 	});
 
-	function validador(){
+	function validador_reg(){
 		var user_register = document.getElementById("user_register").value;
 		var email_register = document.getElementById("email_register").value;
 		var password_register = document.getElementById("password_register").value;

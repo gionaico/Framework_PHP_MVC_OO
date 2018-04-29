@@ -5,8 +5,8 @@
         <uri>register</uri>
     </function>
     <function>
-        <name>prueba</name>
-        <uri>prueba</uri>
+        <name>loginManual</name>
+        <uri>loginManual</uri>
     </function>
     
 </functions>

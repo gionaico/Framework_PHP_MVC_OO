@@ -184,20 +184,23 @@
 					                    '<div class="col-md-6">'+
 					                        '<div id="hacerLogin">'+
 
-					                            '<div class="form-group">'+
-					                                '<input id="user_log" name="user_log" type="text" placeholder="your user name" value="" class="form-control input-md color_input" required="required" value="">'+
-					                                '<span id="sp_user_log" ></span>'+
-					                            '</div>'+
+					                        	'<form id="loginForm">'+	
+							                            '<div class="form-group">'+
+							                                '<input id="user_log" name="user_log" type="text" placeholder="your user name" value="" class="form-control input-md color_input inputKeyup" required="required" value="">'+
+							                                '<span id="sp_user_log" ></span>'+
+							                            '</div>'+
 
-					                            '<div class="form-group ">'+
-					                                '<input id="password_log" name="password_log" type="password" class="form-control input-md color_input" placeholder="your password" required=""  value="">'+
-					                            '</div>'+
-					                            
-					                            '<div class="form-group ">'+
-					                                '<a type="button" class="col-md-12 btn btn-success 378" id="submit_login">LOGIN</a>'+
-					                                '<br><br><br>'+
-					                                '<a href="#" title="">Dont remember your password?</a>'+
-					                            '</div>'+
+							                            '<div class="form-group ">'+
+							                                '<input id="password_log" name="password_log" type="password" class="form-control input-md color_input inputKeyup" placeholder="your password" required=""  value="">'+
+							                                '<span id="sp_password_log" ></span>'+
+							                            '</div>'+
+							                            
+							                            '<div class="form-group ">'+
+							                                '<a type="button" class="col-md-12 btn btn-success 378" id="btn-login">LOGIN</a>'+
+							                                '<br><br><br>'+
+							                                '<a href="#" title="">Dont remember your password?</a>'+
+							                            '</div>'+
+							                    '</form>'+
 
 					                        '</div>'+
 

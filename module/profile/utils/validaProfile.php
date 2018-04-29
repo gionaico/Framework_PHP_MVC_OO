@@ -1,4 +1,25 @@
 <?php
+    function valida_usuarioLog($value){
+        $error = array();
+        $valido = true;
+
+        $usuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $value);
+
+        if (count($usuario)==1) {
+            if (!password_verify($value["password"], $usuario[0]["password"] )) {
+                $error['password'] = '<strong>*php</strong> The password for this user is incorrect';
+                $valido = false;  
+            }
+        }else{
+            $error['user'] = '<strong>*php</strong> This user dont exist in our DB';
+            $valido = false;  
+
+        }
+
+        return $return = array('resultado' => $valido, 
+                                'error' => $error);
+    }
+
 
     function valida_usuario($value) {
         $error = array();
@@ -29,7 +50,7 @@
                 $compruebaUsuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $value);
 
                 if (count($compruebaUsuario)>0) {
-                    $error['user'] = '<strong>*php'.count($compruebaUsuario).'</strong> This user already exist in our DB';
+                    $error['user'] = '<strong>*php</strong> This user already exist in our DB';
                     $valido = false;  
                 }
             }
