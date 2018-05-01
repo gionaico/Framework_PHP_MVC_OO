@@ -41,6 +41,14 @@
         return "http://localhost/Proyectos/GiovannyProy4" + link;
     }
 
+
+    function limpiaForm(arr){
+        for (var i = 0; i <arr.length; i++) {            
+            $("#"+arr[i]+"")[0].reset();
+        }
+    }
+
+
     function autocomplete(json){
         $.post(amigable("?module=courses&function=autocomplete"),{"autocomplete":true},
             

@@ -15,10 +15,16 @@
     
             case 'admin':
                 $subject = $arr['inputSubject'];
-                $body = 'inputName: ' . $arr['inputName']. '<br>' .
-                'inputEmail: ' . $arr['inputEmail']. '<br>' .
+                $body = 'inputName: ' . $arr['user']. '<br>' .
+                'inputEmail: ' . $arr['email']. '<br>' .
                 'inputSubject: ' . $arr['inputSubject']. '<br>' .
                 'inputMessage: ' . $arr['inputMessage'];
+                break;
+
+            case 'alta':
+                $subject = 'Tu Alta en Libra LearnEasy';
+                $ruta = '<a href=' . amigable("?module=profile&function=activar&aux=" . $arr['token'], true) . '>aqu&iacute;</a>';
+                $body = 'Gracias por unirte a nuestra aplicaci&oacute;n. Para finalizar el registro, pulsa ' . $ruta;
                 break;
         }
         
@@ -34,11 +40,11 @@
         set_error_handler('ErrorHandler');
         try{
             $mail = email::getInstance();
-            $mail->name = $arr['inputName'];
+            $mail->name = $arr['user'];
             if ($arr['type'] === 'admin'){
                 $mail->address = 'gmc.yanez@gmail.com';
             }else{
-                $mail->address = $arr['inputEmail'];
+                $mail->address = $arr['email'];
             }
             $mail->subject = $subject;
             $mail->body = $html;
@@ -56,6 +62,6 @@
         }
         */
         $return = $mail->enviar();
-        echo ($return);exit;
+        // echo ($return);exit;
         return $return;
     }

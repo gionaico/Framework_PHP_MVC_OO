@@ -12,9 +12,16 @@
                     url: "../../profile/loginManual",
                     data: dataString,
                     success: function(datos) {
-                        console.log(datos);
-                        // var arrDatos=JSON.parse(datos);
-                        // console.log(arrDatos);
+                        var arrDatos=JSON.parse(datos);
+                        console.log(arrDatos);
+                        if (arrDatos.success) {
+                        	console.log("entra");
+                        	var arr=["loginForm", "registerForm"];
+                        	limpiaForm(arr);
+                        	$("#modal_login").modal("hide");
+	                        var toasts = new Toast('LIGIN', 'success', 'toast-top-full-width', arrDatos.mensaje, 10000);
+	    					delayToasts(toasts,0);
+                        }
                         
                         
                     }

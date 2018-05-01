@@ -1,4 +1,22 @@
 <?php
+
+    function sendtoken($arrArgument, $type) {
+        $mail = array(
+            'type' => $type,
+            'token' => $arrArgument['token'],
+            'email' => $arrArgument['email'],
+            'user' => $arrArgument['user']
+        );
+        set_error_handler('ErrorHandler');
+        try {
+            enviar_email($mail);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+        restore_error_handler();
+    }
+
     function valida_usuarioLog($value){
         $error = array();
         $valido = true;

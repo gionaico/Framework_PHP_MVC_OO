@@ -106,10 +106,11 @@ class profile_dao {
         $email = $arrArgument['email'];
         $password= $arrArgument['password'];
         $password_cifrado=password_hash($password, PASSWORD_DEFAULT);
+        $token= $arrArgument['token'];
         $register_date=date("Y-m-d");
 
 
-        $sql = "INSERT INTO users (user_name, email, password, register_date) VALUES('$user', '$email', '$password_cifrado', '$register_date')";
+        $sql = "INSERT INTO users (user_name, email, password, register_date, token) VALUES('$user', '$email', '$password_cifrado', '$register_date', '$token')";
         // echo $sql;
         // exit;
         return $db->ejecutar($sql);      

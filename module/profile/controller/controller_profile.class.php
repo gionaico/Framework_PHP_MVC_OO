@@ -17,6 +17,7 @@ class controller_profile {
             "email"=>$_POST['email_register'],
             "password"=>$_POST['password_register']
         );  
+        $datos_user["token"] = md5(uniqid(rand(), true));
 
         $resultado=valida_usuario($datos_user);
         
@@ -26,7 +27,7 @@ class controller_profile {
             if ($insertDatos) {
                 $json_data["success"]= true;
                 $json_data["mensaje"] = "Felicidades ".$_POST['user_register']." te has registrado correctamente";
-                
+                sendtoken($datos_user, "alta");
                 echo json_encode($json_data);
                 exit;
             }else{
@@ -54,8 +55,10 @@ class controller_profile {
             );  
         $resultado=valida_usuarioLog($datos_user);
         if ($resultado["resultado"]) {
-
-            echo ("correcto");exit;
+            $json_data["success"]= true;
+            $json_data["mensaje"] = "Bienvenido ".$_POST['user_log']." , has iniciado sesion exitosamente";
+            
+            echo json_encode($json_data);
         }else{      
             $json_data["success"] = false;
             $json_data["error"] = $resultado['error'];
