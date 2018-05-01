@@ -116,10 +116,27 @@ class profile_dao {
         return $db->ejecutar($sql);      
     }
 
+    public function registrarUserSocial_DAO($db, $arrArgument) {
+        $user= $arrArgument['user'];
+        $name= $arrArgument['name'];
+        $email = $arrArgument['email'];
+        $avatar = $arrArgument['avatar'];
+        $tipo_registro = $arrArgument['tipo_registro'];
+        $register_date=date("Y-m-d");
+
+
+        $sql = "INSERT INTO users (user_name, name, email,  register_date, avatar, tipo_registro) VALUES('$user', '$name', '$email', '$register_date', '$avatar', '$tipo_registro')";
+        // echo $sql;
+        // exit;
+        return $db->ejecutar($sql);      
+    }
+
 
     public function checkUser_DAO($db, $arrArgument) {
       $user= $arrArgument["user"];      
       $sql=("SELECT * FROM users WHERE user_name ='$user'");
+      // echo $sql;
+        // exit;
       return $db->listar($db->ejecutar($sql));
     }
     

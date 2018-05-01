@@ -49,4 +49,8 @@ class profile_model {
         return $this->bll->registrarUser_BLL($arrArgument);
     }
 
+    public Function registrarUserSocial($arrArgument){           
+        return $this->bll->registrarUserSocial_BLL($arrArgument);
+    }
+
 }

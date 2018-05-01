@@ -1,117 +1,8 @@
 	$(document).ready(function () {
-
-		// Initialize Firebase
-		var config = {
-			apiKey: "AIzaSyCB976KXuqfCaiDjxqAkYVyWvjoxVJ6pm0",
-			authDomain: "libra-learneasy.firebaseapp.com",
-			databaseURL: "https://libra-learneasy.firebaseio.com",
-			projectId: "libra-learneasy",
-			storageBucket: "libra-learneasy.appspot.com",
-			messagingSenderId: "898327279773"
-		};
-		firebase.initializeApp(config);
-		var authService = firebase.auth();
-		
-
-		creaModal();
-
-		authService.onAuthStateChanged(function(user) {
-			if (user) {
-				logOut(authService);
-				console.log('AuthStateChanged', user)
-				// document.getElementById('datosuser').innerHTML = JSON.stringify(user);
-				// document.getElementById('loginGoogle').style.display = 'none';
-				// document.getElementById('botonlogout').style.display = 'block';
-			} else {
-				logTwitter(authService);
-				logGoogle(authService);  
-				logFacebook(authService);
-				// document.getElementById('datosuser').innerHTML = 'Sin usuario logueado...'
-				// document.getElementById('loginGoogle').style.display = 'block';
-				// document.getElementById('botonlogout').style.display = 'none';
-			}
-		});
-	});
 	
-	function logFacebook(authService){
-        // opcionalmente modifico el scope
-        //provider.addScope('user_friends');    
-        // accedo al servicio de autenticación        
-    
-        document.getElementById('loginfacebook').addEventListener('click', function() {
-		var provider = new firebase.auth.FacebookAuthProvider();
-            // autentico con Facebook
-            authService.signInWithPopup(provider)
-                .then(function(result) {
-                    console.log(result);
-                    console.log('autenticado usuario ', result.user);
-                    console.log(result.user.displayName);
-                    console.log(result.user.email);
-                    console.log(result.user.photoURL);
-                })
-                .catch(function(error) {
-                    console.log('Detectado un error:', error);
-                });
-        });
-	}
-
-	function logTwitter(authService){
-        
-      		// var authService = firebase.auth();
-        document.getElementById('logintwitter').addEventListener('click', function() {
-		 	var provider = new firebase.auth.TwitterAuthProvider();
-		 
-        	authService.signInWithPopup(provider).then(function(result) {
-              //var token = result.credential.accessToken;
-              //var secret = result.credential.secret;
-              console.log("funciona");
-              console.log(result.user);
-              console.log(result.user.displayName);
-              console.log(result.user.email);
-              console.log(result.user.photoURL);
-              console.log(result.user.uid);
-          }).catch(function(error) {
-          	console.log('Se ha encontrado un error:', error);
-            //var errorCode = error.code;
-            //var errorMessage = error.message;
-            //var email = error.email;
-            //var credential = error.credential;
-          });
-      });
-	}
-
-	function logGoogle(authService){
-
-    
-        // var authService = firebase.auth();
-        // manejador de eventos para loguearse
-        document.getElementById('loginGoogle').addEventListener('click', function() {
-		 var provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('email');
-          authService.signInWithPopup(provider)
-                .then(function(result) {
-                    console.log('Hemos autenticado al usuario ', result.user);
-                    console.log(result.user.displayName);
-                    console.log(result.user.email);
-                    console.log(result.user.photoURL);
-                    console.log(result.user.uid);
-                })
-                .catch(function(error) {
-                    console.log('Se ha encontrado un error:', error);
-                });
-        });
-
-        // manejador de eventos para los cambios del estado de autenticación https://prueba-firebase-b4e33.firebaseapp.com/__/auth/handler
-       
-	}
-
-	function logOut(authService){
-		//manejador de eventos para cerrar sesión (logout)
-        document.getElementById('botonlogout').addEventListener('click', function() {
-          authService.signOut() 
-        });
-	}
-
+		form_LogRegi();		
+	
+	});
 
 
 
@@ -141,7 +32,7 @@
 	}
 
 /*CREA TODA LA ESTRUCTURA DEL MODAL*/
-	function creaModal(){
+/*	function creaModal(){LyCaMofY0NQiiJmGHxjENsaqRFo2
 		var modal='<div class="modal fade"  id="modal_login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" hidden>'+
 					    '<div class="modal-dialog" id="mdialTamanio" role="document">'+
 					        '<div class="modal-content">'+
@@ -261,6 +152,6 @@
 
 	    $("#LoginModal").append(modal);
 	    form_LogRegi();
-	}
+	}*/
 
 	

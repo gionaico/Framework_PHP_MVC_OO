@@ -32,7 +32,7 @@ $(document).ready(function () {
         
      function (response) {
         json = JSON.parse(response);
-     	console.log(json);
+     	/*console.log(json);*/
              
         v++;
     	limite1=limite2;
@@ -56,7 +56,7 @@ $(document).ready(function () {
     	limite2_b=limite2_b+3;
     	
      	json2=JSON.parse(response);
-     	console.log(json2);
+     	/*console.log(json2);*/
      	bucleCategorias(limite1_b, limite2_b, json2);
         
 	 }).fail(function() {
@@ -68,7 +68,7 @@ $(document).ready(function () {
 function bucleCategorias(limite1, limite2, json){
 	
 	var div=document.getElementById("categories");
-  console.log(limite1+limite2);
+  	/*console.log(limite1+limite2);*/
 
 	if (json.length<limite2) {
 		for (var i = limite1 ; i <json.length; i++) {
@@ -78,7 +78,7 @@ function bucleCategorias(limite1, limite2, json){
 		}
 	}else{
 		for (var i = limite1 ; i <limite2; i++) {
-			console.log(json[i]);
+			/*console.log(json[i]);*/
 			var element2=creaCategorias(json[i]);
 			div.appendChild(element2);
 		}

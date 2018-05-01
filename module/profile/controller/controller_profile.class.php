@@ -68,6 +68,38 @@ class controller_profile {
         }
     }
     /*-------------------------------------------*/
+    function logSocial(){
+        $datos_user=array(
+            "user"=>$_POST['user'],
+            "email"=>$_POST['email'],
+            "name"=>$_POST['name'],
+            "avatar"=>$_POST['avatar'],
+            "tipo_registro"=>$_POST['tipo_registro']
+        ); 
+        $usuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $datos_user);
+            // echo ($usuario);exit;
+        if (count($usuario)<1) {
+            $insertDatos = loadModel(MODEL_PROFILE, "profile_model", "registrarUserSocial", $datos_user);
+            if ($insertDatos) {
+                $json_data["success"]= true;
+                $json_data["mensaje"] = "Bienvenido ".$_POST['name']." , has iniciado sesion exitosamente";
+                
+                echo json_encode($json_data);
+            }else{      
+                $json_data["success"] = false;
+                $json_data["error"] = 'error';
+
+                header('HTTP/1.0 400 Bad error');
+                echo json_encode($json_data);
+            }
+        }else{
+            $json_data["success"]= true;
+            $json_data["mensaje"] = "Bienvenido ".$_POST['name']." , has iniciado sesion exitosamente";
+            
+            echo json_encode($json_data);
+        }
+        
+    }
 }/*end clase profile*/
 
 

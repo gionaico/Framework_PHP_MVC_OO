@@ -8,5 +8,9 @@
         <name>loginManual</name>
         <uri>loginManual</uri>
     </function>
+    <function>
+        <name>logSocial</name>
+        <uri>logSocial</uri>
+    </function>
     
 </functions>

@@ -55,4 +55,9 @@ class profile_bll{
     public function registrarUser_BLL($arrArgument){    
         return $this->dao->registrarUser_DAO($this->db,$arrArgument);
     }
+
+
+    public function registrarUserSocial_BLL($arrArgument){    
+        return $this->dao->registrarUserSocial_DAO($this->db,$arrArgument);
+    }
 }
