@@ -8,7 +8,8 @@
     <header id="header">
       <!-- BEGIN MENU -->
       <div class="menu_area">
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">  <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">  
+          <div id="menu_principal">
             <div class="navbar-header">
               <!-- FOR MOBILE VIEW COLLAPSED BUTTON -->
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -55,17 +56,25 @@
                     <a href="<?php amigable('?module=contact&function=view_contact');?>">Contact</a>
                 </li>
 
-                <li >
+                <li id="li-logIn" >
                     <a href="#" class="desactivate" data-toggle="modal" id="login" data-target="#modal_login ">Log in</a>
                 </li>
 
-                <li >
+                <li id="li-logOut" >
                     <a href="#" id="botonlogout">Log out</a>
                 </li>
 
-                <li >
-                    <a href="#" id="9">9</a>
+
+                <li class="dropdown <?php saberModule('profile'); ?>">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <img src="" id="avatar_menu" class="img-circle peque" alt=""><span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">op1</a></li>
+                    <li><a href="#">op2</a></li>              
+                  </ul>
                 </li>
+
                 
                 <!-- <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

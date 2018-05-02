@@ -37,6 +37,10 @@ License URI: http://www.gnu.org/licenses/gpl.html
 /* .next,.prev{
   display: none !important;  
 } */
+
+#menu_principal{
+  padding-right:50px;
+}
 .zoom:hover {
     transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
@@ -58,6 +62,9 @@ img.grande{
 }
 img.icon{
   width: 24px; 
+}
+img.peque{
+  width: 50px; 
 }
 .msg{
     color: white;

@@ -57,8 +57,10 @@ class controller_profile {
         if ($resultado["resultado"]) {
             $json_data["success"]= true;
             $json_data["mensaje"] = "Bienvenido ".$_POST['user_log']." , has iniciado sesion exitosamente";
-            
-            echo json_encode($json_data);
+            // setcookie("cookie2",json_encode($datos_user),time()+60);
+            // echo ($_COOKIE['cookie1']);
+            echo (base64_encode (json_encode($datos_user)));
+            // echo json_encode($json_data);
         }else{      
             $json_data["success"] = false;
             $json_data["error"] = $resultado['error'];
@@ -100,6 +102,9 @@ class controller_profile {
         }
         
     }
+
+
+   
 }/*end clase profile*/
 
 
