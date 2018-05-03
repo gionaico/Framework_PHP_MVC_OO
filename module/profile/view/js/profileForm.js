@@ -65,7 +65,7 @@ $(document).ready(function () {
 
     $("#province").change(function() {
         var prov = $(this).val();
-        console.log(prov);
+        // console.log(prov);
         if(prov > 0){
             load_cities_v1(prov);
         }else{

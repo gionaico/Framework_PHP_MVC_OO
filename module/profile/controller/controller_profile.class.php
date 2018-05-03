@@ -11,6 +11,10 @@ class controller_profile {
         $_SESSION['module'] = "profile";
     }
 
+    function form() {
+        loadView( "module/profile/view/", "profile.html"); 
+    }
+
     function register(){         
         $datos_user=array(
             "user"=>$_POST['user_register'],
@@ -18,6 +22,7 @@ class controller_profile {
             "password"=>$_POST['password_register']
         );  
         $datos_user["token"] = md5(uniqid(rand(), true));
+        $datos_user["avatar"] = "https://robohash.org/".$_POST['user_register'];
 
         $resultado=valida_usuario($datos_user);
         
@@ -59,8 +64,14 @@ class controller_profile {
             $json_data["mensaje"] = "Bienvenido ".$_POST['user_log']." , has iniciado sesion exitosamente";
             // setcookie("cookie2",json_encode($datos_user),time()+60);
             // echo ($_COOKIE['cookie1']);
-            echo (base64_encode (json_encode($datos_user)));
-            // echo json_encode($json_data);
+            
+            $datosEditar["user"]=$_POST['user_log'];
+            $datosEditar["token"]=$this->creaToken($datos_user);
+            $updateToken = loadModel(MODEL_PROFILE, "profile_model", "updateToken", $datosEditar);
+
+            $json_data["token"]=$datosEditar["token"];
+
+            echo json_encode($json_data);
         }else{      
             $json_data["success"] = false;
             $json_data["error"] = $resultado['error'];
@@ -69,6 +80,38 @@ class controller_profile {
             echo json_encode($json_data);
         }
     }
+    /*-------------------------------------------*/
+    public function creaToken($datos_user){
+        $token = md5(uniqid(rand(), true));
+        $datos =base64_encode (json_encode($datos_user));
+        $clave =base64_encode ($token);
+        
+        $token_datos=$token.".".$datos.".".$clave;
+        
+        return $token_datos;
+    }
+
+    /*-------------------------------------------*/
+    function getdatos(){
+        // echo ($_POST['user']);
+        $array = explode(".", $_POST['user']);
+        $datos["success"]=false;
+
+        $tokenComparar=$array[0];
+        $tokenComparar2=$array[2];
+        if ($tokenComparar==base64_decode($tokenComparar2)) {
+            $datos["success"]=true;
+            $datos["datos"] =base64_decode($array[1]);
+        }elseif(count($array)!=3){
+            $datos["mensaje"]="Problema de seguridad. Logueate nuevamente";
+
+        }else{            
+            $datos["mensaje"]="ERROR. Autentificacion de datos";
+        }
+
+        echo json_encode($datos);
+    }
+
     /*-------------------------------------------*/
     function logSocial(){
         $datos_user=array(
@@ -101,6 +144,68 @@ class controller_profile {
             echo json_encode($json_data);
         }
         
+    }
+
+
+    function load_country(){
+        /////////////////////////////////////////////////// load_country
+            $json = array();
+
+            $url = 'http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByName/JSON';
+
+                        
+            $json =  loadModel(MODEL_PROFILE, "profile_model", "obtain_countries", $url);
+            // echo $json;
+            //     exit;
+            if($json){
+                echo $json;
+                exit;
+            }else{
+                $json = "error";
+                echo $json;
+                exit;
+            }
+    }
+
+    function load_provinces(){        
+        $jsondata = array();
+        $json = array();
+
+        
+        
+        $json =  loadModel(MODEL_PROFILE, "profile_model", "obtain_provinces");
+
+        if($json){
+            $jsondata["provinces"] = $json;
+            echo json_encode($jsondata);
+            exit;
+        }else{
+            $jsondata["provinces"] = "error";
+            echo json_encode($jsondata);
+            exit;
+        }
+    }
+
+    function load_cities(){
+        if(  isset($_POST['idPoblac']) ){
+            $jsondata = array();
+            $json = array();
+
+            $json =  loadModel(MODEL_PROFILE, "profile_model", "obtain_cities", $_POST['idPoblac']);
+
+/*            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/profile/model/model/';
+            $json = loadModel($path_model, "profile_model", "obtain_cities", $_POST['idPoblac']);*/
+
+            if($json){
+                $jsondata["cities"] = $json;
+                echo json_encode($jsondata);
+                exit;
+            }else{
+                $jsondata["cities"] = "error";
+                echo json_encode($jsondata);
+                exit;
+            }   
+        }
     }
 
 
@@ -183,60 +288,5 @@ function alta_users() {
 }
 
 
-/////////////////////////////////////////////////// load_country
-	if(  (isset($_GET["load_country"])) && ($_GET["load_country"] == true)  ){
-        $json = array();
 
-        $url = 'http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByName/JSON';
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/profile/model/model/';
-        
-        $json = loadModel($path_model, "profile_model", "obtain_countries", $url);
-        echo $json;
-            exit;
-        if($json){
-            echo $json;
-            exit;
-        }else{
-            $json = "error";
-            echo $json;
-            exit;
-        }
-    }
-
-/////////////////////////////////////////////////// load_provinces
-if(  (isset($_GET["load_provinces"])) && ($_GET["load_provinces"] == true)  ){
-        $jsondata = array();
-        $json = array();
-
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/profile/model/model/';
-        $json = loadModel($path_model, "profile_model", "obtain_provinces");
-
-        if($json){
-            $jsondata["provinces"] = $json;
-            echo json_encode($jsondata);
-            exit;
-        }else{
-            $jsondata["provinces"] = "error";
-            echo json_encode($jsondata);
-            exit;
-        }
-    }
-
-/////////////////////////////////////////////////// load_cities
-if(  isset($_POST['idPoblac']) ){
-        $jsondata = array();
-        $json = array();
-
-        $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/profile/model/model/';
-        $json = loadModel($path_model, "profile_model", "obtain_cities", $_POST['idPoblac']);
-
-        if($json){
-            $jsondata["cities"] = $json;
-            echo json_encode($jsondata);
-            exit;
-        }else{
-            $jsondata["cities"] = "error";
-            echo json_encode($jsondata);
-            exit;
-        }
     }*/

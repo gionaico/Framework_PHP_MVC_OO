@@ -1,5 +1,32 @@
 	$(document).ready(function () {
-		// Initialize Firebase
+
+		// var userLocalStorage = {"user": localStorage.getItem("user")};		
+		
+		if ((localStorage.getItem("user")==null) || (localStorage.getItem("user")=="")|| (localStorage.getItem("user")=="undefined")) {
+			console.log("problemas localStorage");
+			cambiaMenu(logueado=false);
+		}else{
+			var user = {"user": localStorage.getItem("user")};
+			cambiaMenu(logueado=true);
+			$.ajax({
+	            type: "POST",
+	            url: "../../profile/getdatos",
+	            data: user,
+	            success: function(datos) {
+	                console.log(datos);
+	                
+	                                                
+	            }
+	        })
+	        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR); 
+	            console.log(textStatus); 
+	            console.log(errorThrown);  
+	            console.log(xhr);            
+	        });/*end fail*/
+		}
+
+		// Initialize Firebase 
 		var config = {
 			apiKey: "AIzaSyCB976KXuqfCaiDjxqAkYVyWvjoxVJ6pm0",
 			authDomain: "libra-learneasy.firebaseapp.com",
@@ -34,7 +61,31 @@
 			}
 		});
 
+
+		$("#prueba12").click(function(event) {
+			var user = {"user": localStorage.getItem("user")};
+			$.ajax({
+	            type: "POST",
+	            url: "../../profile/getdatos",
+	            data: user,
+	            success: function(datos) {
+	                console.log(datos);
+	                                                
+	            }
+	        })
+	        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR); 
+	            console.log(textStatus); 
+	            console.log(errorThrown);  
+	            console.log(xhr);            
+	        });/*end fail*/
+		});
+
 	});/*end document ready*/
+
+
+
+
 
 
 /*----------FUNCIONES---------------------*/
@@ -91,9 +142,11 @@
                     data: dataString,
                     success: function(datos) {
                     	console.log(datos);
-                    	console.log(Base64.decode(datos));
+                    	/*console.log(Base64.decode(datos));*/
                     	
+
                         var arrDatos=JSON.parse(datos);
+                        localStorage.setItem("user", arrDatos.datos);
                         console.log(arrDatos);
                         if (arrDatos.success) {
                         	console.log("entra");
@@ -102,6 +155,7 @@
                         	$("#modal_login").modal("hide");
 	                        var toasts = new Toast('LIGIN', 'success', 'toast-top-full-width', arrDatos.mensaje, 10000);
 	    					delayToasts(toasts,0);
+	    					localStorage.setItem("user", arrDatos.token);
                         }                                                
                     }
                 }).fail(function(xhr, jqXHR, textStatus, errorThrown) {
@@ -176,7 +230,7 @@
         	provider.addScope('email');
 
         	authService.signInWithPopup(provider).then(function(result) {
-
+        		console.log(result.credential.accessToken);
                 var datos=ArrayRedesSociales(result);
                 datos.tipo_registro="g";
                 peticiones(datos, "../../profile/logSocial");
@@ -187,6 +241,7 @@
         });
         // manejador de eventos para los cambios del estado de autenticación https://prueba-firebase-b4e33.firebaseapp.com/__/auth/handler       
 	}
+
 
 
 	function ArrayRedesSociales(datos){
@@ -234,6 +289,7 @@
 		//manejador de eventos para cerrar sesión (logout)
 		document.getElementById('botonlogout').addEventListener('click', function() {
 			authService.signOut();
+			localStorage.removeItem("user");
 			window.location.href="http://localhost/Proyectos/GiovannyProy4";
 		});
 	}

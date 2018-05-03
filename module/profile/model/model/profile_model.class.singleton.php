@@ -53,4 +53,8 @@ class profile_model {
         return $this->bll->registrarUserSocial_BLL($arrArgument);
     }
 
+    public Function updateToken($arrArgument){           
+        return $this->bll->updateToken_BLL($arrArgument);
+    }
+
 }

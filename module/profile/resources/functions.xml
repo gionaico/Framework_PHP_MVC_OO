@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <functions>
     <function>
         <name>register</name>
@@ -11,6 +13,26 @@
     <function>
         <name>logSocial</name>
         <uri>logSocial</uri>
+    </function>
+    <function>
+        <name>form</name>
+        <uri>form</uri>
+    </function>
+    <function>
+        <name>load_country</name>
+        <uri>load_country</uri>
+    </function>
+    <function>
+        <name>load_provinces</name>
+        <uri>load_provinces</uri>
+    </function>
+    <function>
+        <name>load_cities</name>
+        <uri>load_cities</uri>
+    </function>
+    <function>
+        <name>getdatos</name>
+        <uri>getdatos</uri>
     </function>
     
 </functions>

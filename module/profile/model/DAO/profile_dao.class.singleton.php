@@ -107,10 +107,11 @@ class profile_dao {
         $password= $arrArgument['password'];
         $password_cifrado=password_hash($password, PASSWORD_DEFAULT);
         $token= $arrArgument['token'];
+        $avatar= $arrArgument['avatar'];
         $register_date=date("Y-m-d");
 
 
-        $sql = "INSERT INTO users (user_name, email, password, register_date, token) VALUES('$user', '$email', '$password_cifrado', '$register_date', '$token')";
+        $sql = "INSERT INTO users (user_name, email, password, register_date, token, avatar) VALUES('$user', '$email', '$password_cifrado', '$register_date', '$token', '$avatar')";
         // echo $sql;
         // exit;
         return $db->ejecutar($sql);      
@@ -147,6 +148,19 @@ class profile_dao {
       return $db->listar($db->ejecutar($sql));
     }
 
+    public function DatosBasicosUser_DAO($db, $arrArgument) {
+      $user=  
+      $sql=("SELECT user_name, name, type, avatar FROM users WHERE user_name ='$user'"); /*and tipo_registro='m'*/
+      return $db->listar($db->ejecutar($sql));
+    }
+
+    public function updateToken_DAO($db, $arrArgument) {
+        $token = $arrArgument["token"];
+        $user = $arrArgument["user"];
+        $sql = "UPDATE users SET token='$token' WHERE user_name='$user'";
+        return $db->ejecutar($sql);      
+    }
+
 
    /* public function checkUser_DAO($db, $arrArgument) {  
       $valor= $arrArgument[0];
@@ -160,3 +174,17 @@ class profile_dao {
       return true;
     }*/
 }//End productDAO
+
+
+/*
+cambiaMenu(logueado=false);
+        logTwitter(authService);
+        logGoogle(authService);  
+        logFacebook(authService);
+        logManual();
+
+    }else{
+      logOut(authService);
+        cambiaMenu(logueado=true);
+    }
+ */

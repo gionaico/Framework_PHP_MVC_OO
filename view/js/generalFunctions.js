@@ -29,6 +29,7 @@
         
     });//end document ready
 
+
     function amigable(url) {
         var link="";
         url = url.replace("?", "");
@@ -79,11 +80,13 @@
 
     }
 
+
     function empezarBusqueda(){
         var ele_keyword=document.getElementById('keyword').value;
             // c(ele_keyword);
         fun_keyword(ele_keyword);
     }
+
 
     function fun_keyword(keywo){
         $.post("../../courses/keyword", {"keyword":true, "key":keywo},
@@ -108,9 +111,11 @@
         });
     }
 
+
     function c(d){
         console.log(d);
     }
+
 
     function irCourses(){
 
@@ -123,6 +128,7 @@
             alert( "error f generales l-25" );
         });
     }
+
 
     function enviarInfoToContro(ulr, json) {
         console.log(json);
@@ -179,7 +185,6 @@
         // console.log(json);
         
 
-
         var div_princ=document.createElement("div");
         div_princ.setAttribute("class", "col-md-4 margin_img_home");
         var div1=document.createElement("div");
@@ -224,10 +229,6 @@
         img2.setAttribute("src", "");
         var p3=document.createElement("p");
 
-
-
-
-
         
         div_princ.appendChild(div1);
         div1.appendChild(div1_1);
@@ -250,6 +251,7 @@
         return div_princ;
     }
 
+
     function controlForm(id){
         $("#"+id+"").focus();
         $("#"+id+"").attr("style", "background:#FFC9C9; border:red 2px solid");    
@@ -257,21 +259,26 @@
 
 
     function load_countries_v1() {
-        $.post( "module/profile/controller/controller_profile.php?load_country=true",
+        $.post( "../../profile/load_country",
             function( response ) {
-            //     console.log(response);
-            // console.log(JSON.parse(response));
+                /*console.log(response);*/
             
                 if(response === 'error'){
-                    load_countries_v2("resources/ListOfCountryNamesByName.json");
+                    load_countries_v2("http://localhost/Proyectos/GiovannyProy4/resources/ListOfCountryNamesByName.json");
                 }else{
-                    load_countries_v2("module/profile/controller/controller_profile.php?load_country=true"); //oorsprong.org
+                    /*console.log(JSON.parse(response));*/
+                    $.each(JSON.parse(response), function (i, valor) {
+                        $("#country").append("<option value='" + valor.sISOCode + "'>" + valor.sName + "</option>");
+                    });   
+                    // load_countries_v2("module/profile/controller/controller_profile.php?load_country=true"); //oorsprong.org
                 }
         })
         .fail(function(response) {
-            load_countries_v2("resources/ListOfCountryNamesByName.json");
+            load_countries_v2("http://localhost/Proyectos/GiovannyProy4/resources/ListOfCountryNamesByName.json");
         });
     }
+
+
 
     function load_countries_v2(cad) {
         $.getJSON( cad, function(data) {
@@ -290,7 +297,7 @@
 
 
     function load_provinces_v1() { //provinciasypoblaciones.xml - xpath
-        $.post( "module/profile/controller/controller_profile.php?load_provinces=true",
+        $.post( "../../profile/load_provinces",
             function( response ) {
               $("#province").empty();
               $("#province").append('<option value="" selected="selected">Select province</option>');
@@ -312,6 +319,7 @@
             load_provinces_v2();
         });
      }   
+
 
     function load_provinces_v2() {
         $.post("resources/provinciasypoblaciones.xml", function (xml) {
@@ -342,14 +350,15 @@
             });
         })
         .fail(function() {
-            alert( "error load_cities" );
+            alert( "error load_cities2" );
         });
     }
 
+
     function load_cities_v1(prov) { //provinciasypoblaciones.xml - xpath
         var datos = { idPoblac : prov  };
-        $.post("module/profile/controller/controller_profile.php", datos, function(response) {
-            //alert(response);
+        $.post( "../../profile/load_cities", datos, function(response) {
+            console.log(response);
             var json = JSON.parse(response);
             var cities=json.cities;
             //alert(poblaciones);
@@ -403,8 +412,9 @@
         .fail(function(response) {
             load_category_B(url, id_etiqueta);
         });
-     }
+    }
 
+    
     function load_category_B(ulr, id_etiqueta) {
         $.getJSON( ulr, function(data) {
           $("#"+id_etiqueta+"").empty();
@@ -427,6 +437,7 @@
             alert( "error categoryB" );
         });
     }
+
 
     function load_subCategory(ulr, json, valueSelectAnterior, id_etiqueta) {
         // console.log(ulr);
@@ -457,14 +468,15 @@
         .fail(function(response) {
             alert(response);
         });
-
     }
+
 
     function escribirErrores(id, mensaje){
         $("#"+id+"").focus();
         $("#"+id+"").attr("style", "background:#FFC9C9; border:red 2px solid");        
         $("#"+id+"").after("<div class='e_contact'><span class='errores' style='color:red;'>"+mensaje+"</span><br/><br/></div>");
     }
+
 
     function quitarErrores(id){    
         $("#"+id+"").attr("style", "");            
