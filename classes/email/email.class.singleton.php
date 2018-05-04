@@ -76,15 +76,15 @@
                 }
                 */
             } catch (phpmailerException $e) {
-                // $log = log::getInstance();
-			    // $log->add_log_general("error enviar email.class.singleton.php", $_GET['module'], "response ".http_response_code()); 
-			    // $log->add_log_user("error enviar email.class.singleton.php", "", $_GET['module'], "response ".http_response_code());
+                $log = log::getInstance();
+			    $log->add_log_general("error enviar email.class.singleton.php", $_GET['module'], "response ".http_response_code()); 
+			    $log->add_log_user("error enviar email.class.singleton.php", "", $_GET['module'], "response ".http_response_code());
 			    
                 return 0;
             } catch (Exception $e) {
-                // $log = log::getInstance();
-			    // $log->add_log_general("error enviar email.class.singleton.php", $_GET['module'], "response ".http_response_code()); 
-			    // $log->add_log_user("error enviar email.class.singleton.php", "", $_GET['module'], "response ".http_response_code());
+                $log = log::getInstance();
+			    $log->add_log_general("error enviar email.class.singleton.php", $_GET['module'], "response ".http_response_code()); 
+			    $log->add_log_user("error enviar email.class.singleton.php", "", $_GET['module'], "response ".http_response_code());
 			    
                 return 0;
             }

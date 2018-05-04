@@ -9,10 +9,43 @@ class controller_profile {
         $_SESSION['module'] = "profile";
     }
 
+    /*-------------------------------------------*/
     function form() {
         loadView( "module/profile/view/", "profile.html"); 
     }
 
+
+    function changePass(){
+         $datos_user = array(
+                'token' => $_GET['param'],
+                'activado' => "y"
+            );
+        
+    }
+    /*-------------------------------------------*/
+    function recovPass(){
+        $datos_user["email"] = $_POST['email'];
+        $checkUserEmail = loadModel(MODEL_PROFILE, "profile_model", "checkUserEmail", $datos_user);
+        $datos_user["user"] = $checkUserEmail[0]["user_name"];
+
+        
+
+        if (count($checkUserEmail)==1) {   
+            $json_data["token"] = $this->ActualizarToken($datos_user);         
+            sendtoken($datos_user, "recoverPass");
+
+            $json_data["success"]= true;
+            $json_data["mensaje"] = "Revisa tu email para recuperar password";
+        }else{
+            $json_data["success"]= false;
+            $json_data["mensaje"] = "Este email no existe en DB";
+        }
+
+        echo json_encode($json_data);
+        exit;
+    }
+
+    /*-------------------------------------------*/
     function register(){         
         $datos_user=array(
             "user"=>$_POST['user_register'],
@@ -132,6 +165,26 @@ class controller_profile {
         echo json_encode($datos);
     }
 
+    public function getArrayDatos($informacionToken){
+        // echo ($_POST['user']);
+        $array = explode(".", $informacionToken);
+        $datos["success"]=false;
+
+        $tokenComparar=$array[0];
+        $tokenComparar2=$array[2];
+        if ($tokenComparar==base64_decode($tokenComparar2)) {
+            $datos["success"]=true;
+            $datos["datos"] =base64_decode($array[1]);
+        }elseif(count($array)!=3){
+            $datos["mensaje"]="Problema de seguridad. Logueate nuevamente";
+
+        }else{            
+            $datos["mensaje"]="ERROR. Autentificacion de datos";
+        }
+
+        return $datos;
+    }
+
     /*-------------------------------------------*/
     function logSocial(){
         $datos_user=array(
@@ -170,9 +223,8 @@ class controller_profile {
         
     }
 
-
+    /*-------------------------------------------*/
     function load_country(){
-        /////////////////////////////////////////////////// load_country
             $json = array();
 
             $url = 'http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/ListOfCountryNamesByName/JSON';
@@ -191,6 +243,7 @@ class controller_profile {
             }
     }
 
+    /*-------------------------------------------*/
     function load_provinces(){        
         $jsondata = array();
         $json = array();
@@ -208,7 +261,7 @@ class controller_profile {
         }
     }
 
-
+    /*-------------------------------------------*/
     function load_cities(){
         if(  isset($_POST['idPoblac']) ){
             $jsondata = array();

@@ -26,6 +26,12 @@
                 $ruta = '<a href=' . amigable("?module=profile&function=activar&param=" . $arr['token'], true) . '>aqu&iacute;</a>';
                 $body = 'Gracias por unirte a nuestra aplicaci&oacute;n. Para finalizar el registro, pulsa ' . $ruta;
                 break;
+
+            case 'recoverPass':
+                $subject = 'LearnEasy. Solicitud de recuperar password.';
+                $ruta = '<a href=' . amigable("?module=profile&function=changePass&param=" . $arr['token'], true) . '>aqu&iacute;</a>';
+                $body = 'Para realizar el cambio de password pulsa ' . $ruta;
+                break;
         }
         
         $html .= "<html>";

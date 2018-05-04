@@ -38,5 +38,13 @@
         <name>activar</name>
         <uri>activar</uri>
     </function>
+    <function>
+        <name>recovPass</name>
+        <uri>recovPass</uri>
+    </function>
+    <function>
+        <name>changePass</name>
+        <uri>changePass</uri>
+    </function>
     
 </functions>
