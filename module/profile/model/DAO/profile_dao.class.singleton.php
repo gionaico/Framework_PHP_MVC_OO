@@ -1,6 +1,4 @@
 <?php
-//echo json_encode("products_dao.class.singleton.php");
-//exit;
 
 class profile_dao {
     static $_instance;
@@ -149,8 +147,8 @@ class profile_dao {
     }
 
     public function DatosBasicosUser_DAO($db, $arrArgument) {
-      $user=  
-      $sql=("SELECT user_name, name, type, avatar FROM users WHERE user_name ='$user'"); /*and tipo_registro='m'*/
+      $user= $arrArgument["user"]; 
+      $sql=("SELECT user_name, name, type, avatar, activado, primera_visita FROM users WHERE user_name ='$user'"); /*and tipo_registro='m'*/
       return $db->listar($db->ejecutar($sql));
     }
 
@@ -158,6 +156,16 @@ class profile_dao {
         $token = $arrArgument["token"];
         $user = $arrArgument["user"];
         $sql = "UPDATE users SET token='$token' WHERE user_name='$user'";
+        return $db->ejecutar($sql);      
+    }
+
+    public function activarUser_DAO($db, $arrArgument) {
+        $token = $arrArgument["token"];
+        $activado = $arrArgument["activado"];
+
+
+        $sql = "UPDATE users SET activado='$activado' WHERE token='$token'";
+        // echo $sql;exit;
         return $db->ejecutar($sql);      
     }
 

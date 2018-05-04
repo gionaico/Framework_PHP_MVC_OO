@@ -27,6 +27,9 @@
             if (!password_verify($value["password"], $usuario[0]["password"] )) {
                 $error['password'] = '<strong>*php</strong> The password for this user is incorrect';
                 $valido = false;  
+            }elseif ($usuario[0]["activado"]=="n") {
+                $error['user'] = '<strong>*php</strong> Este usuario aun no esta activo. Revisa tu email para activarlo.';
+                $valido = false;
             }
         }else{
             $error['user'] = '<strong>*php</strong> This user dont exist in our DB';

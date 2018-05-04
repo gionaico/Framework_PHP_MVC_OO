@@ -34,5 +34,9 @@
         <name>getdatos</name>
         <uri>getdatos</uri>
     </function>
+    <function>
+        <name>activar</name>
+        <uri>activar</uri>
+    </function>
     
 </functions>

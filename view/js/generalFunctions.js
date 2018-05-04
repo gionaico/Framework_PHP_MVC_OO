@@ -75,7 +75,7 @@
             });  
             
          }).fail(function() {
-            c( "error generalfunctions.js autocomplete" );
+            console.log( "error generalfunctions.js autocomplete" );
         });
 
     }
@@ -148,7 +148,7 @@
     function courseDetalles(){
         $(".courseDetalles").click(function(event) {
                 var id=this.getAttribute("id");
-                c(id);
+                console.log(id);
                 enviarInfoToContro("../../homepage/idCourse", {"idCourse":true, "idCourse2":id});
 
             });

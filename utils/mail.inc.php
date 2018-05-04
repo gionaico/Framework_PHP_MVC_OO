@@ -23,7 +23,7 @@
 
             case 'alta':
                 $subject = 'Tu Alta en Libra LearnEasy';
-                $ruta = '<a href=' . amigable("?module=profile&function=activar&aux=" . $arr['token'], true) . '>aqu&iacute;</a>';
+                $ruta = '<a href=' . amigable("?module=profile&function=activar&param=" . $arr['token'], true) . '>aqu&iacute;</a>';
                 $body = 'Gracias por unirte a nuestra aplicaci&oacute;n. Para finalizar el registro, pulsa ' . $ruta;
                 break;
         }

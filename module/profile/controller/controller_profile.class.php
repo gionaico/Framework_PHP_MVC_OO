@@ -1,7 +1,5 @@
 <?php
 @session_start();
-// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/utils/common.inc.php");
-// include ($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/profile/utils/validaProfile.php");
 
 
 class controller_profile {
@@ -31,7 +29,7 @@ class controller_profile {
 
             if ($insertDatos) {
                 $json_data["success"]= true;
-                $json_data["mensaje"] = "Felicidades ".$_POST['user_register']." te has registrado correctamente";
+                $json_data["mensaje"] = "Felicidades ".$_POST['user_register']." te has registrado correctamente. Recibiras un email para activar tu cuenta.";
                 sendtoken($datos_user, "alta");
                 echo json_encode($json_data);
                 exit;
@@ -53,6 +51,20 @@ class controller_profile {
     }
 
     /*-------------------------------------------*/
+    function activar(){
+         $datos_user = array(
+                'token' => $_GET['param'],
+                'activado' => "y"
+            );
+        $activarUser = loadModel(MODEL_PROFILE, "profile_model", "activarUser", $datos_user);
+
+        if ($activarUser) {
+            header("Location: http://localhost/Proyectos/GiovannyProy4/homepage/homepage/");     
+        }
+    }
+
+
+    /*-------------------------------------------*/
    function loginManual(){
         $datos_user=array(
                 "user"=>$_POST['user_log'],
@@ -62,14 +74,8 @@ class controller_profile {
         if ($resultado["resultado"]) {
             $json_data["success"]= true;
             $json_data["mensaje"] = "Bienvenido ".$_POST['user_log']." , has iniciado sesion exitosamente";
-            // setcookie("cookie2",json_encode($datos_user),time()+60);
-            // echo ($_COOKIE['cookie1']);
-            
-            $datosEditar["user"]=$_POST['user_log'];
-            $datosEditar["token"]=$this->creaToken($datos_user);
-            $updateToken = loadModel(MODEL_PROFILE, "profile_model", "updateToken", $datosEditar);
 
-            $json_data["token"]=$datosEditar["token"];
+            $json_data["token"] = $this->ActualizarToken($datos_user);
 
             echo json_encode($json_data);
         }else{      
@@ -80,7 +86,21 @@ class controller_profile {
             echo json_encode($json_data);
         }
     }
+
     /*-------------------------------------------*/
+
+    public function ActualizarToken($datos_user){
+        $DatosBasicosUser=loadModel(MODEL_PROFILE, "profile_model", "DatosBasicosUser", $datos_user);
+            
+        $datosEditar["user"]=$datos_user["user"];
+        $datosEditar["token"]=$this->creaToken($DatosBasicosUser);
+        $updateToken = loadModel(MODEL_PROFILE, "profile_model", "updateToken", $datosEditar);
+            
+        return $datosEditar["token"];
+    }
+
+    /*-------------------------------------------*/
+
     public function creaToken($datos_user){
         $token = md5(uniqid(rand(), true));
         $datos =base64_encode (json_encode($datos_user));
@@ -121,6 +141,7 @@ class controller_profile {
             "avatar"=>$_POST['avatar'],
             "tipo_registro"=>$_POST['tipo_registro']
         ); 
+
         $usuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $datos_user);
             // echo ($usuario);exit;
         if (count($usuario)<1) {
@@ -128,6 +149,8 @@ class controller_profile {
             if ($insertDatos) {
                 $json_data["success"]= true;
                 $json_data["mensaje"] = "Bienvenido ".$_POST['name']." , has iniciado sesion exitosamente";
+
+                $json_data["token"] = $this->ActualizarToken($datos_user);
                 
                 echo json_encode($json_data);
             }else{      
@@ -138,6 +161,7 @@ class controller_profile {
                 echo json_encode($json_data);
             }
         }else{
+            $json_data["token"] = $this->ActualizarToken($datos_user);
             $json_data["success"]= true;
             $json_data["mensaje"] = "Bienvenido ".$_POST['name']." , has iniciado sesion exitosamente";
             
@@ -170,8 +194,6 @@ class controller_profile {
     function load_provinces(){        
         $jsondata = array();
         $json = array();
-
-        
         
         $json =  loadModel(MODEL_PROFILE, "profile_model", "obtain_provinces");
 
@@ -186,15 +208,13 @@ class controller_profile {
         }
     }
 
+
     function load_cities(){
         if(  isset($_POST['idPoblac']) ){
             $jsondata = array();
             $json = array();
 
             $json =  loadModel(MODEL_PROFILE, "profile_model", "obtain_cities", $_POST['idPoblac']);
-
-/*            $path_model=$_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/module/profile/model/model/';
-            $json = loadModel($path_model, "profile_model", "obtain_cities", $_POST['idPoblac']);*/
 
             if($json){
                 $jsondata["cities"] = $json;

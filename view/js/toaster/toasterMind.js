@@ -60,7 +60,7 @@
 
 
 
-  $('#9').click(function() {
+/*  $('#9').click(function() {
     var toasts = new Toast('ererere', 'info', 'toast-top-full-width', 'mensaje', 50000);
     delayToasts(toasts,0);
-  });
+  });*/

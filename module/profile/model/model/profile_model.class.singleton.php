@@ -1,9 +1,4 @@
 <?php
-//echo json_encode("products model class");
-//exit;
-// $path = $_SERVER['DOCUMENT_ROOT'] . '/Proyectos/GiovannyProy4/';
-// define('SITE_ROOT', $path);
-// require($_SERVER['DOCUMENT_ROOT'] . "/Proyectos/GiovannyProy4/module/profile/model/BLL/profile_bll.class.singleton.php");
 
 class profile_model {
     private $bll;
@@ -16,7 +11,6 @@ class profile_model {
     public static function getInstance() {
         if (!(self::$_instance instanceof self)){
             self::$_instance = new self();
-            // echo "xxxxxxxxxx";
         }
         return self::$_instance;
     }
@@ -55,6 +49,12 @@ class profile_model {
 
     public Function updateToken($arrArgument){           
         return $this->bll->updateToken_BLL($arrArgument);
+    }
+    public Function DatosBasicosUser($arrArgument){           
+        return $this->bll->DatosBasicosUser_BLL($arrArgument);
+    }
+    public Function activarUser($arrArgument){           
+        return $this->bll->activarUser_BLL($arrArgument);
     }
 
 }

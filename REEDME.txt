@@ -24,12 +24,26 @@
 		
 		- El autocomplete courses, cada vez que cambiamos la palabra o letra en el input este recarga la informacion de db y nos muestra todo lo relacionado a lo que hemos escrito, asi como resetea la paginacion y nos lo vuelve a organizar segun la cantidad de resultados obtenidos.
 
+	*Profile
+		- 
+
+	
 	MEJORAS
 		- Filtros en el modulo de courses.
-		- Classe mail usando phpmailer.
+		
+		- Uso de la clase Mail usando phpmailer.
+		
 		- Se emplean 2 mapas (de google maps) una esta en list donde aparecen maximo 11 y van variando segun editemos los filtros, los markers tienen un link que si pinchamos encima nos envia a los detalles del producto sobre el que hemos pinchado y el segundo esta en el detail de cada producto (en su vista individual) donde nos muestra el punto de su ubicacion con una animacion en el marker. 
 		- Agregada clase Log (esta nos permite llevar un control de ls errores que se producen en, el proyecto), imprime los errores en el directorio log. Para comprobar su funcionamiento basta con cambiar el nombre de una contante y esto provocara un fallo, el cual se imprimira, para tener una referencia de lo que ha sucedido.
+		
 		- En view/css tiene varios themes (cambia el color de la web por algun evento concreto), se pueden cambiar en el header de la aplicacion.
+		
+		- (Jwr) El token que se almacena en localStorage es la union de un token creado con md5 + datos basicos del usuario codificados con Base64 + el el primer token codificado con Base64. Cada parametro esta separado por un punto para hacer mas sencillo su manipulacion.
+		El motivo de hacer esto es no hacer peticiones a DB constantemente para datos basicos del usuario.
+		El procedimiento que sigue es el de comparar el parametro 1 con el parametro 3 decodificado con Base64, y si resulta correcto nos permite leer los datos del encriptados del usuario en caso contrario nos marca un error cierra sesion y nos solicita que iniciemos sesion nuevamente.
+
+		A la hora de loguearse con redes sociales la sequencia sigue varios pasos:
+			1. coge los datos que vienen de firebase y se los pasa al servidor, este comprara los datos que recive con los que hay en DB, si ya existe actualiza el token pero si no existe lo registra y crea el token.
 
 
 

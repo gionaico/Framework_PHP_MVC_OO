@@ -1,32 +1,5 @@
 	$(document).ready(function () {
 
-		// var userLocalStorage = {"user": localStorage.getItem("user")};		
-		
-		if ((localStorage.getItem("user")==null) || (localStorage.getItem("user")=="")|| (localStorage.getItem("user")=="undefined")) {
-			console.log("problemas localStorage");
-			cambiaMenu(logueado=false);
-		}else{
-			var user = {"user": localStorage.getItem("user")};
-			cambiaMenu(logueado=true);
-			$.ajax({
-	            type: "POST",
-	            url: "../../profile/getdatos",
-	            data: user,
-	            success: function(datos) {
-	                console.log(datos);
-	                
-	                                                
-	            }
-	        })
-	        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
-	            console.log(jqXHR); 
-	            console.log(textStatus); 
-	            console.log(errorThrown);  
-	            console.log(xhr);            
-	        });/*end fail*/
-		}
-
-		// Initialize Firebase 
 		var config = {
 			apiKey: "AIzaSyCB976KXuqfCaiDjxqAkYVyWvjoxVJ6pm0",
 			authDomain: "libra-learneasy.firebaseapp.com",
@@ -37,10 +10,15 @@
 		};
 		firebase.initializeApp(config);
 		var authService = firebase.auth();
-		
+
+		verificaUserActivo(authService);
 
 
-		authService.onAuthStateChanged(function(user) {
+		// var userLocalStorage = {"user": localStorage.getItem("user")};					
+
+		// Initialize Firebase
+
+		/*authService.onAuthStateChanged(function(user) {
 			if (user) {
 				logOut(authService);
 				cambiaMenu(logueado=true);
@@ -59,27 +37,7 @@
 				// document.getElementById('loginGoogle').style.display = 'block';
 				// document.getElementById('botonlogout').style.display = 'none';
 			}
-		});
-
-
-		$("#prueba12").click(function(event) {
-			var user = {"user": localStorage.getItem("user")};
-			$.ajax({
-	            type: "POST",
-	            url: "../../profile/getdatos",
-	            data: user,
-	            success: function(datos) {
-	                console.log(datos);
-	                                                
-	            }
-	        })
-	        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
-	            console.log(jqXHR); 
-	            console.log(textStatus); 
-	            console.log(errorThrown);  
-	            console.log(xhr);            
-	        });/*end fail*/
-		});
+		});*/
 
 	});/*end document ready*/
 
@@ -89,6 +47,49 @@
 
 
 /*----------FUNCIONES---------------------*/
+
+	function verificaUserActivo(authService){
+		if ((localStorage.getItem("user")==null) || (localStorage.getItem("user")=="")|| (localStorage.getItem("user")=="undefined")) {
+			console.log("localStorage no encontrado");
+			cambiaMenu(logueado=false);
+			logTwitter(authService);
+			logGoogle(authService);  
+			logFacebook(authService);
+			logManual();
+		}else{
+			logOut(authService);
+			cambiaMenu(logueado=true);
+
+			var user = {"user": localStorage.getItem("user")};
+			cambiaMenu(logueado=true);
+			$.ajax({
+	            type: "POST",
+	            url: "../../profile/getdatos",
+	            data: user,
+	            success: function(datos) {
+	                var a=JSON.parse(datos);
+	                var b=JSON.parse(a.datos);
+	                console.log(b);
+	                $("#avatar_menu").attr("src", ""+b[0].avatar+"");
+	                $("#userName").html(""+b[0].user_name+"");
+
+					if (b[0].name=="") {
+						$("#userName").html(""+b[0].user_name+"");
+					}else{
+						$("#userName").html("&nbsp&nbsp&nbsp"+b[0].name+"");
+					}
+	                
+	                                                
+	            }
+	        })
+	        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR); 
+	            console.log(textStatus); 
+	            console.log(errorThrown);  
+	            console.log(xhr);            
+	        });/*end fail*/
+		}
+	}
 
 
 	function cambiaMenu(logueado){
@@ -171,11 +172,43 @@
 		            if (xhr.responseJSON.error.password){
 		                $("#sp_password_log").html("<span style='color:red;'>" + xhr.responseJSON.error.password +"</span>");
 		            }
+		            if (xhr.responseJSON.error.user){
+		                $("#sp_user_log").html("<span style='color:red;'>" + xhr.responseJSON.error.user +"</span>");
+		            }
 
                 });/*end fail*/
 
 			}/*end if*/
 		});/*end evento click*/
+	}
+
+	function peticiones(datosAenviar, ruta){
+		$.ajax({
+            type: "POST",
+            url: ""+ruta+"",
+            data: datosAenviar,
+            success: function(datos) {
+                console.log(datos);
+                var arrDatos=JSON.parse(datos);
+                console.log(arrDatos);
+                if (arrDatos.success) {
+                	console.log("entra");
+                	var arr=["loginForm", "registerForm"];
+                	limpiaForm(arr);
+                	$("#modal_login").modal("hide");
+                    var toasts = new Toast('LIGIN', 'success', 'toast-top-full-width', arrDatos.mensaje, 10000);
+					delayToasts(toasts,0);
+					localStorage.setItem("user", arrDatos.token);
+					cambiaMenu(logueado=true);
+                }                                
+            }
+        })
+        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR); 
+            console.log(textStatus); 
+            console.log(errorThrown);  
+            console.log(xhr);            
+        });/*end fail*/
 	}
 
 	function logFacebook(authService){
@@ -193,6 +226,7 @@
             });
         });
 	}
+
 
 	function logTwitter(authService){
         
@@ -218,7 +252,7 @@
 	            var email = error.email;
 	            var credential = error.credential;*/
           	});
-      });
+      	});
 	}
 
 
@@ -253,36 +287,6 @@
 					};
 		return datos;
 	}
-
-
-
-	function peticiones(datosAenviar, ruta){
-		$.ajax({
-            type: "POST",
-            url: ""+ruta+"",
-            data: datosAenviar,
-            success: function(datos) {
-                console.log(datos);
-                var arrDatos=JSON.parse(datos);
-                console.log(arrDatos);
-                if (arrDatos.success) {
-                	console.log("entra");
-                	var arr=["loginForm", "registerForm"];
-                	limpiaForm(arr);
-                	$("#modal_login").modal("hide");
-                    var toasts = new Toast('LIGIN', 'success', 'toast-top-full-width', arrDatos.mensaje, 10000);
-					delayToasts(toasts,0);
-                }                                
-            }
-        })
-        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR); 
-            console.log(textStatus); 
-            console.log(errorThrown);  
-            console.log(xhr);            
-        });/*end fail*/
-	}
-
 
 
 	function logOut(authService){

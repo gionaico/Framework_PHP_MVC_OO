@@ -1,10 +1,4 @@
 <?php
-//echo json_encode("products_bll.class.singleton.php");
-//exit;
-
-
-// require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/model/Db.class.singleton.php");
-// require($_SERVER['DOCUMENT_ROOT']."/Proyectos/GiovannyProy4/module/profile/model/DAO/profile_dao.class.singleton.php");
 
 class profile_bll{
     private $dao;
@@ -63,5 +57,12 @@ class profile_bll{
 
     public function updateToken_BLL($arrArgument){    
         return $this->dao->updateToken_DAO($this->db,$arrArgument);
+    }
+
+    public function DatosBasicosUser_BLL($arrArgument){    
+        return $this->dao->DatosBasicosUser_DAO($this->db,$arrArgument);
+    }
+    public function activarUser_BLL($arrArgument){    
+        return $this->dao->activarUser_DAO($this->db,$arrArgument);
     }
 }
