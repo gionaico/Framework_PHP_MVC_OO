@@ -169,6 +169,14 @@ class profile_dao {
         return $db->ejecutar($sql);      
     }
 
+    public function updatePass_DAO($db, $arrArgument) {
+        $token = $arrArgument["token"];
+        $pass = password_hash($arrArgument["pass"], PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET password='$pass' WHERE token='$token'";
+
+        return $db->ejecutar($sql);      
+    }
+
 
    /* public function checkUser_DAO($db, $arrArgument) {  
       $valor= $arrArgument[0];

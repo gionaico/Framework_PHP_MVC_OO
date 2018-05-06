@@ -46,5 +46,13 @@
         <name>changePass</name>
         <uri>changePass</uri>
     </function>
+    <function>
+        <name>upDatePass</name>
+        <uri>upDatePass</uri>
+    </function>
+    <function>
+        <name>upDateDatosPer</name>
+        <uri>upDateDatosPer</uri>
+    </function>
     
 </functions>

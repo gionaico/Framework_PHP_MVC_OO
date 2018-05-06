@@ -37,15 +37,8 @@
                     <a href="#" id="resetFiltros">Courses</a>
                 </li> -->
 
-                <li class="dropdown <?php saberModule('courses'); ?>">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                      Courses<span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#" id="resetFiltros">Our courses</a></li>
-                    <li><a href="<?php amigable('?module=courses&function=courseForm'); ?>">Add course</a></li>              
-                  </ul>
-                </li>
+                
+                <li class="<?php saberModule('courses'); ?>"><a href="#" id="resetFiltros">Courses</a></li>
 
                 <li><a href="#">Scholarship</a></li>
                 <li><a href="#">Events</a></li>
@@ -64,18 +57,19 @@
                     <a href="#" id="botonlogout">Log out</a>
                 </li>
 
-                <li>
-                    <a href="#" id="prueba12">prueba</a>
-                </li>
 
-
-                <li class="dropdown <?php saberModule('profile'); ?>">
+                <li class="dropdown <?php saberModule('profile'); ?>" id="li-profile"> 
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                       <img src="" id="avatar_menu" class="img-circle peque" alt=""><span id="userName"></span><span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="<?php amigable('?module=profile&function=form');?>">Mi perfil</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#modalrecovPass">op2</a></li>              
+                    <li>
+                        <a href="<?php amigable('?module=profile&function=form');?>">Mi perfil</a>
+                    </li>
+                    <li>
+                        <a href="<?php amigable('?module=courses&function=courseForm'); ?>">Add course</a>
+                    </li>
+                                  
                   </ul>
                 </li>
 

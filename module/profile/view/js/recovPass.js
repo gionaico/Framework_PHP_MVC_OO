@@ -19,6 +19,10 @@ $(document).ready(function () {
                 data: email,
                 success: function(datos) {
                 	console.log(datos);
+                	var json=JSON.parse(datos);
+                	$("#modalrecovPass").modal("hide");
+                	var toasts = new Toast('Recover password', 'success', 'toast-top-full-width', json.mensaje, 20000);
+	    			delayToasts(toasts,20000);
                 	                                                
                 }
             }).fail(function(xhr, jqXHR, textStatus, errorThrown) {

@@ -28,10 +28,80 @@ $(document).ready(function () {
          $("#div_intereses").attr("style","" );
     });
     /////////////////////////////////////////////////////////////////////
-    $("#formatPass").click(function(){
-        alert("Password format:\n\n- Use upper case and lower case\n- Min 8 caracters\n- Use special caracters");    
+
+
+    var userLocalStorage = {"user": localStorage.getItem("user")};
+
+    $.ajax({
+        type: "POST",
+        url: "../../profile/upDateDatosPer",
+        data: userLocalStorage,
+        success: function(datos) {
+            /*console.log(datos);*/
+            var json=JSON.parse(datos);
+            if (json.success) {
+                pintaDatos(json.datos[0]);
+                console.log(json.datos[0]);
+            }else{
+                console.log("n");
+            }
+                                          
+        }
+    })
+    .fail(function(xhr, jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR); 
+        console.log(textStatus); 
+        console.log(errorThrown);  
+        console.log(xhr);            
     });
 
+
+
+    localizacion();    
+
+});//end_DOCUMENTE.ready
+
+function pintaDatos(datos){
+    $("#name").val(datos.name);
+    $("#user_name").html(datos.user_name);
+    $("#fotoperfil").attr("src", datos.avatar);
+
+    if (datos.birth_date!="0000-00-00") {
+        $("#birth_date").val(datos.birth_date);
+    }
+
+    var genere = document.getElementsByClassName('genere');
+        for (var i = 0; i < genere.length; i++) {
+            if (datos.genere ==genere[i].value) {
+                genere[i].checked=true;
+            }
+        }
+
+    if (datos.phone!="0") {
+        $("#phone").val(datos.phone);
+    }
+    if (datos.interests!="") {
+        var interes=  datos.interests;
+        var arr_interes=interes.split(":"); 
+
+        var inputElements = document.getElementsByClassName('gio_checkbox');    
+        
+        for (var j = 0; j < arr_interes.length; j++) {
+            for (var k = 0; k < inputElements.length; k++) {
+                if (arr_interes[j] == inputElements[k].value){
+                    inputElements[k].checked = true;
+                    console.log(arr_interes[j]);
+                }
+            }
+        }
+    }
+
+    $("#email").val(datos.email);
+    console.log(datos.user_name);
+
+}
+
+function localizacion(){
     load_countries_v1();
     
     $("#province").empty();
@@ -72,9 +142,7 @@ $(document).ready(function () {
             $("#city").prop('disabled', false);
         }
     });
-
-});//end_DOCUMENTE.ready
-
+}
 
 function validaJS(){
     

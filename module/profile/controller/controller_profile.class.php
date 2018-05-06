@@ -15,12 +15,25 @@ class controller_profile {
     }
 
 
-    function changePass(){
-         $datos_user = array(
-                'token' => $_GET['param'],
-                'activado' => "y"
-            );
-        
+    function changePass(){         
+         loadView( "module/profile/view/", "changePass.html");        
+    }
+
+    function upDatePass(){         
+         $datos_user["pass"]=  $_POST['password'];
+         $datos_user["token"]=  $_POST['token'];
+
+         $updatePass = loadModel(MODEL_PROFILE, "profile_model", "updatePass", $datos_user);
+         if ($updatePass) {          
+            $json_data["success"]= true;
+            $json_data["mensaje"] = "Passwor cambiado exitosamente. Inicia sesion con tu nuevo password";
+        }else{
+            $json_data["success"]= false;
+            $json_data["mensaje"] = "Fallo en cambio de password. Intentalo mas tarde.";
+        }
+
+        echo json_encode($json_data);
+
     }
     /*-------------------------------------------*/
     function recovPass(){
@@ -31,7 +44,9 @@ class controller_profile {
         
 
         if (count($checkUserEmail)==1) {   
-            $json_data["token"] = $this->ActualizarToken($datos_user);         
+            $datos_user["token"] = md5(uniqid(rand(), true));
+            $updateToken = loadModel(MODEL_PROFILE, "profile_model", "updateToken", $datos_user);
+
             sendtoken($datos_user, "recoverPass");
 
             $json_data["success"]= true;
@@ -43,6 +58,21 @@ class controller_profile {
 
         echo json_encode($json_data);
         exit;
+    }
+
+    function upDateDatosPer(){
+        $dat=$this->getArrayDatos($_POST['user']);
+        $user=json_decode($dat["datos"], true);        
+
+        if ($dat["success"]) {
+            $datos_user["user"]=$user[0]["user_name"];
+            $usuario = loadModel(MODEL_PROFILE, "profile_model", "checkUser", $datos_user);  
+            $datos["success"]=true; 
+            $datos["datos"]=$usuario;
+            echo json_encode($datos);
+        }else{
+            echo json_encode($dat);
+        }
     }
 
     /*-------------------------------------------*/
@@ -166,7 +196,7 @@ class controller_profile {
     }
 
     public function getArrayDatos($informacionToken){
-        // echo ($_POST['user']);
+        
         $array = explode(".", $informacionToken);
         $datos["success"]=false;
 

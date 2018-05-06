@@ -1,0 +1,39 @@
+<section id="imgBanner">
+      <h2>Change password</h2>
+</section>
+
+
+<section id="primerForm">
+    <div class="container">
+        <div class="row">           
+            <div class="col-md-offset-1  col-md-3">
+                <p class="text-right">
+                    <label class="control-label" for="password_nuevo">New password</label>
+                </p>                        
+            </div>
+            <div class="col-md-5">
+                <input id="password_nuevo" name="password_nuevo" type="password" placeholder="******" class="form-control input-md inputKeyup" required=""  value="<?php echo $pru; ?>">
+                <p class="text-right">                  
+                    <a href="#" class="formatPass">View Format</a>
+                </p>
+                <span id="sp_password_nuevo"></span>
+            </div>          
+        </div><br><br>
+
+        <div class="row">           
+            <div class="col-md-offset-1  col-md-3">
+                <p class="text-right">
+                    <label class="control-label" for="password_nuevo2">Re-enter password</label>
+                </p>                        
+            </div>
+            <div class="col-md-5">
+                <input id="password_nuevo2" name="password_nuevo2" type="password" placeholder="******" class="form-control input-md inputKeyup" required=""  value="">
+                <span id="sp_password_nuevo2"></span>
+            </div>          
+        </div><br><br>
+
+        <button class="col-md-offset-4 col-md-4 btn btn-success" id="btn-changePass">Done</button>
+    </div>
+</section>
+
+<script type="text/javascript" src="<?php echo PROFILE_JS_PATH ?>changePass.js">  </script>

@@ -26,9 +26,20 @@
         $("#Submit").click(function(event) {        
             empezarBusqueda();
         });
+
+        $(".formatPass").click(function(){
+            alert("Password format:\n\n- Use upper case and lower case\n- Min 8 caracters\n- Use special caracters");    
+        });
         
     });//end document ready
 
+    function redireccion(){
+        window.location.href="http://localhost/Proyectos/GiovannyProy4";
+    }
+
+    function redireccionActual(){
+        window.location.href=window.location;
+    }
 
     function amigable(url) {
         var link="";

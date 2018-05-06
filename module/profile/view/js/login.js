@@ -68,18 +68,21 @@
 	            data: user,
 	            success: function(datos) {
 	                var a=JSON.parse(datos);
-	                var b=JSON.parse(a.datos);
-	                console.log(b);
-	                $("#avatar_menu").attr("src", ""+b[0].avatar+"");
-	                $("#userName").html(""+b[0].user_name+"");
+	                /*console.log(a);*/
+	                if (a.success) {	                	
+		                var b=JSON.parse(a.datos);
+		                /*console.log(b);*/
+		                $("#avatar_menu").attr("src", ""+b[0].avatar+"");
+		                $("#userName").html(""+b[0].user_name+"");
 
-					if (b[0].name=="") {
-						$("#userName").html(""+b[0].user_name+"");
-					}else{
-						$("#userName").html("&nbsp&nbsp&nbsp"+b[0].name+"");
-					}
-	                
-	                                                
+						if (b[0].name=="") {
+							$("#userName").html(""+b[0].user_name+"");
+						}else{
+							$("#userName").html("&nbsp&nbsp&nbsp"+b[0].name+"");
+						}
+	                }else{
+	                	logOutAutom(authService);
+	                }	                	                                                
 	            }
 	        })
 	        .fail(function(xhr, jqXHR, textStatus, errorThrown) {
@@ -100,12 +103,16 @@
 				li_logOut.style.display="";
 			var li_logIn=document.getElementById('li-logIn');
 				li_logIn.style.display="none";
+			var li_profile=document.getElementById('li-profile');
+				li_profile.style.display="";
 		}else{
 			console.log("no");
 			var li_logOut= document.getElementById('li-logOut');
 				li_logOut.style.display="none";
 			var li_logIn=document.getElementById('li-logIn');
 				li_logIn.style.display="";
+			var li_profile=document.getElementById('li-profile');
+				li_profile.style.display="none";
 		}
 	}
 
@@ -157,6 +164,7 @@
 	                        var toasts = new Toast('LIGIN', 'success', 'toast-top-full-width', arrDatos.mensaje, 10000);
 	    					delayToasts(toasts,0);
 	    					localStorage.setItem("user", arrDatos.token);
+	    					setTimeout(redireccionActual, 10000);
                         }                                                
                     }
                 }).fail(function(xhr, jqXHR, textStatus, errorThrown) {
@@ -296,5 +304,11 @@
 			localStorage.removeItem("user");
 			window.location.href="http://localhost/Proyectos/GiovannyProy4";
 		});
+	}
+
+	function logOutAutom(authService){
+		authService.signOut();
+		localStorage.removeItem("user");
+		window.location.href="http://localhost/Proyectos/GiovannyProy4";
 	}
 

@@ -56,5 +56,8 @@ class profile_model {
     public Function activarUser($arrArgument){           
         return $this->bll->activarUser_BLL($arrArgument);
     }
+    public Function updatePass($arrArgument){           
+        return $this->bll->updatePass_BLL($arrArgument);
+    }
 
 }

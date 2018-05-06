@@ -65,4 +65,7 @@ class profile_bll{
     public function activarUser_BLL($arrArgument){    
         return $this->dao->activarUser_DAO($this->db,$arrArgument);
     }
+    public function updatePass_BLL($arrArgument){    
+        return $this->dao->updatePass_DAO($this->db,$arrArgument);
+    }
 }
