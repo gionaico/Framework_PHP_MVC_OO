@@ -59,5 +59,12 @@ class profile_model {
     public Function updatePass($arrArgument){           
         return $this->bll->updatePass_BLL($arrArgument);
     }
+    public function checkUserEmail2($arrArgument) {
+        return $this->bll->checkUserEmail2_BLL($arrArgument);
+    }
+    public function update_usuario($arrArgument) {
+        return $this->bll->update_usuario_BLL($arrArgument);
+    }
+
 
 }

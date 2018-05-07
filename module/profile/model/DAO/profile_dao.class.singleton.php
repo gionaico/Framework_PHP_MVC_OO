@@ -44,7 +44,112 @@ class profile_dao {
       return $db->ejecutar($sql);
     }
 
- 
+    function update_usuario_DAO($db, $arrArgument){
+        $user_name= $arrArgument['user_name'];   
+        $name= $arrArgument['name'];        
+        
+        $genere = $arrArgument['genere'];
+        $country = $arrArgument['country'];        
+        
+        
+        $email = $arrArgument['email'];
+        $password= $arrArgument['password'];
+        $intereses = $arrArgument['intereses'];
+        $birth_date= $arrArgument['birth_date'];
+        $phone=$arrArgument['phone'];
+        
+        $All_interests="";
+        foreach ($intereses as $indice) {
+                $All_interests=$All_interests.$indice.":";
+            }
+        
+        if ($birth_date!="") {
+          $cad=', birth_date="'.$birth_date.'"';
+        }
+
+        if ($phone!="") {
+          $cad=$cad.', '.'phone='.$phone.'';
+        }
+
+        if ($password!="") {          
+          $password_cifrado=password_hash($password, PASSWORD_DEFAULT);
+          $cad=$cad.', '.'password="'.$password_cifrado.'"';
+        }
+        if ($All_interests!="") {
+          $cad=', interests="'.$All_interests.'"';
+        }
+
+        if ($country=="ES") {
+          $province = $arrArgument['province'];
+          $city = $arrArgument['city'];
+
+          $sql = "UPDATE users SET name='$name', genere='$genere', country='$country', email='$email', province='$province', city='$city'  $cad WHERE user_name= '$user_name'";
+        }else{
+          $sql = "UPDATE users SET name='$name', genere='$genere', country='$country', email='$email'   $cad WHERE user_name= '$user_name'";
+        }
+        // echo $sql;
+        return $db->ejecutar($sql);
+
+
+    }
+
+    /*public function update_user_DAO($db, $arrArgument) {
+      echo "llega";exit;
+        $user_name= $arrArgument['user_name'];   
+        $name= $arrArgument['name'];        
+        
+        $genere = $arrArgument['genere'];
+        $country = $arrArgument['country'];        
+        
+        
+        $email = $arrArgument['email'];
+        $password= $arrArgument['password'];
+        $interests = $arrArgument['interests'];
+        $register_date= $arrArgument['register_date'];
+
+        $password_cifrado=password_hash($password, PASSWORD_DEFAULT);
+        $All_interests="";
+        foreach ($interests as $indice) {
+                $All_interests=$All_interests.$indice.":";
+            }
+
+
+        $birth_date = $arrArgument['birth_date'];
+        $phone = $arrArgument['phone'];
+        $cad=""
+        if ($birth_date!="") {
+          $cad=', birth_date='.$birth_date.'';
+        }
+        if ($phone=="") {
+          $cad=$cad.', '.'phone='.$phone.'';
+        }
+
+
+        $sql = "UPDATE users SET token='$token' WHERE user_name='$user'";
+
+
+        if ($country=="ES") {
+          $province = $arrArgument['province'];
+          $city = $arrArgument['city'];
+
+          $sql = "UPDATE users SET name='$name', genere='$genere', country='$country', email='$email', province='$province', city='$city'  WHERE user_name= '$user_name'";
+        }else{
+          $sql = "UPDATE users SET name='$name', genere='$genere', country='$country', email='$email'   WHERE user_name= '$user_name'";
+        }
+        
+      
+      // return $db->ejecutar($sql);
+    }*/
+
+
+    public function checkUserEmail2_DAO($db, $arrArgument) {
+      $email= $arrArgument["email"];
+      $user= $arrArgument["user_name"];
+
+      $sql=("SELECT * FROM users WHERE email ='$email' and user_name!='$user'"); /*and tipo_registro='m'*/
+      // echo $sql;
+      return $db->listar($db->ejecutar($sql));
+    }
 
     public function obtain_countries_DAO($url){
           $ch = curl_init();

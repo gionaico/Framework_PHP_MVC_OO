@@ -68,4 +68,10 @@ class profile_bll{
     public function updatePass_BLL($arrArgument){    
         return $this->dao->updatePass_DAO($this->db,$arrArgument);
     }
+     public function checkUserEmail2_BLL($arrArgument){    
+        return $this->dao->checkUserEmail2_DAO($this->db,$arrArgument);
+    }
+    public function update_usuario_BLL($arrArgument){    
+        return $this->dao->update_usuario_DAO($this->db,$arrArgument);
+    }
 }

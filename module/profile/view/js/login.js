@@ -208,6 +208,7 @@
 					delayToasts(toasts,0);
 					localStorage.setItem("user", arrDatos.token);
 					cambiaMenu(logueado=true);
+					setTimeout(redireccionActual, 10000);
                 }                                
             }
         })

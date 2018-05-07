@@ -54,5 +54,9 @@
         <name>upDateDatosPer</name>
         <uri>upDateDatosPer</uri>
     </function>
+    <function>
+        <name>updateUser</name>
+        <uri>updateUser</uri>
+    </function>
     
 </functions>

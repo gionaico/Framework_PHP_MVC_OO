@@ -17,23 +17,29 @@
 
 		-Paginacion y filtros hechas con javascript.
 
+		-Usa mapa para localizar los cursos. Tiene un mapa general donde se puede ver varios cursos asi como un mapa particular de cada curso en su vista individual.
+
 	*Courses-Homepage
-		- Las dos vistas contan de un input con autocomplete, gastan las mismas funciones por ello fue necesario crear un archivo js donde se almacenan funciones comunes en varias vistas.
+		- Las dos vistas constan de un input con autocomplete, gastan las mismas funciones por ello fue necesario crear un archivo js donde se almacenan funciones comunes en varias vistas.
 
 		- El autocomplete homepage nos redirecciona a la vista courses, donde veremos los resultados a lo que hemos escrito en el input.
 		
 		- El autocomplete courses, cada vez que cambiamos la palabra o letra en el input este recarga la informacion de db y nos muestra todo lo relacionado a lo que hemos escrito, asi como resetea la paginacion y nos lo vuelve a organizar segun la cantidad de resultados obtenidos.
 
 	*Profile
-		- 
+		- Consta de register, login manual, login facebook, twitter y google+.
+		- Recover password.
+		- Sing UP
+		- Update my profile
 
 	
 	MEJORAS
-		- Filtros en el modulo de courses.
+		- Filtros en el modulo de courses, para afinar la busqueda de un curso.
 		
-		- Uso de la clase Mail usando phpmailer.
+		- Uso de la clase Mail usando phpmailer.		
 		
 		- Se emplean 2 mapas (de google maps) una esta en list donde aparecen maximo 11 y van variando segun editemos los filtros, los markers tienen un link que si pinchamos encima nos envia a los detalles del producto sobre el que hemos pinchado y el segundo esta en el detail de cada producto (en su vista individual) donde nos muestra el punto de su ubicacion con una animacion en el marker. 
+		
 		- Agregada clase Log (esta nos permite llevar un control de ls errores que se producen en, el proyecto), imprime los errores en el directorio log. Para comprobar su funcionamiento basta con cambiar el nombre de una contante y esto provocara un fallo, el cual se imprimira, para tener una referencia de lo que ha sucedido.
 		
 		- En view/css tiene varios themes (cambia el color de la web por algun evento concreto), se pueden cambiar en el header de la aplicacion.

@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
 
-	$("#birth_date").datepicker({
+    $("#birth_date").datepicker({
         dateFormat: "yy-mm-dd",
         defaultDate: '2000-01-01',        
         changeMonth: true,
@@ -21,6 +21,7 @@ $(document).ready(function () {
     /////////////////////////////////////////////////////////////////////
     $("#submit1").click(function(){
         $("div").remove(".div_errPhp");
+        
         validaJS();
     });
     /////////////////////////////////////////////////////////////////////
@@ -41,7 +42,7 @@ $(document).ready(function () {
             var json=JSON.parse(datos);
             if (json.success) {
                 pintaDatos(json.datos[0]);
-                console.log(json.datos[0]);
+                // console.log(json.datos[0]);
             }else{
                 console.log("n");
             }
@@ -64,6 +65,7 @@ $(document).ready(function () {
 function pintaDatos(datos){
     $("#name").val(datos.name);
     $("#user_name").html(datos.user_name);
+    $("#user_name").val(datos.user_name);
     $("#fotoperfil").attr("src", datos.avatar);
 
     if (datos.birth_date!="0000-00-00") {
@@ -80,6 +82,7 @@ function pintaDatos(datos){
     if (datos.phone!="0") {
         $("#phone").val(datos.phone);
     }
+
     if (datos.interests!="") {
         var interes=  datos.interests;
         var arr_interes=interes.split(":"); 
@@ -90,19 +93,20 @@ function pintaDatos(datos){
             for (var k = 0; k < inputElements.length; k++) {
                 if (arr_interes[j] == inputElements[k].value){
                     inputElements[k].checked = true;
-                    console.log(arr_interes[j]);
                 }
             }
         }
     }
 
+   console.log(datos);
     $("#email").val(datos.email);
-    console.log(datos.user_name);
+
+    load_countries_(datos.country);
 
 }
 
 function localizacion(){
-    load_countries_v1();
+    // load_countries_();
     
     $("#province").empty();
     $("#province").append('<option value="" selected="selected">Select province</option>');
@@ -129,7 +133,7 @@ function localizacion(){
         }else{
              province.prop('disabled', false);
              city.prop('disabled', false);
-             load_provinces_v1();
+             load_provinces_1();
         }//fi else
     });
 
@@ -137,17 +141,151 @@ function localizacion(){
         var prov = $(this).val();
         // console.log(prov);
         if(prov > 0){
-            load_cities_v1(prov);
+            load_cities_1(prov);
         }else{
             $("#city").prop('disabled', false);
         }
     });
 }
 
-function validaJS(){
-    
 
-    var un = document.getElementById("un").value;
+
+function load_countries_(country) {
+        $.post( "../../profile/load_country",
+            function( response ) {
+            
+                if(response === 'error'){
+                    load_countries_2("http://localhost/Proyectos/GiovannyProy4/resources/ListOfCountryNamesByName.json", country);
+                }else{
+                    /*console.log(JSON.parse(response));*/
+                    $.each(JSON.parse(response), function (i, valor) {
+                        if (country==valor.sISOCode) {
+                            $("#country").append("<option selected='selected' value='" + valor.sISOCode + "'>" + valor.sName + "</option>");    
+                        }else{
+                            $("#country").append("<option value='" + valor.sISOCode + "'>" + valor.sName + "</option>");
+                        }
+                    });   
+                    // load_countries_v2("module/profile/controller/controller_profile.php?load_country=true"); //oorsprong.org
+                }
+        })
+        .fail(function(response) {
+            load_countries_2("http://localhost/Proyectos/GiovannyProy4/resources/ListOfCountryNamesByName.json", country);
+        });
+    }
+
+
+
+    function load_countries_2(cad, country) {
+        $.getJSON( cad, function(data) {
+            $("#country").empty();
+            $("#country").append('<option value="" selected="selected">Select country</option>');
+
+            $.each(JSON.parse(response), function (i, valor) {
+                if (country==valor.sISOCode) {
+                    $("#country").append("<option selected='selected' value='" + valor.sISOCode + "'>" + valor.sName + "</option>");    
+                }else{
+                    $("#country").append("<option value='" + valor.sISOCode + "'>" + valor.sName + "</option>");
+                }   
+            });
+        })
+        .fail(function() {
+            alert( "error load_countries_v2" );
+        });
+    }
+
+
+
+    function load_provinces_1() { //provinciasypoblaciones.xml - xpath
+        $.post( "../../profile/load_provinces",
+            function( response ) {
+              $("#province").empty();
+              $("#province").append('<option value="" selected="selected">Select province</option>');
+
+                console.log(JSON.parse(response));
+                var json = JSON.parse(response);
+                var provinces=json.provinces;
+
+
+                if(provinces === 'error'){
+                    load_provinces_2();
+                }else{
+                    for (var i = 0; i < provinces.length; i++) {
+                        $("#province").append("<option value='" + provinces[i].id + "'>" + provinces[i].nombre + "</option>");
+                    }
+                }
+        })
+        .fail(function(response) {
+            load_provinces_2();
+        });
+     }   
+
+
+    function load_provinces_2() {
+        $.post("resources/provinciasypoblaciones.xml", function (xml) {
+            $("#province").empty();
+            $("#province").append('<option value="" selected="selected">Select province</option>');
+
+            $(xml).find("provincia").each(function () {
+                var id = $(this).attr('id');
+                var name = $(this).find('nombre').text();
+                $("#province").append("<option value='" + id + "'>" + name + "</option>");
+            });
+        })
+        .fail(function() {
+            alert( "error load_provinces" );
+        });
+    }
+
+
+    function load_cities_2(prov) {
+        $.post("resources/provinciasypoblaciones.xml", function (xml) {
+            $("#city").empty();
+            $("#city").append('<option value="" selected="selected">Select city</option>');
+
+            $(xml).find('provincia[id=' + prov + ']').each(function(){
+                $(this).find('localidad').each(function(){
+                     $("#city").append("<option value='" + $(this).text() + "'>" + $(this).text() + "</option>");
+                });
+            });
+        })
+        .fail(function() {
+            alert( "error load_cities2" );
+        });
+    }
+
+
+    function load_cities_1(prov) { //provinciasypoblaciones.xml - xpath
+        var datos = { idPoblac : prov  };
+        $.post( "../../profile/load_cities", datos, function(response) {
+            console.log(response);
+            var json = JSON.parse(response);
+            var cities=json.cities;
+            //alert(poblaciones);
+            //console.log(poblaciones);
+            //alert(poblaciones[0].poblacion);
+
+            $("#city").empty();
+            $("#city").append('<option value="" selected="selected">Select city</option>');
+
+            if(cities === 'error'){
+                load_cities_2(prov);
+            }else{
+                for (var i = 0; i < cities.length; i++) {
+                    $("#city").append("<option value='" + cities[i].poblacion + "'>" + cities[i].poblacion + "</option>");
+                }
+            }
+        })
+        .fail(function() {
+            load_cities_2(prov);
+        });
+    }
+
+
+
+
+function validaJS(){
+       
+    var user_name = document.getElementById("user_name").value;
     var name = document.getElementById("name").value;
     var birth_date = document.getElementById("birth_date").value;
     var country = document.getElementById("country").value;
@@ -163,91 +301,88 @@ function validaJS(){
                 v_genere = genere[i].value;
             }
         }
-    var interests = [];
+    var intereses = [];
     var inputElements = document.getElementsByClassName('gio_checkbox');
     var j = 0;    
         for (var i = 0; i < inputElements.length; i++) {
             if (inputElements[i].checked) {
-                interests[j] = inputElements[i].value;
+                intereses[j] = inputElements[i].value;
                 j++;
             }
         }
 
-        
-    
-                
-    if (un == null || un.length == 0|| !user_namePattern.test(un)) {
-        controlForm("un");
-        return false;
-    }
-    if (name == null || name.length == 0|| !namePattern.test(name)) {
-        controlForm("name");
-        return false;
-    }
-    if (birth_date == null || birth_date.length == 0|| !datePattern.test(birth_date)) {
-        controlForm("birth_date");
-        return false;
-    }
-    if (country=="") {
-        controlForm("country");
-        return false;
-    }else if (country === 'ES') {        
-        if (province===''){
-            controlForm("province");
-            return false;
-        }
-        if (city===''){
-            controlForm("city");
-            return false;
-        }
-    }
 
-    if (phone == null || phone.length == 0|| !phonePattern.test(phone)) {
-        controlForm("phone");
-        return false;
-    }
+
+        
     if (email == null || email.length == 0|| !emailPattern.test(email)) {
         controlForm("email");
         return false;
     }
-    if (password==rePassword) {        
-        if (password == null || password.length == 0|| !passwordPattern.test(password)) {
-            $("#password").focus();
+
+    if (password!="" || rePassword!="") {    
+        if (password==rePassword) {        
+            if (password == null || password.length == 0|| !passwordPattern.test(password)) {
+                $("#password").focus();
+                $("#password").attr("style", "background:#FFC9C9; border:red 2px solid");
+                $("#rePassword").attr("style", "background:#FFC9C9; border:red 2px solid");
+                $("#sp_password").html("<span style='color:#BA1C2E;'>Incorrect format</span>");
+                $("#sp_rePassword").html("<span style='color:#BA1C2E;'>Incorrect format</span>");
+
+                return false;
+            }
+        }else{
             $("#password").attr("style", "background:#FFC9C9; border:red 2px solid");
             $("#rePassword").attr("style", "background:#FFC9C9; border:red 2px solid");
-            $("#sp_password").html("<span style='color:#BA1C2E;'>Incorrect format</span>");
-            $("#sp_rePassword").html("<span style='color:#BA1C2E;'>Incorrect format</span>");
-
+            $("#sp_password").html("<span style='color:#BA1C2E;'>Passwords do not match</span>");
+            $("#sp_rePassword").html("<span style='color:#BA1C2E;'>Passwords do not match</span>");
             return false;
         }
-    }else{
-        $("#password").attr("style", "background:#FFC9C9; border:red 2px solid");
-        $("#rePassword").attr("style", "background:#FFC9C9; border:red 2px solid");
-        $("#sp_password").html("<span style='color:#BA1C2E;'>Passwords do not match</span>");
-        $("#sp_rePassword").html("<span style='color:#BA1C2E;'>Passwords do not match</span>");
-        return false;
     }
 
-    if (interests.length==0) {
-        $("#div_intereses").attr("style","border: solid 2px red; background-color: #FFC9C9;" );
-        return false;
-    }
-
-    var data = {"un": un,"name": name, "birth_date": birth_date,"country":country, "province": province, "city": city,"phone": phone, "email": email,"password": password, 
-                    "genere": v_genere,  "interests": interests};
-    //console.log(data);
+    var data = {"user_name":user_name, "name": name, "birth_date": birth_date,"country":country, "province": province, "city": city,"phone": phone, "email": email,"password": password, 
+                    "genere": v_genere,  "intereses": intereses};
+    
     var user_JSON = JSON.stringify(data);
-    //alert(data);
     
 
-    $.post('module/profile/controller/controller_profile.php',
-        {"user_JSON": user_JSON},
-     function(response){
-        if (response.success) {
-            console.log(response);
-            alert(response.mensaje);
-            window.location.href = response.redirect;             
+    console.log(user_JSON);
+
+    $.ajax({
+        type: "POST",
+        url: "../../profile/updateUser",
+        data: {"user": user_JSON},
+        success: function(datos) {
+            console.log(datos);
+            var json=JSON.parse(datos);
+            if (json.success) {
+                var toasts = new Toast('UPDATE', 'success', 'toast-top-full-width', json.mensaje, 18000);
+                delayToasts(toasts,0);
+                setTimeout(redireccionActual, 18000);
+            } else {
+                var toasts = new Toast('UPDATE', 'error', 'toast-top-full-width', json.mensaje, 18000);
+                delayToasts(toasts,0);
+            }
+
+                                          
         }
+    })
+    .fail(function(xhr, jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR); 
+        console.log(textStatus); 
+        console.log(errorThrown);  
+        console.log(xhr);  
+        if (xhr.responseJSON == undefined || xhr.responseJSON === null ){
+              xhr.responseJSON = JSON.parse(xhr.responseText);                
+        }          
+    });
+
+
+    /*$.post('../../profile/updateUser',
+        {"dataString": dataString},
+     function(response){
+        
+            console.log(response);
+            
              // var json_cont2 = JSON.parse(response);
              // console.log(json_cont2);
                
@@ -312,7 +447,7 @@ function validaJS(){
             }
              });
    
-
+*/
 }//end validaJS
 
 
